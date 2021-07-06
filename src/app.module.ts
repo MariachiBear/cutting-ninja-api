@@ -1,17 +1,17 @@
-import { Module } from '@nestjs/common';
+import { CacheModule, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { cacheProvider } from './config/providers/cache.provider';
 import { UrlModule } from './models/url/url.module';
 
 @Module({
    controllers: [AppController],
-   providers: [AppService],
+   providers: [AppService, cacheProvider],
    imports: [
-      ConfigModule.forRoot({
-         isGlobal: true,
-      }),
+      ConfigModule.forRoot({ isGlobal: true }),
+      CacheModule.register(),
       MongooseModule.forRootAsync({
          useFactory: () => ({
             uri: process.env.MONGODB_URI,

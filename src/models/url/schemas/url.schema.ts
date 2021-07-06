@@ -1,6 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import { nanoid } from 'nanoid';
 
 export type UrlDocument = Url & Document;
 
@@ -9,7 +8,7 @@ export class Url {
    @Prop({ required: true, type: String })
    longUrl: string;
 
-   @Prop({ required: true, type: String, default: nanoid(10) })
+   @Prop({ required: true, type: String, unique: true })
    shortUrl?: string;
 
    @Prop({ type: Number, required: true, default: 0 })

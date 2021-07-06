@@ -7,7 +7,7 @@ export class UrlController {
 
    @Get()
    async index() {
-      return await this.service.find();
+      return await this.service.index();
    }
 
    @Get(':id')
@@ -28,5 +28,10 @@ export class UrlController {
    @Delete(':id')
    async delete(@Param('id') id: string) {
       return await this.service.delete(id);
+   }
+
+   @Delete()
+   async deleteAll() {
+      return await this.service.deleteAll();
    }
 }

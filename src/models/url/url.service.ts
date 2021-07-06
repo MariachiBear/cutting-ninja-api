@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { nanoid } from 'nanoid';
 import { UrlDTO } from './dto/url.dto';
 import { Url, UrlDocument } from './schemas/url.schema';
 
@@ -8,7 +9,7 @@ import { Url, UrlDocument } from './schemas/url.schema';
 export class UrlService {
    constructor(@InjectModel(Url.name) private readonly modelUrl: Model<UrlDocument>) {}
 
-   async find() {
+   async index() {
       return await this.modelUrl.find().exec();
    }
 
@@ -17,7 +18,7 @@ export class UrlService {
    }
 
    async store(urlData: UrlDTO) {
-      return await new this.modelUrl({ ...urlData }).save();
+      return await new this.modelUrl({ ...urlData, shortUrl: nanoid(5) }).save();
    }
 
    async update(id: string, urlData: UrlDTO) {
@@ -26,5 +27,9 @@ export class UrlService {
 
    async delete(id: string) {
       return await this.modelUrl.findByIdAndDelete(id).exec();
+   }
+
+   async deleteAll() {
+      return await this.modelUrl.remove({}).exec();
    }
 }

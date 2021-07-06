@@ -1,8 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Url, UrlDocument } from './models/url/schemas/url.schema';
-
 @Injectable()
 export class AppService {
    constructor(@InjectModel(Url.name) private readonly modelUrl: Model<UrlDocument>) {}
@@ -11,6 +10,9 @@ export class AppService {
       return await this.modelUrl
          .findOneAndUpdate({ shortUrl: shortid }, { $inc: { visits: 1 } })
          .exec()
-         .then((urlDoc) => urlDoc?.longUrl);
+         .then((urlDoc) => {
+            if (urlDoc) return urlDoc.longUrl;
+            throw new NotFoundException('Shorted URL not found');
+         });
    }
 }

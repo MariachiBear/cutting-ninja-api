@@ -3,7 +3,6 @@ import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { dbUrl } from './config/database/url.db';
 import { UrlModule } from './models/url/url.module';
 
 @Module({
@@ -23,7 +22,6 @@ import { UrlModule } from './models/url/url.module';
          }),
       }),
       UrlModule,
-      dbUrl,
    ],
 })
 export class AppModule {}

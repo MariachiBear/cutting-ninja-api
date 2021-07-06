@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { nanoid } from 'nanoid';
@@ -31,5 +31,15 @@ export class UrlService {
 
    async deleteAll() {
       return await this.modelUrl.remove({}).exec();
+   }
+
+   async increaseVisitCount(shortId: string) {
+      return await this.modelUrl
+         .findOneAndUpdate({ shortUrl: shortId }, { $inc: { visits: 1 } })
+         .exec()
+         .then((urlDoc) => {
+            if (urlDoc) return urlDoc.longUrl;
+            throw new NotFoundException('Shorted URL not found');
+         });
    }
 }

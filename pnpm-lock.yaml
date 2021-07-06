@@ -9,11 +9,13 @@ specifiers:
   '@nestjs/platform-fastify': ^7.6.18
   '@nestjs/schematics': ^7.3.1
   '@nestjs/testing': ^7.6.18
+  '@types/cache-manager': ^3.4.1
   '@types/jest': ^26.0.24
   '@types/node': ^16.0.0
   '@types/supertest': ^2.0.11
   '@typescript-eslint/eslint-plugin': ^4.28.2
   '@typescript-eslint/parser': ^4.28.2
+  cache-manager: ^3.4.4
   class-transformer: ^0.4.0
   class-validator: ^0.13.1
   eslint: ^7.30.0
@@ -34,11 +36,12 @@ specifiers:
   typescript: ^4.3.5
 
 dependencies:
-  '@nestjs/common': 7.6.18_e911b02ebc86a0e92191a7b133b2fcd0
+  '@nestjs/common': 7.6.18_720aee53c9b35ab07755629fb64263e2
   '@nestjs/config': 0.6.3_6f35cb2de9e4559b7940120970469a60
   '@nestjs/core': 7.6.18_6f35cb2de9e4559b7940120970469a60
   '@nestjs/mongoose': 7.2.4_1a4834fa0f0a23224672f316ff3cc0a9
   '@nestjs/platform-fastify': 7.6.18_2664420588e0901c7943acb4693cbaf4
+  cache-manager: 3.4.4
   class-transformer: 0.4.0
   class-validator: 0.13.1
   mongoose: 5.13.2
@@ -51,6 +54,7 @@ devDependencies:
   '@nestjs/cli': 7.6.0
   '@nestjs/schematics': 7.3.1_typescript@4.3.5
   '@nestjs/testing': 7.6.18_2664420588e0901c7943acb4693cbaf4
+  '@types/cache-manager': 3.4.1
   '@types/jest': 26.0.24
   '@types/node': 16.0.0
   '@types/supertest': 2.0.11
@@ -763,7 +767,7 @@ packages:
       - webpack-cli
     dev: true
 
-  /@nestjs/common/7.6.18_e911b02ebc86a0e92191a7b133b2fcd0:
+  /@nestjs/common/7.6.18_720aee53c9b35ab07755629fb64263e2:
     resolution: {integrity: sha512-BUJQHNhWzwWOkS4Ryndzd4HTeRObcAWV2Fh+ermyo3q3xYQQzNoEWclJVL/wZec8AONELwIJ+PSpWI53VP0leg==}
     peerDependencies:
       cache-manager: '*'
@@ -780,6 +784,7 @@ packages:
         optional: true
     dependencies:
       axios: 0.21.1
+      cache-manager: 3.4.4
       class-transformer: 0.4.0
       class-validator: 0.13.1
       iterare: 1.2.1
@@ -798,7 +803,7 @@ packages:
       reflect-metadata: ^0.1.12
       rxjs: ^6.0.0
     dependencies:
-      '@nestjs/common': 7.6.18_e911b02ebc86a0e92191a7b133b2fcd0
+      '@nestjs/common': 7.6.18_720aee53c9b35ab07755629fb64263e2
       dotenv: 8.2.0
       dotenv-expand: 5.1.0
       lodash.get: 4.4.2
@@ -827,7 +832,7 @@ packages:
       '@nestjs/websockets':
         optional: true
     dependencies:
-      '@nestjs/common': 7.6.18_e911b02ebc86a0e92191a7b133b2fcd0
+      '@nestjs/common': 7.6.18_720aee53c9b35ab07755629fb64263e2
       '@nuxtjs/opencollective': 0.3.2
       fast-safe-stringify: 2.0.7
       iterare: 1.2.1
@@ -848,7 +853,7 @@ packages:
       reflect-metadata: ^0.1.12
       rxjs: ^6.0.0
     dependencies:
-      '@nestjs/common': 7.6.18_e911b02ebc86a0e92191a7b133b2fcd0
+      '@nestjs/common': 7.6.18_720aee53c9b35ab07755629fb64263e2
       '@nestjs/core': 7.6.18_6f35cb2de9e4559b7940120970469a60
       mongoose: 5.13.2
       reflect-metadata: 0.1.13
@@ -861,7 +866,7 @@ packages:
       '@nestjs/common': ^7.0.0
       '@nestjs/core': ^7.0.0
     dependencies:
-      '@nestjs/common': 7.6.18_e911b02ebc86a0e92191a7b133b2fcd0
+      '@nestjs/common': 7.6.18_720aee53c9b35ab07755629fb64263e2
       '@nestjs/core': 7.6.18_6f35cb2de9e4559b7940120970469a60
       fastify: 3.14.0
       fastify-cors: 6.0.1
@@ -914,7 +919,7 @@ packages:
         optional: true
     dependencies:
       optional: 0.1.4
-      '@nestjs/common': 7.6.18_e911b02ebc86a0e92191a7b133b2fcd0
+      '@nestjs/common': 7.6.18_720aee53c9b35ab07755629fb64263e2
       '@nestjs/core': 7.6.18_6f35cb2de9e4559b7940120970469a60
       tslib: 2.2.0
     dev: true
@@ -1025,6 +1030,10 @@ packages:
     dependencies:
       '@types/node': 16.0.0
     dev: false
+
+  /@types/cache-manager/3.4.1:
+    resolution: {integrity: sha512-xRIhkhQYrRhlQoMLLzIdCiE6/QAb//RNgET3HlnT1KxRqPWepVazIQ+YhcnnRKHbJaD+T/usbIb6Lw25ru4xEg==}
+    dev: true
 
   /@types/cookiejar/2.1.2:
     resolution: {integrity: sha512-t73xJJrvdTjXrn4jLS9VSGRbz0nUY3cl2DMGDU48lKl+HR9dbbjW2A9r3g40VA++mQpy6uuHg33gy7du2BKpog==}
@@ -1509,6 +1518,10 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
+  /async/3.2.0:
+    resolution: {integrity: sha512-TR2mEZFVOj2pLStYxLht7TyfuRzaydfpxr3k9RpHIzMgw7A64dzsdqCxH1WJyQdoe8T10nDXd9wnEigmiuHIZw==}
+    dev: false
+
   /asynckit/0.4.0:
     resolution: {integrity: sha1-x57Zf380y48robyXkLzDZkdLS3k=}
     dev: true
@@ -1703,6 +1716,14 @@ packages:
       base64-js: 1.5.1
       ieee754: 1.2.1
     dev: true
+
+  /cache-manager/3.4.4:
+    resolution: {integrity: sha512-oayy7ukJqNlRUYNUfQBwGOLilL0X5q7GpuaF19Yqwo6qdx49OoTZKRIF5qbbr+Ru8mlTvOpvnMvVq6vw72pOPg==}
+    dependencies:
+      async: 3.2.0
+      lodash: 4.17.21
+      lru-cache: 6.0.0
+    dev: false
 
   /call-bind/1.0.2:
     resolution: {integrity: sha512-7O+FbCihrB5WGbFYesctwmTKae6rOiIzmz1icreWJ+0aA7LJfuqhEso2T9ncpcFtzMQtzXf2QGGueWJGTYsqrA==}
@@ -3654,7 +3675,6 @@ packages:
 
   /lodash/4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
-    dev: true
 
   /log-symbols/4.1.0:
     resolution: {integrity: sha512-8XPvpAA8uyhfteu8pIvQxpJZ7SYYdpUivZpGy6sFsBuKRY/7rQGavedeB8aK+Zkyq6upMFVL/9AW6vOYzfRyLg==}

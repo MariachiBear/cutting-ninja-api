@@ -1,3 +1,8 @@
+import { IsNotEmpty, IsString, IsUrl } from 'class-validator';
+
 export class UrlDTO {
-   longURL: string;
+   @IsNotEmpty()
+   @IsString()
+   @IsUrl({ require_protocol: true, require_host: true })
+   longUrl: string;
 }

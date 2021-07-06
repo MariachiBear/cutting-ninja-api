@@ -10,11 +10,11 @@ export class UrlService {
    constructor(@InjectModel(Url.name) private readonly modelUrl: Model<UrlDocument>) {}
 
    async index() {
-      return await this.modelUrl.find().exec();
+      return await this.modelUrl.find().select('-__v').exec();
    }
 
    async show(id: string) {
-      return await this.modelUrl.findById(id).exec();
+      return await this.modelUrl.findById(id).select('-__v').exec();
    }
 
    async store(urlData: UrlDTO) {
@@ -30,7 +30,7 @@ export class UrlService {
    }
 
    async deleteAll() {
-      return await this.modelUrl.remove({}).exec();
+      return await this.modelUrl.deleteMany({}).exec();
    }
 
    async increaseVisitCount(shortId: string) {

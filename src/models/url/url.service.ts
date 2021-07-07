@@ -18,7 +18,8 @@ export class UrlService {
    }
 
    async store(urlData: UrlDTO) {
-      return await new this.modelUrl({ ...urlData, shortUrl: nanoid(5) }).save();
+      const newUrl = await new this.modelUrl({ ...urlData, shortUrl: nanoid(5) }).save();
+      return await this.show(newUrl.id);
    }
 
    async update(id: string, urlData: UrlDTO) {

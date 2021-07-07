@@ -4,6 +4,7 @@
         "Fastify",
         "Parens",
         "nestjs",
-        "prebuild"
+        "prebuild",
+        "rubenconde"
     ]
 }

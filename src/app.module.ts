@@ -1,26 +1,23 @@
 import { CacheModule, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
+import { ThrottlerModule } from '@nestjs/throttler';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { mongodbConfig } from './config/mongodb.config';
 import { cacheProvider } from './config/providers/cache.provider';
+import { throttlerProvider } from './config/providers/throttler.provider';
+import { throttlerConfig } from './config/throttler.config';
 import { UrlModule } from './models/url/url.module';
 
 @Module({
    controllers: [AppController],
-   providers: [AppService, cacheProvider],
+   providers: [AppService, cacheProvider, throttlerProvider],
    imports: [
-      ConfigModule.forRoot({ isGlobal: true }),
       CacheModule.register(),
-      MongooseModule.forRootAsync({
-         useFactory: () => ({
-            uri: process.env.MONGODB_URI,
-            useCreateIndex: true,
-            useFindAndModify: false,
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-         }),
-      }),
+      ConfigModule.forRoot({ isGlobal: true }),
+      ThrottlerModule.forRoot(throttlerConfig),
+      MongooseModule.forRootAsync(mongodbConfig),
       UrlModule,
    ],
 })

@@ -12,7 +12,7 @@ export class Url {
    shortUrl?: string;
 
    @Prop({ type: Number, required: true, default: 0 })
-   visits?: number;
+   visits: number;
 }
 
 export const UrlSchema = SchemaFactory.createForClass(Url);

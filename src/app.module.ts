@@ -9,7 +9,8 @@ import { cacheProvider } from './config/providers/cache.provider';
 import { throttlerProvider } from './config/providers/throttler.provider';
 import { throttlerConfig } from './config/throttler.config';
 import { UrlModule } from './models/url/url.module';
-import { VisitModule } from './models/visits/visit.module';
+import { UserModule } from './models/user/user.module';
+import { VisitModule } from './models/visit/visit.module';
 
 @Module({
    controllers: [AppController],
@@ -21,6 +22,7 @@ import { VisitModule } from './models/visits/visit.module';
       MongooseModule.forRootAsync(mongodbConfig),
       UrlModule,
       VisitModule,
+      UserModule,
    ],
 })
 export class AppModule {}

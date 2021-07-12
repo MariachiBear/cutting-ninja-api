@@ -39,7 +39,7 @@ export class UrlService {
          .findOneAndUpdate({ shortUrl: shortId }, { $inc: { visits: 1 } })
          .exec()
          .then((urlDoc) => {
-            if (urlDoc) return urlDoc.longUrl;
+            if (urlDoc) return urlDoc;
             throw new NotFoundException('Shorted URL not found');
          });
    }

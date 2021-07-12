@@ -9,6 +9,7 @@ import { cacheProvider } from './config/providers/cache.provider';
 import { throttlerProvider } from './config/providers/throttler.provider';
 import { throttlerConfig } from './config/throttler.config';
 import { UrlModule } from './models/url/url.module';
+import { VisitModule } from './models/visits/visit.module';
 
 @Module({
    controllers: [AppController],
@@ -19,6 +20,7 @@ import { UrlModule } from './models/url/url.module';
       ThrottlerModule.forRoot(throttlerConfig),
       MongooseModule.forRootAsync(mongodbConfig),
       UrlModule,
+      VisitModule,
    ],
 })
 export class AppModule {}

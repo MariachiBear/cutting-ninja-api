@@ -16,13 +16,14 @@ import { OptionalJwtAuthGuard } from 'src/config/guards/optional-jwt.guard';
 import { RolesGuard } from 'src/config/guards/role.guard';
 import { JwtAuthGuard } from '../../config/guards/jwt-auth.guard';
 import { LocalAuthGuard } from '../../config/guards/local-auth.guard';
+import { UrlService } from '../url/url.service';
 import { CreateUserDTO, UpdateUserDTO } from './dto/user.dto';
 import { UserDocument } from './schema/user.schema';
 import { UserService } from './user.service';
 
 @Controller('users')
 export class UserController {
-   constructor(private readonly service: UserService) {}
+   constructor(private readonly service: UserService, private readonly urlService: UrlService) {}
 
    @Get()
    @UseGuards(JwtAuthGuard, RolesGuard)
@@ -79,5 +80,12 @@ export class UserController {
    @UseGuards(JwtAuthGuard)
    getMe(@Request() request) {
       return request.user;
+   }
+
+   @Get('me/urls')
+   @UseGuards(JwtAuthGuard)
+   getMyUrls(@Request() request) {
+      const requestUser: UserDocument = request.user;
+      return this.urlService.findByUser(requestUser._id);
    }
 }

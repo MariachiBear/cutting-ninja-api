@@ -3,6 +3,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { dbUser } from 'src/config/database/user.db';
 import { JwtStrategy } from 'src/config/strategies/jwt.strategy';
 import { LocalStrategy } from 'src/config/strategies/local.strategy';
+import { UrlModule } from '../url/url.module';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
 
@@ -18,6 +19,7 @@ import { UserService } from './user.service';
          }),
       }),
       dbUser,
+      UrlModule,
    ],
 })
 export class UserModule {}

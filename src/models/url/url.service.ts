@@ -50,4 +50,8 @@ export class UrlService {
             throw new NotFoundException('Shorted URL not found');
          });
    }
+
+   async findByUser(userId: string) {
+      return await this.modelUrl.find({ user: userId }).select('-__v').exec();
+   }
 }

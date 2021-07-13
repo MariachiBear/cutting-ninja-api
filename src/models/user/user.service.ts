@@ -1,5 +1,6 @@
 import {
    ConflictException,
+   ForbiddenException,
    Injectable,
    NotFoundException,
    UnauthorizedException,
@@ -26,10 +27,14 @@ export class UserService {
       return await this.modelUser.findById(id).select('-__v -password').exec();
    }
 
-   async store(userData: CreateUserDTO) {
-      const isAlreadyCreated = Boolean(
-         await this.modelUser.findOne({ email: userData.email }).exec()
-      );
+   async store(userData: CreateUserDTO, requestUser: UserDocument | null) {
+      const isRequestUserAdmin = requestUser?.role === 'admin';
+      const isNewUserAdmin = userData.role === 'admin';
+
+      if (!isRequestUserAdmin && isNewUserAdmin)
+         throw new ForbiddenException('Forbidden admin user creation');
+
+      const isAlreadyCreated = await this.modelUser.findOne({ email: userData.email }).exec();
 
       if (isAlreadyCreated) throw new ConflictException('User already exists');
 
@@ -39,6 +44,7 @@ export class UserService {
       const hashedPassword = await hash(password, saltValue);
 
       const newUser = await new this.modelUser({ ...userInfo, password: hashedPassword }).save();
+
       return await this.show(newUser.id);
    }
 

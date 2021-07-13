@@ -18,6 +18,11 @@ export class CreateUserDTO {
    @IsNotEmpty()
    @IsString()
    lastName: string;
+
+   @IsNotEmpty()
+   @IsString()
+   @IsOptional()
+   role: string;
 }
 
 export class UpdateUserDTO {
@@ -42,4 +47,9 @@ export class UpdateUserDTO {
    @IsOptional()
    @IsString()
    lastName: string;
+
+   @IsNotEmpty()
+   @IsOptional()
+   @IsString()
+   role: string;
 }

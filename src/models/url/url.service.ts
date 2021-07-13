@@ -2,12 +2,16 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { nanoid } from 'nanoid';
+import { UserService } from '../user/user.service';
 import { UrlDTO } from './dto/url.dto';
 import { Url, UrlDocument } from './schemas/url.schema';
 
 @Injectable()
 export class UrlService {
-   constructor(@InjectModel(Url.name) private readonly modelUrl: Model<UrlDocument>) {}
+   constructor(
+      @InjectModel(Url.name) private readonly modelUrl: Model<UrlDocument>,
+      private userService: UserService
+   ) {}
 
    async index() {
       return await this.modelUrl.find().select('-__v').exec();
@@ -25,6 +29,7 @@ export class UrlService {
    }
 
    async store(urlData: UrlDTO) {
+      if (urlData.user) await this.userService.show(urlData.user);
       const newUrl = await new this.modelUrl({ ...urlData, shortUrl: nanoid(5) }).save();
       return await this.show(newUrl.id);
    }

@@ -24,7 +24,14 @@ export class UserService {
    }
 
    async show(id: string) {
-      return await this.modelUser.findById(id).select('-__v -password').exec();
+      return await this.modelUser
+         .findById(id)
+         .select('-__v -password')
+         .exec()
+         .then((foundUser) => {
+            if (!foundUser) throw new NotFoundException(`${User.name} not found`);
+            return foundUser;
+         });
    }
 
    async store(userData: CreateUserDTO, requestUser: UserDocument | null) {

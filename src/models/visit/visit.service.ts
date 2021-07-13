@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { VisitDTO } from './dto/visit.dto';
@@ -22,7 +22,13 @@ export class VisitService {
    }
 
    async update(id: string, visitData: VisitDTO) {
-      return await this.modelVisit.findByIdAndUpdate(id, visitData).exec();
+      return await this.modelVisit
+         .findByIdAndUpdate(id, visitData)
+         .exec()
+         .then((foundUser) => {
+            if (!foundUser) throw new NotFoundException(`${Visit.name} not found`);
+            return foundUser;
+         });
    }
 
    async delete(id: string) {

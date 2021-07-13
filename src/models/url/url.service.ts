@@ -14,7 +14,14 @@ export class UrlService {
    }
 
    async show(id: string) {
-      return await this.modelUrl.findById(id).select('-__v').exec();
+      return await this.modelUrl
+         .findById(id)
+         .select('-__v')
+         .exec()
+         .then((foundUrl) => {
+            if (!foundUrl) throw new NotFoundException(`${Url.name} not found`);
+            return foundUrl;
+         });
    }
 
    async store(urlData: UrlDTO) {

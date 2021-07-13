@@ -1,4 +1,5 @@
-import { IsEmail, IsNotEmpty, IsOptional, IsString, MinLength } from 'class-validator';
+import { IsEmail, IsEnum, IsNotEmpty, IsOptional, IsString, MinLength } from 'class-validator';
+import { Roles } from 'src/config/constants/roles.constant';
 
 export class CreateUserDTO {
    @IsEmail()
@@ -19,9 +20,10 @@ export class CreateUserDTO {
    @IsString()
    lastName: string;
 
+   @IsEnum(Roles, { each: true })
    @IsNotEmpty()
-   @IsString()
    @IsOptional()
+   @IsString()
    role: string;
 }
 
@@ -48,6 +50,7 @@ export class UpdateUserDTO {
    @IsString()
    lastName: string;
 
+   @IsEnum(Roles, { each: true })
    @IsNotEmpty()
    @IsOptional()
    @IsString()

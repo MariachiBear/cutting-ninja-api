@@ -59,8 +59,6 @@ export class UserService {
       const isRequestUserAdmin = requestUser?.role === 'admin';
       const isModifyingRole = !!userData.role;
 
-      console.log(!!userData.role);
-
       if (!isRequestUserAdmin && isModifyingRole)
          throw new ForbiddenException('Forbidden user role modification');
 

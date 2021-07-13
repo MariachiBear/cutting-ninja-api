@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Document, Schema as MongooseSchema } from 'mongoose';
+import { User } from 'src/models/user/schema/user.schema';
 
 export type UrlDocument = Url & Document;
 
@@ -13,6 +14,9 @@ export class Url {
 
    @Prop({ type: Number, required: true, default: 0 })
    visits: number;
+
+   @Prop({ ref: User.name, required: false, type: MongooseSchema.Types.ObjectId })
+   user: string;
 }
 
 export const UrlSchema = SchemaFactory.createForClass(Url);

@@ -55,7 +55,15 @@ export class UserService {
       return await this.show(newUser.id);
    }
 
-   async update(id: string, userData: UpdateUserDTO) {
+   async update(id: string, userData: UpdateUserDTO, requestUser: UserDocument | null) {
+      const isRequestUserAdmin = requestUser?.role === 'admin';
+      const isModifyingRole = !!userData.role;
+
+      console.log(!!userData.role);
+
+      if (!isRequestUserAdmin && isModifyingRole)
+         throw new ForbiddenException('Forbidden user role modification');
+
       return await this.modelUser.findByIdAndUpdate(id, userData).exec();
    }
 

@@ -48,8 +48,9 @@ export class UserController {
    @Put(':id')
    @UseGuards(JwtAuthGuard)
    @HttpCode(HttpStatus.NO_CONTENT)
-   async update(@Param('id') id: string, @Body() userData: UpdateUserDTO) {
-      return await this.service.update(id, userData);
+   async update(@Param('id') id: string, @Body() userData: UpdateUserDTO, @Request() request) {
+      const requestUser: UserDocument | null = request.user;
+      return await this.service.update(id, userData, requestUser);
    }
 
    @Delete(':id')

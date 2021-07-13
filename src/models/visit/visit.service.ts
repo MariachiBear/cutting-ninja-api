@@ -1,12 +1,16 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { UrlService } from '../url/url.service';
 import { VisitDTO } from './dto/visit.dto';
 import { Visit, VisitDocument } from './schemas/visit.schema';
 
 @Injectable()
 export class VisitService {
-   constructor(@InjectModel(Visit.name) private readonly modelVisit: Model<VisitDocument>) {}
+   constructor(
+      private urlService: UrlService,
+      @InjectModel(Visit.name) private readonly modelVisit: Model<VisitDocument>
+   ) {}
 
    async index() {
       return await this.modelVisit.find().select('-__v').exec();
@@ -17,6 +21,7 @@ export class VisitService {
    }
 
    async store(visitData: VisitDTO) {
+      await this.urlService.show(visitData.url);
       const newVisit = await new this.modelVisit({ ...visitData }).save();
       return await this.show(newVisit.id);
    }
@@ -25,9 +30,9 @@ export class VisitService {
       return await this.modelVisit
          .findByIdAndUpdate(id, visitData)
          .exec()
-         .then((foundUser) => {
-            if (!foundUser) throw new NotFoundException(`${Visit.name} not found`);
-            return foundUser;
+         .then((foundVisit) => {
+            if (!foundVisit) throw new NotFoundException(`${Visit.name} not found`);
+            return foundVisit;
          });
    }
 

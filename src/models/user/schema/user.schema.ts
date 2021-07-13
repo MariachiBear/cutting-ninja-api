@@ -5,6 +5,9 @@ export type UserDocument = User & Document;
 
 @Schema({ timestamps: true })
 export class User {
+   @Prop({ required: true, type: String, default: 'creator' })
+   role: string;
+
    @Prop({ required: true, type: String })
    firstName: string;
 

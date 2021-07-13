@@ -1,4 +1,9 @@
-import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import {
+   ConflictException,
+   Injectable,
+   NotFoundException,
+   UnauthorizedException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/mongoose';
 import { compare, hash } from 'bcryptjs';
@@ -22,6 +27,12 @@ export class UserService {
    }
 
    async store(userData: CreateUserDTO) {
+      const isAlreadyCreated = Boolean(
+         await this.modelUser.findOne({ email: userData.email }).exec()
+      );
+
+      if (isAlreadyCreated) throw new ConflictException('User already exists');
+
       const { password, ...userInfo } = userData;
 
       const saltValue = 10;

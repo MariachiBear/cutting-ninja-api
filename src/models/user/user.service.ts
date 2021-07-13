@@ -45,12 +45,12 @@ export class UserService {
 
    async signIn(userData: UserDocument) {
       const payload = { email: userData.email, id: userData.id };
-      console.log(payload);
       const accessToken = this.jwtService.sign(payload);
-      console.log(accessToken);
+
+      const user = await this.show(userData.id);
 
       return {
-         ...userData,
+         ...user?.toJSON(),
          accessToken,
       };
    }

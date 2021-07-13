@@ -11,9 +11,11 @@ import { UserService } from './user.service';
    providers: [UserService, JwtStrategy, LocalStrategy],
    exports: [UserService],
    imports: [
-      JwtModule.register({
-         secret: process.env.JWT_SECRET,
-         signOptions: { expiresIn: '24h' },
+      JwtModule.registerAsync({
+         useFactory: () => ({
+            secret: process.env.JWT_SECRET,
+            signOptions: { expiresIn: '24h' },
+         }),
       }),
       dbUser,
    ],

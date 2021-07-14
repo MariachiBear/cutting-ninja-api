@@ -1,6 +1,5 @@
-import { forwardRef, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { dbUrl } from 'src/config/database/url.db';
-import { UserModule } from '../user/user.module';
 import { UrlController } from './url.controller';
 import { UrlService } from './url.service';
 
@@ -8,6 +7,6 @@ import { UrlService } from './url.service';
    providers: [UrlService],
    controllers: [UrlController],
    exports: [UrlService],
-   imports: [dbUrl, forwardRef(() => UserModule)],
+   imports: [dbUrl],
 })
 export class UrlModule {}

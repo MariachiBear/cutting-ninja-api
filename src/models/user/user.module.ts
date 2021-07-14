@@ -1,4 +1,4 @@
-import { forwardRef, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { dbUser } from 'src/config/database/user.db';
 import { JwtStrategy } from 'src/config/strategies/jwt.strategy';
@@ -19,7 +19,7 @@ import { UserService } from './user.service';
          }),
       }),
       dbUser,
-      forwardRef(() => UrlModule),
+      UrlModule,
    ],
 })
 export class UserModule {}

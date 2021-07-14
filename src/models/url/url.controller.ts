@@ -12,6 +12,7 @@ import {
    UseGuards,
 } from '@nestjs/common';
 import { EnabledRoles } from 'src/config/decorators/roles.decorator';
+import { RequestParamsDTO } from 'src/config/dto/request-params.dto';
 import { JwtAuthGuard } from 'src/config/guards/jwt-auth.guard';
 import { OptionalJwtAuthGuard } from 'src/config/guards/optional-jwt.guard';
 import { RolesGuard } from 'src/config/guards/role.guard';
@@ -33,7 +34,8 @@ export class UrlController {
    @Get(':id')
    @UseGuards(JwtAuthGuard, RolesGuard)
    @EnabledRoles('admin')
-   async show(@Param('id') id: string) {
+   async show(@Param() params: RequestParamsDTO) {
+      const id = params.id;
       return await this.service.show(id);
    }
 
@@ -48,7 +50,8 @@ export class UrlController {
    @UseGuards(JwtAuthGuard, RolesGuard)
    @EnabledRoles('admin', 'creator')
    @HttpCode(HttpStatus.NO_CONTENT)
-   async update(@Param('id') id: string, @Body() urlData: UrlDTO, @Request() request) {
+   async update(@Param() params: RequestParamsDTO, @Body() urlData: UrlDTO, @Request() request) {
+      const id = params.id;
       const requestUser: UserDocument = request.user;
       return await this.service.update(id, urlData, requestUser);
    }
@@ -57,7 +60,8 @@ export class UrlController {
    @UseGuards(JwtAuthGuard, RolesGuard)
    @EnabledRoles('admin', 'creator')
    @HttpCode(HttpStatus.NO_CONTENT)
-   async delete(@Param('id') id: string, @Request() request) {
+   async delete(@Param() params: RequestParamsDTO, @Request() request) {
+      const id = params.id;
       const requestUser: UserDocument = request.user;
       return await this.service.delete(id, requestUser);
    }
@@ -73,7 +77,8 @@ export class UrlController {
    @Get(':id/visits')
    @UseGuards(JwtAuthGuard, RolesGuard)
    @EnabledRoles('admin', 'creator')
-   async showUrlVisits(@Param('id') id: string, @Request() request) {
+   async showUrlVisits(@Param() params: RequestParamsDTO, @Request() request) {
+      const id = params.id;
       const requestUser: UserDocument = request.user;
       return await this.visitService.findByUrl(id, requestUser);
    }

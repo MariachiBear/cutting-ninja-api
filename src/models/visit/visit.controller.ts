@@ -11,6 +11,7 @@ import {
    UseGuards,
 } from '@nestjs/common';
 import { EnabledRoles } from 'src/config/decorators/roles.decorator';
+import { RequestParamsDTO } from 'src/config/dto/request-params.dto';
 import { JwtAuthGuard } from 'src/config/guards/jwt-auth.guard';
 import { RolesGuard } from 'src/config/guards/role.guard';
 import { VisitDTO } from './dto/visit.dto';
@@ -30,7 +31,8 @@ export class VisitController {
    @Get(':id')
    @UseGuards(JwtAuthGuard, RolesGuard)
    @EnabledRoles('admin')
-   async find(@Param('id') id: string) {
+   async find(@Param() params: RequestParamsDTO) {
+      const id = params.id;
       return await this.service.show(id);
    }
 
@@ -45,7 +47,8 @@ export class VisitController {
    @UseGuards(JwtAuthGuard, RolesGuard)
    @EnabledRoles('admin')
    @HttpCode(HttpStatus.NO_CONTENT)
-   async update(@Param('id') id: string, @Body() urlData: VisitDTO) {
+   async update(@Param() params: RequestParamsDTO, @Body() urlData: VisitDTO) {
+      const id = params.id;
       return await this.service.update(id, urlData);
    }
 
@@ -53,7 +56,8 @@ export class VisitController {
    @UseGuards(JwtAuthGuard, RolesGuard)
    @EnabledRoles('admin')
    @HttpCode(HttpStatus.NO_CONTENT)
-   async delete(@Param('id') id: string) {
+   async delete(@Param() params: RequestParamsDTO) {
+      const id = params.id;
       return await this.service.delete(id);
    }
 

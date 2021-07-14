@@ -46,4 +46,4 @@ CMD ["start:prod"]
 
 
 # BUILD : docker build -t <username>/<rep-name>:tag .
-# RUN : docker run -it -d -p <host-port>:3000 -e NODE_ENV=production --name <container-name> <username>/<rep-name>:tag
+# RUN : docker run -it -d -p <host-port>:3000 --name <container-name> <username>/<rep-name>:tag

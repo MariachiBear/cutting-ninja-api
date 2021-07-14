@@ -6,9 +6,10 @@ export class AppController {
    constructor(private readonly appService: AppService) {}
 
    @Get()
-   @Redirect(process.env.MAIN_REDIRECT_URL)
-   // eslint-disable-next-line @typescript-eslint/no-empty-function
-   main() {}
+   @Redirect()
+   main() {
+      return { url: process.env.MAIN_REDIRECT_URL };
+   }
 
    @Get(':shortId')
    @Redirect()

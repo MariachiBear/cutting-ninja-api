@@ -42,7 +42,7 @@ export class UserController {
       return await this.service.show(id);
    }
 
-   @Post()
+   @Post('sign-up')
    @UseGuards(OptionalJwtAuthGuard)
    async store(@Body() userData: CreateUserDTO, @Request() request) {
       const requestUser: UserDocument | null = request.user;

@@ -10,7 +10,7 @@ export class Url {
    longUrl: string;
 
    @Prop({ required: true, type: String, unique: true })
-   shortUrl?: string;
+   shortUrl: string;
 
    @Prop({ type: Number, required: true, default: 0 })
    visits: number;

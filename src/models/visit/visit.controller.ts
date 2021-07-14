@@ -10,6 +10,7 @@ import {
    Put,
    UseGuards,
 } from '@nestjs/common';
+import { Roles } from 'src/config/constants/roles.constant';
 import { EnabledRoles } from 'src/config/decorators/roles.decorator';
 import { RequestParamsDTO } from 'src/config/dto/request-params.dto';
 import { JwtAuthGuard } from 'src/config/guards/jwt-auth.guard';
@@ -23,14 +24,14 @@ export class VisitController {
 
    @Get()
    @UseGuards(JwtAuthGuard, RolesGuard)
-   @EnabledRoles('admin', 'creator')
+   @EnabledRoles(Roles.ADMIN, Roles.CREATOR)
    async index() {
       return await this.service.index();
    }
 
    @Get(':id')
    @UseGuards(JwtAuthGuard, RolesGuard)
-   @EnabledRoles('admin')
+   @EnabledRoles(Roles.ADMIN)
    async find(@Param() params: RequestParamsDTO) {
       const id = params.id;
       return await this.service.show(id);
@@ -38,14 +39,14 @@ export class VisitController {
 
    @Post()
    @UseGuards(JwtAuthGuard, RolesGuard)
-   @EnabledRoles('admin')
+   @EnabledRoles(Roles.ADMIN)
    async create(@Body() urlData: VisitDTO) {
       return await this.service.store(urlData);
    }
 
    @Put(':id')
    @UseGuards(JwtAuthGuard, RolesGuard)
-   @EnabledRoles('admin')
+   @EnabledRoles(Roles.ADMIN)
    @HttpCode(HttpStatus.NO_CONTENT)
    async update(@Param() params: RequestParamsDTO, @Body() urlData: VisitDTO) {
       const id = params.id;
@@ -54,7 +55,7 @@ export class VisitController {
 
    @Delete(':id')
    @UseGuards(JwtAuthGuard, RolesGuard)
-   @EnabledRoles('admin')
+   @EnabledRoles(Roles.ADMIN)
    @HttpCode(HttpStatus.NO_CONTENT)
    async delete(@Param() params: RequestParamsDTO) {
       const id = params.id;
@@ -63,7 +64,7 @@ export class VisitController {
 
    @Delete()
    @UseGuards(JwtAuthGuard, RolesGuard)
-   @EnabledRoles('admin')
+   @EnabledRoles(Roles.ADMIN)
    @HttpCode(HttpStatus.NO_CONTENT)
    async deleteAll() {
       return await this.service.deleteAll();

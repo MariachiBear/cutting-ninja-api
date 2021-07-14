@@ -11,6 +11,7 @@ import {
    Request,
    UseGuards,
 } from '@nestjs/common';
+import { Roles } from 'src/config/constants/roles.constant';
 import { EnabledRoles } from 'src/config/decorators/roles.decorator';
 import { RequestParamsDTO } from 'src/config/dto/request-params.dto';
 import { JwtAuthGuard } from 'src/config/guards/jwt-auth.guard';
@@ -26,14 +27,14 @@ export class UrlController {
 
    @Get()
    @UseGuards(JwtAuthGuard, RolesGuard)
-   @EnabledRoles('admin')
+   @EnabledRoles(Roles.ADMIN)
    async index() {
       return await this.service.index();
    }
 
    @Get(':id')
    @UseGuards(JwtAuthGuard, RolesGuard)
-   @EnabledRoles('admin')
+   @EnabledRoles(Roles.ADMIN)
    async show(@Param() params: RequestParamsDTO) {
       const id = params.id;
       return await this.service.show(id);
@@ -48,7 +49,7 @@ export class UrlController {
 
    @Put(':id')
    @UseGuards(JwtAuthGuard, RolesGuard)
-   @EnabledRoles('admin', 'creator')
+   @EnabledRoles(Roles.ADMIN, Roles.CREATOR)
    @HttpCode(HttpStatus.NO_CONTENT)
    async update(@Param() params: RequestParamsDTO, @Body() urlData: UrlDTO, @Request() request) {
       const id = params.id;
@@ -58,7 +59,7 @@ export class UrlController {
 
    @Delete(':id')
    @UseGuards(JwtAuthGuard, RolesGuard)
-   @EnabledRoles('admin', 'creator')
+   @EnabledRoles(Roles.ADMIN, Roles.CREATOR)
    @HttpCode(HttpStatus.NO_CONTENT)
    async delete(@Param() params: RequestParamsDTO, @Request() request) {
       const id = params.id;
@@ -68,7 +69,7 @@ export class UrlController {
 
    @Delete()
    @UseGuards(JwtAuthGuard, RolesGuard)
-   @EnabledRoles('admin')
+   @EnabledRoles(Roles.ADMIN)
    @HttpCode(HttpStatus.NO_CONTENT)
    async deleteAll() {
       return await this.service.deleteAll();
@@ -76,7 +77,7 @@ export class UrlController {
 
    @Get(':id/visits')
    @UseGuards(JwtAuthGuard, RolesGuard)
-   @EnabledRoles('admin', 'creator')
+   @EnabledRoles(Roles.ADMIN, Roles.CREATOR)
    async showUrlVisits(@Param() params: RequestParamsDTO, @Request() request) {
       const id = params.id;
       const requestUser: UserDocument = request.user;

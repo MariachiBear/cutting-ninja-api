@@ -9,6 +9,7 @@ import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/mongoose';
 import { compare, hash } from 'bcryptjs';
 import { Model } from 'mongoose';
+import { Roles } from 'src/config/constants/roles.constant';
 import { CreateUserDTO, UpdateUserDTO } from './dto/user.dto';
 import { User, UserDocument } from './schema/user.schema';
 
@@ -35,8 +36,8 @@ export class UserService {
    }
 
    async store(userData: CreateUserDTO, requestUser: UserDocument | null) {
-      const isRequestUserAdmin = requestUser?.role === 'admin';
-      const isNewUserAdmin = userData.role === 'admin';
+      const isRequestUserAdmin = requestUser?.role === Roles.ADMIN;
+      const isNewUserAdmin = userData.role === Roles.ADMIN;
 
       if (!isRequestUserAdmin && isNewUserAdmin)
          throw new ForbiddenException('Forbidden admin user creation');
@@ -56,7 +57,7 @@ export class UserService {
    }
 
    async update(id: string, userData: UpdateUserDTO, requestUser: UserDocument | null) {
-      const isRequestUserAdmin = requestUser?.role === 'admin';
+      const isRequestUserAdmin = requestUser?.role === Roles.ADMIN;
       const isModifyingRole = !!userData.role;
 
       if (!isRequestUserAdmin && isModifyingRole)

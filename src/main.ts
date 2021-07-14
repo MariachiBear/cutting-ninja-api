@@ -21,6 +21,6 @@ async function bootstrap() {
    app.register(fastifyCookie);
    app.register(fastifyCsrf);
    app.useGlobalPipes(new ValidationPipe());
-   await app.listen(3000, '0.0.0.0');
+   await app.listen(Number(process.env.PORT) || 3000, '0.0.0.0');
 }
 bootstrap();

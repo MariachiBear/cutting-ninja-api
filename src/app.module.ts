@@ -4,6 +4,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { configModuleConfig } from './config/config-module.config';
 import { mongodbConfig } from './config/mongodb.config';
 import { cacheProvider } from './config/providers/cache.provider';
 import { throttlerProvider } from './config/providers/throttler.provider';
@@ -17,7 +18,7 @@ import { VisitModule } from './models/visit/visit.module';
    providers: [AppService, cacheProvider, throttlerProvider],
    imports: [
       CacheModule.register(),
-      ConfigModule.forRoot({ isGlobal: true }),
+      ConfigModule.forRoot(configModuleConfig),
       ThrottlerModule.forRoot(throttlerConfig),
       MongooseModule.forRootAsync(mongodbConfig),
       UrlModule,

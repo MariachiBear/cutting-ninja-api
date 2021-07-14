@@ -1,10 +1,3 @@
 {
-    "cSpell.words": [
-        "Csrf",
-        "Fastify",
-        "Parens",
-        "nestjs",
-        "prebuild",
-        "rubenconde"
-    ]
+   "cSpell.words": ["Csrf", "Fastify", "Parens", "nestjs", "pnpm", "prebuild", "rubenconde"]
 }

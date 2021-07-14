@@ -14,34 +14,36 @@ EXPOSE 3000
 # such a user does not exist.
 RUN addgroup -g 10001 -S nonroot && adduser -u 10000 -S -G nonroot -h /home/nonroot nonroot
 
+# Packages update
+RUN apk add --no-cache
+
 # Create app directory
 WORKDIR /home/nonroot/url-shortener
 
-# Install app dependencies
+# Install PNPM
+RUN npm install -g pnpm
+
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
 COPY package*.json ./
+
+# Install dependencies
+RUN pnpm install
 
 # Bundle app source
 COPY . .
 
-# Packages update
-RUN apk add --no-cache
-
-# RUN npm install
-# If you are building your code for production
-RUN npm install
-
-RUN npm run build
+# Build application
+RUN pnpm build
 
 # Use the non-root user to run our application
 USER nonroot
 
 # Default npm command to run
-ENTRYPOINT ["npm"]
+ENTRYPOINT ["pnpm"]
 
 # Arguments to run with the command at the entrypoint
-CMD ["start"]
+CMD ["start:prod"]
 
 
 # BUILD : docker build -t <username>/<rep-name>:tag .
-# RUN : docker run -it -d -p <host-port>:3000 --name <container-name> --env-file ./.env <username>/<rep-name>:tag
+# RUN : docker run -it -d -p <host-port>:3000 -e NODE_ENV=production --name <container-name> <username>/<rep-name>:tag

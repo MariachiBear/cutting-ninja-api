@@ -11,7 +11,7 @@ import {
    Request,
    UseGuards,
 } from '@nestjs/common';
-import { Roles } from 'src/config/decorators/roles.decorator';
+import { EnabledRoles } from 'src/config/decorators/roles.decorator';
 import { OptionalJwtAuthGuard } from 'src/config/guards/optional-jwt.guard';
 import { RolesGuard } from 'src/config/guards/role.guard';
 import { JwtAuthGuard } from '../../config/guards/jwt-auth.guard';
@@ -27,14 +27,14 @@ export class UserController {
 
    @Get()
    @UseGuards(JwtAuthGuard, RolesGuard)
-   @Roles('admin')
+   @EnabledRoles('admin')
    async index() {
       return await this.service.index();
    }
 
    @Get(':id')
    @UseGuards(JwtAuthGuard, RolesGuard)
-   @Roles('admin')
+   @EnabledRoles('admin')
    async show(@Param('id') id: string) {
       return await this.service.show(id);
    }
@@ -49,7 +49,7 @@ export class UserController {
    @Put(':id')
    @UseGuards(JwtAuthGuard, RolesGuard)
    @HttpCode(HttpStatus.NO_CONTENT)
-   @Roles('admin')
+   @EnabledRoles('admin')
    async update(@Param('id') id: string, @Body() userData: UpdateUserDTO, @Request() request) {
       const requestUser: UserDocument = request.user;
       return await this.service.update(id, userData, requestUser);
@@ -57,7 +57,7 @@ export class UserController {
 
    @Delete(':id')
    @UseGuards(JwtAuthGuard, RolesGuard)
-   @Roles('admin')
+   @EnabledRoles('admin')
    @HttpCode(HttpStatus.NO_CONTENT)
    async delete(@Param('id') id: string) {
       return await this.service.delete(id);
@@ -65,7 +65,7 @@ export class UserController {
 
    @Delete()
    @UseGuards(JwtAuthGuard, RolesGuard)
-   @Roles('admin')
+   @EnabledRoles('admin')
    @HttpCode(HttpStatus.NO_CONTENT)
    async deleteAll() {
       return await this.service.deleteAll();

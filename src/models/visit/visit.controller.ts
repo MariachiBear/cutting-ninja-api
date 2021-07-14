@@ -10,7 +10,7 @@ import {
    Put,
    UseGuards,
 } from '@nestjs/common';
-import { Roles } from 'src/config/decorators/roles.decorator';
+import { EnabledRoles } from 'src/config/decorators/roles.decorator';
 import { JwtAuthGuard } from 'src/config/guards/jwt-auth.guard';
 import { RolesGuard } from 'src/config/guards/role.guard';
 import { VisitDTO } from './dto/visit.dto';
@@ -22,28 +22,28 @@ export class VisitController {
 
    @Get()
    @UseGuards(JwtAuthGuard, RolesGuard)
-   @Roles('admin', 'creator')
+   @EnabledRoles('admin', 'creator')
    async index() {
       return await this.service.index();
    }
 
    @Get(':id')
    @UseGuards(JwtAuthGuard, RolesGuard)
-   @Roles('admin')
+   @EnabledRoles('admin')
    async find(@Param('id') id: string) {
       return await this.service.show(id);
    }
 
    @Post()
    @UseGuards(JwtAuthGuard, RolesGuard)
-   @Roles('admin')
+   @EnabledRoles('admin')
    async create(@Body() urlData: VisitDTO) {
       return await this.service.store(urlData);
    }
 
    @Put(':id')
    @UseGuards(JwtAuthGuard, RolesGuard)
-   @Roles('admin')
+   @EnabledRoles('admin')
    @HttpCode(HttpStatus.NO_CONTENT)
    async update(@Param('id') id: string, @Body() urlData: VisitDTO) {
       return await this.service.update(id, urlData);
@@ -51,7 +51,7 @@ export class VisitController {
 
    @Delete(':id')
    @UseGuards(JwtAuthGuard, RolesGuard)
-   @Roles('admin')
+   @EnabledRoles('admin')
    @HttpCode(HttpStatus.NO_CONTENT)
    async delete(@Param('id') id: string) {
       return await this.service.delete(id);
@@ -59,7 +59,7 @@ export class VisitController {
 
    @Delete()
    @UseGuards(JwtAuthGuard, RolesGuard)
-   @Roles('admin')
+   @EnabledRoles('admin')
    @HttpCode(HttpStatus.NO_CONTENT)
    async deleteAll() {
       return await this.service.deleteAll();

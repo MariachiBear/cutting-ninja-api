@@ -82,7 +82,7 @@ export class UrlService {
       return await this.modelUrl.find({ shortUrl }).select('-__v').exec();
    }
 
-   private async checkUrlPermissions(urlId: string, requestUser: UserDocument) {
+   async checkUrlPermissions(urlId: string, requestUser: UserDocument) {
       const urlToCheck = await this.show(urlId);
       const isUserOwningUrl = String(urlToCheck.user) === String(requestUser._id);
       const isUserAdmin = requestUser.role === Roles.ADMIN;

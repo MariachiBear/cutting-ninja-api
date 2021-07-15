@@ -40,6 +40,15 @@ export class UrlController {
       return await this.service.show(id);
    }
 
+   @Get(':id/visits')
+   @UseGuards(JwtAuthGuard, RolesGuard)
+   @EnabledRoles(Roles.ADMIN, Roles.CREATOR)
+   async showUrlVisits(@Param() params: RequestParamsDTO, @Request() request) {
+      const id = params.id;
+      const requestUser: UserDocument = request.user;
+      return await this.visitService.findByUrl(id, requestUser);
+   }
+
    @Post()
    @UseGuards(OptionalJwtAuthGuard)
    async store(@Body() urlData: UrlDTO, @Request() request) {
@@ -73,14 +82,5 @@ export class UrlController {
    @HttpCode(HttpStatus.NO_CONTENT)
    async deleteAll() {
       return await this.service.deleteAll();
-   }
-
-   @Get(':id/visits')
-   @UseGuards(JwtAuthGuard, RolesGuard)
-   @EnabledRoles(Roles.ADMIN, Roles.CREATOR)
-   async showUrlVisits(@Param() params: RequestParamsDTO, @Request() request) {
-      const id = params.id;
-      const requestUser: UserDocument = request.user;
-      return await this.visitService.findByUrl(id, requestUser);
    }
 }

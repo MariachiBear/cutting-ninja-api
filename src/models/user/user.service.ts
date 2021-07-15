@@ -11,10 +11,11 @@ import { compare, hash } from 'bcryptjs';
 import { Model } from 'mongoose';
 import { Roles } from 'src/config/constants/roles.constant';
 import { CreateUserDTO, UpdateUserDTO } from './dto/user.dto';
+import { BaseUserService } from './interfaces/user.service.interface';
 import { User, UserDocument } from './schema/user.schema';
 
 @Injectable()
-export class UserService {
+export class UserService implements BaseUserService {
    constructor(
       @InjectModel(User.name) private readonly modelUser: Model<UserDocument>,
       private jwtService: JwtService

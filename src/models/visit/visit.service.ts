@@ -1,13 +1,14 @@
-import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { UrlService } from '../url/url.service';
 import { UserDocument } from '../user/schema/user.schema';
 import { VisitDTO } from './dto/visit.dto';
+import { BaseVisitService } from './interfaces/visit.service.interface';
 import { Visit, VisitDocument } from './schemas/visit.schema';
 
 @Injectable()
-export class VisitService {
+export class VisitService implements BaseVisitService {
    constructor(
       @InjectModel(Visit.name) private readonly modelVisit: Model<VisitDocument>,
       private urlService: UrlService
@@ -18,7 +19,14 @@ export class VisitService {
    }
 
    async show(id: string) {
-      return await this.modelVisit.findById(id).select('-__v').exec();
+      return await this.modelVisit
+         .findById(id)
+         .select('-__v')
+         .exec()
+         .then((foundVisit) => {
+            if (!foundVisit) throw new NotFoundException(`${Visit.name} not found`);
+            return foundVisit;
+         });
    }
 
    async store(visitData: VisitDTO) {
@@ -28,13 +36,7 @@ export class VisitService {
    }
 
    async update(id: string, visitData: VisitDTO) {
-      return await this.modelVisit
-         .findByIdAndUpdate(id, visitData)
-         .exec()
-         .then((foundVisit) => {
-            if (!foundVisit) throw new NotFoundException(`${Visit.name} not found`);
-            return foundVisit;
-         });
+      return await this.modelVisit.findByIdAndUpdate(id, visitData).exec();
    }
 
    async delete(id: string) {
@@ -45,11 +47,9 @@ export class VisitService {
       return await this.modelVisit.deleteMany({}).exec();
    }
 
-   async findByUrl(urlId: string, requestUser: UserDocument) {
-      const canDoAction = await this.urlService.checkUrlPermissions(urlId, requestUser);
+   async indexByUrl(urlId: string, requestUser: UserDocument) {
+      const urlToGetVisits = await this.urlService.checkUrlPermissions(urlId, requestUser);
 
-      if (!canDoAction) throw new UnauthorizedException();
-
-      return await this.modelVisit.find({ url: urlId }).select('-__v').exec();
+      return await this.modelVisit.find({ url: urlToGetVisits.id }).select('-__v').exec();
    }
 }

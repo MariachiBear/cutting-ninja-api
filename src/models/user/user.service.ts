@@ -1,6 +1,5 @@
 import {
    ConflictException,
-   ForbiddenException,
    Injectable,
    NotFoundException,
    UnauthorizedException,
@@ -25,9 +24,9 @@ export class UserService implements BaseUserService {
       return await this.modelUser.find().select('-__v -password').exec();
    }
 
-   async show(id: string) {
+   async show(userId: string) {
       return await this.modelUser
-         .findById(id)
+         .findById(userId)
          .select('-__v -password')
          .exec()
          .then((foundUser) => {
@@ -40,8 +39,7 @@ export class UserService implements BaseUserService {
       const isRequestUserAdmin = requestUser?.role === Roles.ADMIN;
       const isNewUserAdmin = userData.role === Roles.ADMIN;
 
-      if (!isRequestUserAdmin && isNewUserAdmin)
-         throw new ForbiddenException('Forbidden admin user creation');
+      if (!isRequestUserAdmin && isNewUserAdmin) throw new UnauthorizedException();
 
       const isAlreadyCreated = await this.modelUser.findOne({ email: userData.email }).exec();
 
@@ -57,18 +55,17 @@ export class UserService implements BaseUserService {
       return await this.show(newUser.id);
    }
 
-   async update(id: string, userData: UpdateUserDTO, requestUser: UserDocument | null) {
+   async update(userId: string, userData: UpdateUserDTO, requestUser: UserDocument | null) {
       const isRequestUserAdmin = requestUser?.role === Roles.ADMIN;
       const isModifyingRole = !!userData.role;
 
-      if (!isRequestUserAdmin && isModifyingRole)
-         throw new ForbiddenException('Forbidden user role modification');
+      if (!isRequestUserAdmin && isModifyingRole) throw new UnauthorizedException();
 
-      return await this.modelUser.findByIdAndUpdate(id, userData).exec();
+      return await this.modelUser.findByIdAndUpdate(userId, userData).exec();
    }
 
-   async delete(id: string) {
-      return await this.modelUser.findByIdAndDelete(id).exec();
+   async delete(userId: string) {
+      return await this.modelUser.findByIdAndDelete(userId).exec();
    }
 
    async deleteAll() {
@@ -76,7 +73,7 @@ export class UserService implements BaseUserService {
    }
 
    async signIn(userData: UserDocument) {
-      const payload = { email: userData.email, id: userData.id };
+      const payload = { email: userData.email, userId: userData.id };
       const accessToken = this.jwtService.sign(payload);
 
       const user = await this.show(userData.id);
@@ -90,7 +87,7 @@ export class UserService implements BaseUserService {
    async validateUser(email: string, password: string) {
       const user = await this.modelUser.findOne({ email: email }).select('-__v').exec();
 
-      if (!user) throw new NotFoundException('User not found');
+      if (!user) throw new NotFoundException(`${User.name} not found`);
 
       const isValidPassword = await compare(password, user.password);
 

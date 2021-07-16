@@ -1,73 +1,81 @@
 import { UserDocument } from 'src/models/user/schema/user.schema';
-import { UrlDTO } from '../dto/url.dto';
+import { CreateUrlDTO, UpdateUrlDTO } from '../dto/url.dto';
 import { UrlDocument } from '../schemas/url.schema';
 
 export interface BaseUrlService {
    /**
-    * Gets all the disponible urls from a collection
+    * Gets all the urls from the database.
     *
-    * @return {(Promise<UrlDocument[]>)} List of urls
+    * @returns {Promise<UrlDocument[]>} List of urls
     */
    index(): Promise<UrlDocument[]>;
 
    /**
-    * Gets the information from a specific url in a collection
+    * Gets the information from a specific url in the database.
+    *
+    * It throws a `NotFoundException` if no url was found.
     *
     * @param {string} urlId Identifier of the url to search
-    * @return {Promise<UrlDocument>} Information of the new url
+    *
+    * @returns {Promise<UrlDocument>} Information of the url
     */
    show(urlId: string): Promise<UrlDocument>;
 
    /**
-    * Stores a new url in the database collection
+    * Stores a new url in the database.
     *
-    * @param {UrlDTO} urlData Information to store in the url
-    * @param {(UserDocument | null)} requestUser Possible user trying to save the new url
-    * @return {(Promise<UrlDocument>)} Information of the url
+    * @param {CreateUrlDTO} urlData Information to store in the url
+    * @param {UserDocument | null} requestUser Possible user trying to save a new url
+    *
+    * @returns {Promise<UrlDocument>} Information of the new url
     */
-   store(urlData: UrlDTO, requestUser: UserDocument | null): Promise<UrlDocument>;
+   store(urlData: CreateUrlDTO, requestUser: UserDocument | null): Promise<UrlDocument>;
 
    /**
-    * Updates the information from an url in the collection
+    * Updates the information from an url in the database.
     *
     * @param {string} urlId Identifier of the url to update
-    * @param {UrlDTO} urlData Information to update in the url
-    * @param {UserDocument} requestUser User trying to update the url information
-    * @return {(Promise<UrlDocument>)} Updated information of the url
+    * @param {UpdateUrlDTO} urlData Information to update in the url
+    * @param {UserDocument} requestUser User trying to update the information of the url
+    *
+    * @returns {Promise<UrlDocument>} Updated information of the url
     */
-   update(urlId: string, urlData: UrlDTO, requestUser: UserDocument): Promise<UrlDocument>;
+   update(urlId: string, urlData: UpdateUrlDTO, requestUser: UserDocument): Promise<UrlDocument>;
 
    /**
-    * Deletes the url from the collection
+    * Deletes the url from the database.
     *
-    * @param {string} urlId Identifier of the url to update
-    * @param {UserDocument} requestUser User trying to update the url information
-    * @return {(Promise<UrlDocument>)} Information of the deleted url
+    * @param {string} urlId Identifier of the url to delete
+    * @param {UserDocument} requestUser User trying to delete the url
+    *
+    * @returns {Promise<UrlDocument>} Information of the deleted url
     */
    delete(urlId: string, requestUser: UserDocument): Promise<UrlDocument>;
 
    /**
-    * Deletes all the urls in a collection
+    * Deletes all the urls in the database.
     *
-    * @return {Promise<MongooseDeleteResponse>} Information and count from the deleted urls
+    * @returns {Promise<MongooseDeleteResponse>} Information and count from the deleted urls
     */
    deleteAll(): Promise<MongooseDeleteResponse>;
 
    /**
-    * Increases the visit count from an URL in the collection by it's shortIId
+    * Increases the visit count from an url in the database, finding it by its short url id.
     *
-    * @param {string} shortUrL Identifier of the url to update
-    * @return {Promise<UrlDocument>} Information from the updated url
+    * @param {string} shortUrl Identifier of the url to update
+    *
+    * @returns {Promise<UrlDocument>} Information from the updated url
     */
-   increaseVisitCount(shortUrL: string): Promise<UrlDocument>;
+   increaseVisitCount(shortUrl: string): Promise<UrlDocument>;
 
    /**
-    * Gets a list of urls that belong to a specific user
+    * Gets a list of urls that belong to a specific user.
     *
     * @param {string} userId Identifier of the user from which to retrieve the urls
-    * @return {Promise<UrlDocument[]>} List of urls
+    *
+    * @returns {Promise<UrlDocument[]>} List of urls
     */
-   findByUser(userId: string): Promise<UrlDocument[]>;
+   indexByUser(userId: string): Promise<UrlDocument[]>;
 
    /**
     * Check if an user have enough permissions to do specific actions.
@@ -76,9 +84,12 @@ export interface BaseUrlService {
     * - User owns the url
     * - User is admin
     *
+    * It throws a `UnauthorizedException` if the user has no enough permissions.
+    *
     * @param {string} urlId Identifier of the url to update
     * @param {UserDocument} requestUser User trying to do an action with the url information
-    * @return {Promise<UrlDocument>} Information of the url if the action can be performed
+    *
+    * @returns {Promise<UrlDocument>} Information of the url if the action can be performed
     */
    checkUrlPermissions(urlId: string, requestUser: UserDocument): Promise<UrlDocument>;
 }

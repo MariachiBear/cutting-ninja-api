@@ -4,7 +4,7 @@ import { Model } from 'mongoose';
 import { nanoid } from 'nanoid';
 import { Roles } from 'src/config/constants/roles.constant';
 import { UserDocument } from '../user/schema/user.schema';
-import { UrlDTO } from './dto/url.dto';
+import { CreateUrlDTO, UpdateUrlDTO } from './dto/url.dto';
 import { BaseUrlService } from './interfaces/url.service.interface';
 import { Url, UrlDocument } from './schemas/url.schema';
 
@@ -27,9 +27,8 @@ export class UrlService implements BaseUrlService {
          });
    }
 
-   async store(urlData: UrlDTO, requestUser: UserDocument | null) {
+   async store(urlData: CreateUrlDTO, requestUser: UserDocument | null) {
       const shortUrlId = await this.secureShortUrlId();
-
       const newUrl = await new this.modelUrl({
          ...urlData,
          shortUrl: shortUrlId,
@@ -39,9 +38,8 @@ export class UrlService implements BaseUrlService {
       return await this.show(newUrl.id);
    }
 
-   async update(urlId: string, urlData: UrlDTO, requestUser: UserDocument) {
+   async update(urlId: string, urlData: UpdateUrlDTO, requestUser: UserDocument) {
       const urlToUpdate = await this.checkUrlPermissions(urlId, requestUser);
-
       await this.modelUrl.findByIdAndUpdate(urlId, urlData).exec();
 
       return urlToUpdate;
@@ -49,7 +47,6 @@ export class UrlService implements BaseUrlService {
 
    async delete(urlId: string, requestUser: UserDocument) {
       const urlToDelete = await this.checkUrlPermissions(urlId, requestUser);
-
       await this.modelUrl.findByIdAndDelete(urlId).exec();
 
       return urlToDelete;
@@ -69,7 +66,7 @@ export class UrlService implements BaseUrlService {
          });
    }
 
-   async findByUser(userId: string) {
+   async indexByUser(userId: string) {
       return await this.modelUrl.find({ user: userId }).select('-__v').exec();
    }
 
@@ -84,21 +81,22 @@ export class UrlService implements BaseUrlService {
    }
 
    /**
-    * Gets a list of urls that belong to a specific user
+    * Gets a list of urls that belong to a specific user.
     *
     * @private
-    * @param {string} shortUrl
-    * @return {Promise<UrlDocument[]>} List of urls
+    * @param {string} shortUrl Short url identifier
+    *
+    * @returns {Promise<UrlDocument[]>} List of urls
     */
    private async indexByShortUrlId(shortUrl: string): Promise<UrlDocument[]> {
       return await this.modelUrl.find({ shortUrl }).select('-__v').exec();
    }
 
    /**
-    * Generates safely a short URL to use in the system
+    * Generates safely a short URL to use in the system.
     *
     * @private
-    * @return {Promise<string>} Short URL to use
+    * @returns {Promise<string>} Short URL to use
     */
    private async secureShortUrlId(): Promise<string> {
       let shortUrlId = nanoid(5);

@@ -1,11 +1,11 @@
 interface UserWithToken {
-   accessToken: string;
-   _id?: any;
    __v?: any;
-   id?: any;
-   role: string;
-   firstName: string;
-   lastName: string;
+   _id?: any;
+   accessToken: string;
    email: string;
+   firstName: string;
+   id?: any;
+   lastName: string;
    password: string;
+   role: string;
 }

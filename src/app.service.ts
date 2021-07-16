@@ -5,9 +5,17 @@ import { VisitService } from './models/visit/visit.service';
 export class AppService {
    constructor(private urlService: UrlService, private visitService: VisitService) {}
 
-   async getLongUrl(shortId: string) {
-      const url = await this.urlService.increaseVisitCount(shortId);
-      await this.visitService.store({ url: url.id });
-      return url.longUrl;
+   /**
+    * Finds the url record in the database. Creates a new `Visit` record and then increases the
+    * visit count for the found url. After that it retrieves the long url to redirect the client
+    *
+    * @param {string} shortUrlId
+    * @returns {string} Long url to redirect
+    */
+   async getLongUrl(shortUrlId: string) {
+      const urlToRedirect = await this.urlService.showByShortUrl(shortUrlId);
+      await this.visitService.store({ url: urlToRedirect.id });
+      await this.urlService.increaseVisitCount(shortUrlId);
+      return urlToRedirect.longUrl;
    }
 }

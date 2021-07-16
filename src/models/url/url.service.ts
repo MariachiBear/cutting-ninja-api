@@ -80,6 +80,17 @@ export class UrlService implements BaseUrlService {
       return urlToCheck;
    }
 
+   async showByShortUrl(shortUrlId: string) {
+      return await this.modelUrl
+         .findOne({ shortUrl: shortUrlId })
+         .select('-__v')
+         .exec()
+         .then((foundUrl) => {
+            if (!foundUrl) throw new NotFoundException(`${Url.name} not found`);
+            return foundUrl;
+         });
+   }
+
    /**
     * Gets a list of urls that belong to a specific user.
     *

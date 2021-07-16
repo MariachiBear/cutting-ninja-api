@@ -92,4 +92,15 @@ export interface BaseUrlService {
     * @returns {Promise<UrlDocument>} Information of the url if the action can be performed
     */
    checkUrlPermissions(urlId: string, requestUser: UserDocument): Promise<UrlDocument>;
+
+   /**
+    * Gets the information from a specific url in the database by the short url id.
+    *
+    * It throws a `NotFoundException` if no url was found.
+    *
+    * @param {string} shortUrlId Identifier of the short url to search
+    *
+    * @returns {Promise<UrlDocument>} Information of the url
+    */
+   showByShortUrl(shortUrlId: string): Promise<UrlDocument>;
 }

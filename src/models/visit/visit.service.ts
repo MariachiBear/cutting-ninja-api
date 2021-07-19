@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { UrlService } from '../url/url.service';
 import { UserDocument } from '../user/schema/user.schema';
-import { VisitDTO } from './dto/visit.dto';
+import { CreateVisitDTO, UpdateVisitDTO } from './dto/visit.dto';
 import { BaseVisitService } from './interfaces/visit.service.interface';
 import { Visit, VisitDocument } from './schemas/visit.schema';
 
@@ -29,13 +29,13 @@ export class VisitService implements BaseVisitService {
          });
    }
 
-   async store(visitData: VisitDTO) {
+   async store(visitData: CreateVisitDTO) {
       await this.urlService.show(visitData.url);
       const newVisit = await new this.modelVisit({ ...visitData }).save();
       return await this.show(newVisit.id);
    }
 
-   async update(id: string, visitData: VisitDTO) {
+   async update(id: string, visitData: UpdateVisitDTO) {
       return await this.modelVisit.findByIdAndUpdate(id, visitData).exec();
    }
 

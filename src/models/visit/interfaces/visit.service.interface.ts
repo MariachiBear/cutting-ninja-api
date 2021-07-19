@@ -1,12 +1,12 @@
 import { UserDocument } from 'src/models/user/schema/user.schema';
-import { VisitDTO } from '../dto/visit.dto';
+import { CreateVisitDTO, UpdateVisitDTO } from '../dto/visit.dto';
 import { VisitDocument } from '../schemas/visit.schema';
 
 export interface BaseVisitService {
    /**
     * Gets all the visits from the database.
     *
-    * @returns {Promise<UserDocument[]>} List of visits
+    * @returns {Promise<VisitDocument[]>} List of visits
     */
    index(): Promise<VisitDocument[]>;
 
@@ -22,25 +22,25 @@ export interface BaseVisitService {
    /**
     * Stores a new visit in the database.
     *
-    * @param {UrlDTO} visitData Information to store in the visit
+    * @param {CreateVisitDTO} visitData Information to store in the visit
     * @param {UserDocument | null} requestUser Possible user trying to save the new visit
     *
     * @returns {Promise<VisitDocument>} Information of the visit
     */
-   store(visitData: VisitDTO, requestUser: UserDocument | null): Promise<VisitDocument>;
+   store(visitData: CreateVisitDTO, requestUser: UserDocument | null): Promise<VisitDocument>;
 
    /**
     * Updates the information from a visit in the database.
     *
     * @param {string} visitId Identifier of the visit to update
-    * @param {UrlDTO} visitData Information to update in the visit
+    * @param {UpdateVisitDTO} visitData Information to update in the visit
     * @param {UserDocument} requestUser User trying to update the visit information
     *
     * @returns {Promise<VisitDocument | null>} Updated information of the visit
     */
    update(
       visitId: string,
-      visitData: VisitDTO,
+      visitData: UpdateVisitDTO,
       requestUser: UserDocument
    ): Promise<VisitDocument | null>;
 

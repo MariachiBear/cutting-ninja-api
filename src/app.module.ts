@@ -22,8 +22,8 @@ import { VisitModule } from './models/visit/visit.module';
       ThrottlerModule.forRoot(throttlerConfig),
       MongooseModule.forRootAsync(mongodbConfig),
       UrlModule,
-      VisitModule,
       UserModule,
+      VisitModule,
    ],
 })
 export class AppModule {}

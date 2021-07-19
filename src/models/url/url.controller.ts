@@ -11,6 +11,7 @@ import {
    Request,
    UseGuards,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { Roles } from 'src/config/constants/roles.constant';
 import { EnabledRoles } from 'src/config/decorators/roles.decorator';
 import { RequestParamsDTO } from 'src/config/dto/request-params.dto';
@@ -22,6 +23,7 @@ import { VisitService } from '../visit/visit.service';
 import { CreateUrlDTO, UpdateUrlDTO } from './dto/url.dto';
 import { UrlService } from './url.service';
 @Controller('urls')
+@ApiTags("URL's")
 export class UrlController {
    constructor(private readonly service: UrlService, private readonly visitService: VisitService) {}
 

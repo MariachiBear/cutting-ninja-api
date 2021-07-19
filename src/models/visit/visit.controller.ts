@@ -10,6 +10,7 @@ import {
    Put,
    UseGuards,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { Roles } from 'src/config/constants/roles.constant';
 import { EnabledRoles } from 'src/config/decorators/roles.decorator';
 import { RequestParamsDTO } from 'src/config/dto/request-params.dto';
@@ -19,6 +20,7 @@ import { CreateVisitDTO, UpdateVisitDTO } from './dto/visit.dto';
 import { VisitService } from './visit.service';
 
 @Controller('visits')
+@ApiTags('Visits')
 export class VisitController {
    constructor(private readonly service: VisitService) {}
 

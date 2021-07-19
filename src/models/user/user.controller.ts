@@ -11,6 +11,7 @@ import {
    Request,
    UseGuards,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { Roles } from 'src/config/constants/roles.constant';
 import { EnabledRoles } from 'src/config/decorators/roles.decorator';
 import { RequestParamsDTO } from 'src/config/dto/request-params.dto';
@@ -24,6 +25,7 @@ import { UserDocument } from './schema/user.schema';
 import { UserService } from './user.service';
 
 @Controller('users')
+@ApiTags('Users')
 export class UserController {
    constructor(private readonly service: UserService, private readonly urlService: UrlService) {}
 

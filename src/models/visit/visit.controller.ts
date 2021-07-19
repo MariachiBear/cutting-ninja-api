@@ -15,7 +15,7 @@ import { EnabledRoles } from 'src/config/decorators/roles.decorator';
 import { RequestParamsDTO } from 'src/config/dto/request-params.dto';
 import { JwtAuthGuard } from 'src/config/guards/jwt-auth.guard';
 import { RolesGuard } from 'src/config/guards/role.guard';
-import { VisitDTO } from './dto/visit.dto';
+import { CreateVisitDTO, UpdateVisitDTO } from './dto/visit.dto';
 import { VisitService } from './visit.service';
 
 @Controller('visits')
@@ -40,7 +40,7 @@ export class VisitController {
    @Post()
    @UseGuards(JwtAuthGuard, RolesGuard)
    @EnabledRoles(Roles.ADMIN)
-   async create(@Body() urlData: VisitDTO) {
+   async store(@Body() urlData: CreateVisitDTO) {
       return await this.service.store(urlData);
    }
 
@@ -48,7 +48,7 @@ export class VisitController {
    @UseGuards(JwtAuthGuard, RolesGuard)
    @EnabledRoles(Roles.ADMIN)
    @HttpCode(HttpStatus.NO_CONTENT)
-   async update(@Param() params: RequestParamsDTO, @Body() urlData: VisitDTO) {
+   async update(@Param() params: RequestParamsDTO, @Body() urlData: UpdateVisitDTO) {
       const id = params.id;
       return await this.service.update(id, urlData);
    }

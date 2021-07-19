@@ -4,20 +4,21 @@ import { Model } from 'mongoose';
 import { nanoid } from 'nanoid';
 import { Roles } from 'src/config/constants/roles.constant';
 import { UserDocument } from '../user/schema/user.schema';
-import { UrlDTO } from './dto/url.dto';
+import { CreateUrlDTO, UpdateUrlDTO } from './dto/url.dto';
+import { BaseUrlService } from './interfaces/url.service.interface';
 import { Url, UrlDocument } from './schemas/url.schema';
 
 @Injectable()
-export class UrlService {
+export class UrlService implements BaseUrlService {
    constructor(@InjectModel(Url.name) private readonly modelUrl: Model<UrlDocument>) {}
 
    async index() {
       return await this.modelUrl.find().select('-__v').exec();
    }
 
-   async show(id: string) {
+   async show(urlId: string) {
       return await this.modelUrl
-         .findById(id)
+         .findById(urlId)
          .select('-__v')
          .exec()
          .then((foundUrl) => {
@@ -26,47 +27,38 @@ export class UrlService {
          });
    }
 
-   async store(urlData: UrlDTO, requestUser: UserDocument | null) {
-      let shortUrl = nanoid(5);
-      let shortUrlCheck = await this.findByShortUrl(shortUrl);
-
-      while (shortUrlCheck.length > 0) {
-         shortUrl = nanoid(5);
-         shortUrlCheck = await this.findByShortUrl(shortUrl);
-      }
-
+   async store(urlData: CreateUrlDTO, requestUser: UserDocument | null) {
+      const shortUrlId = await this.secureShortUrlId();
       const newUrl = await new this.modelUrl({
          ...urlData,
-         shortUrl,
+         shortUrl: shortUrlId,
          user: requestUser?._id,
       }).save();
 
       return await this.show(newUrl.id);
    }
 
-   async update(id: string, urlData: UrlDTO, requestUser: UserDocument) {
-      const canDoAction = await this.checkUrlPermissions(id, requestUser);
+   async update(urlId: string, urlData: UpdateUrlDTO, requestUser: UserDocument) {
+      const urlToUpdate = await this.checkUrlPermissions(urlId, requestUser);
+      await this.modelUrl.findByIdAndUpdate(urlId, urlData).exec();
 
-      if (!canDoAction) throw new UnauthorizedException();
-
-      return await this.modelUrl.findByIdAndUpdate(id, urlData).exec();
+      return urlToUpdate;
    }
 
-   async delete(id: string, requestUser: UserDocument) {
-      const canDoAction = await this.checkUrlPermissions(id, requestUser);
+   async delete(urlId: string, requestUser: UserDocument) {
+      const urlToDelete = await this.checkUrlPermissions(urlId, requestUser);
+      await this.modelUrl.findByIdAndDelete(urlId).exec();
 
-      if (!canDoAction) throw new UnauthorizedException();
-
-      return await this.modelUrl.findByIdAndDelete(id).exec();
+      return urlToDelete;
    }
 
    async deleteAll() {
       return await this.modelUrl.deleteMany({}).exec();
    }
 
-   async increaseVisitCount(shortId: string) {
+   async increaseVisitCount(shortUrl: string) {
       return await this.modelUrl
-         .findOneAndUpdate({ shortUrl: shortId }, { $inc: { visits: 1 } })
+         .findOneAndUpdate({ shortUrl }, { $inc: { visits: 1 } })
          .exec()
          .then((urlDoc) => {
             if (!urlDoc) throw new NotFoundException(`${Url.name} not found`);
@@ -74,18 +66,58 @@ export class UrlService {
          });
    }
 
-   async findByUser(userId: string) {
+   async indexByUser(userId: string) {
       return await this.modelUrl.find({ user: userId }).select('-__v').exec();
-   }
-
-   private async findByShortUrl(shortUrl: string) {
-      return await this.modelUrl.find({ shortUrl }).select('-__v').exec();
    }
 
    async checkUrlPermissions(urlId: string, requestUser: UserDocument) {
       const urlToCheck = await this.show(urlId);
       const isUserOwningUrl = String(urlToCheck.user) === String(requestUser._id);
       const isUserAdmin = requestUser.role === Roles.ADMIN;
-      return isUserOwningUrl || isUserAdmin;
+      const canDoAction = isUserOwningUrl || isUserAdmin;
+
+      if (!canDoAction) throw new UnauthorizedException();
+      return urlToCheck;
+   }
+
+   async showByShortUrl(shortUrlId: string) {
+      return await this.modelUrl
+         .findOne({ shortUrl: shortUrlId })
+         .select('-__v')
+         .exec()
+         .then((foundUrl) => {
+            if (!foundUrl) throw new NotFoundException(`${Url.name} not found`);
+            return foundUrl;
+         });
+   }
+
+   /**
+    * Gets a list of urls that belong to a specific user.
+    *
+    * @private
+    * @param {string} shortUrl Short url identifier
+    *
+    * @returns {Promise<UrlDocument[]>} List of urls
+    */
+   private async indexByShortUrlId(shortUrl: string): Promise<UrlDocument[]> {
+      return await this.modelUrl.find({ shortUrl }).select('-__v').exec();
+   }
+
+   /**
+    * Generates safely a short URL to use in the system.
+    *
+    * @private
+    * @returns {Promise<string>} Short URL to use
+    */
+   private async secureShortUrlId(): Promise<string> {
+      let shortUrlId = nanoid(5);
+      let shortUrlCheck = await this.indexByShortUrlId(shortUrlId);
+
+      while (shortUrlCheck.length > 0) {
+         shortUrlId = nanoid(5);
+         shortUrlCheck = await this.indexByShortUrlId(shortUrlId);
+      }
+
+      return shortUrlId;
    }
 }

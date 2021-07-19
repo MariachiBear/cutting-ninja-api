@@ -19,7 +19,7 @@ import { OptionalJwtAuthGuard } from 'src/config/guards/optional-jwt.guard';
 import { RolesGuard } from 'src/config/guards/role.guard';
 import { UserDocument } from '../user/schema/user.schema';
 import { VisitService } from '../visit/visit.service';
-import { UrlDTO } from './dto/url.dto';
+import { CreateUrlDTO, UpdateUrlDTO } from './dto/url.dto';
 import { UrlService } from './url.service';
 @Controller('urls')
 export class UrlController {
@@ -40,9 +40,18 @@ export class UrlController {
       return await this.service.show(id);
    }
 
+   @Get(':id/visits')
+   @UseGuards(JwtAuthGuard, RolesGuard)
+   @EnabledRoles(Roles.ADMIN, Roles.CREATOR)
+   async showUrlVisits(@Param() params: RequestParamsDTO, @Request() request) {
+      const id = params.id;
+      const requestUser: UserDocument = request.user;
+      return await this.visitService.indexByUrl(id, requestUser);
+   }
+
    @Post()
    @UseGuards(OptionalJwtAuthGuard)
-   async store(@Body() urlData: UrlDTO, @Request() request) {
+   async store(@Body() urlData: CreateUrlDTO, @Request() request) {
       const requestUser: UserDocument | null = request.user;
       return await this.service.store(urlData, requestUser);
    }
@@ -51,7 +60,11 @@ export class UrlController {
    @UseGuards(JwtAuthGuard, RolesGuard)
    @EnabledRoles(Roles.ADMIN, Roles.CREATOR)
    @HttpCode(HttpStatus.NO_CONTENT)
-   async update(@Param() params: RequestParamsDTO, @Body() urlData: UrlDTO, @Request() request) {
+   async update(
+      @Param() params: RequestParamsDTO,
+      @Body() urlData: UpdateUrlDTO,
+      @Request() request
+   ) {
       const id = params.id;
       const requestUser: UserDocument = request.user;
       return await this.service.update(id, urlData, requestUser);
@@ -73,14 +86,5 @@ export class UrlController {
    @HttpCode(HttpStatus.NO_CONTENT)
    async deleteAll() {
       return await this.service.deleteAll();
-   }
-
-   @Get(':id/visits')
-   @UseGuards(JwtAuthGuard, RolesGuard)
-   @EnabledRoles(Roles.ADMIN, Roles.CREATOR)
-   async showUrlVisits(@Param() params: RequestParamsDTO, @Request() request) {
-      const id = params.id;
-      const requestUser: UserDocument = request.user;
-      return await this.visitService.findByUrl(id, requestUser);
    }
 }

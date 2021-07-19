@@ -104,6 +104,6 @@ export class UserController {
    @UseGuards(JwtAuthGuard)
    getMyUrls(@Request() request) {
       const requestUser: UserDocument = request.user;
-      return this.urlService.findByUser(requestUser._id);
+      return this.urlService.indexByUser(requestUser._id);
    }
 }

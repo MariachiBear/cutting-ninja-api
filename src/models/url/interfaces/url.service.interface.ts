@@ -1,6 +1,6 @@
+import { CreateUrlDTO, UpdateUrlDTO } from 'src/models/url/dto/url.dto';
+import { UrlDocument } from 'src/models/url/schemas/url.schema';
 import { UserDocument } from 'src/models/user/schema/user.schema';
-import { CreateUrlDTO, UpdateUrlDTO } from '../dto/url.dto';
-import { UrlDocument } from '../schemas/url.schema';
 
 export interface BaseUrlService {
    /**

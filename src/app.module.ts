@@ -2,16 +2,16 @@ import { CacheModule, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ThrottlerModule } from '@nestjs/throttler';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { configModuleConfig } from './config/config-module.config';
-import { mongodbConfig } from './config/mongodb.config';
-import { cacheProvider } from './config/providers/cache.provider';
-import { throttlerProvider } from './config/providers/throttler.provider';
-import { throttlerConfig } from './config/throttler.config';
-import { UrlModule } from './models/url/url.module';
-import { UserModule } from './models/user/user.module';
-import { VisitModule } from './models/visit/visit.module';
+import { AppController } from 'src/app.controller';
+import { AppService } from 'src/app.service';
+import { configModuleConfig } from 'src/config/config-module.config';
+import { mongodbConfig } from 'src/config/mongodb.config';
+import { cacheProvider } from 'src/config/providers/cache.provider';
+import { throttlerProvider } from 'src/config/providers/throttler.provider';
+import { throttlerConfig } from 'src/config/throttler.config';
+import { UrlModule } from 'src/models/url/url.module';
+import { UserModule } from 'src/models/user/user.module';
+import { VisitModule } from 'src/models/visit/visit.module';
 
 @Module({
    controllers: [AppController],

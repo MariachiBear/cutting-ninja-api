@@ -10,9 +10,9 @@ import { InjectModel } from '@nestjs/mongoose';
 import { compare, hash } from 'bcryptjs';
 import { Model } from 'mongoose';
 import { Roles } from 'src/config/constants/roles.constant';
-import { CreateUserDTO, UpdateUserDTO } from './dto/user.dto';
-import { BaseUserService } from './interfaces/user.service.interface';
-import { User, UserDocument } from './schema/user.schema';
+import { CreateUserDTO, UpdateUserDTO } from 'src/models/user/dto/user.dto';
+import { BaseUserService } from 'src/models/user/interfaces/user.service.interface';
+import { User, UserDocument } from 'src/models/user/schema/user.schema';
 
 @Injectable()
 export class UserService implements BaseUserService {

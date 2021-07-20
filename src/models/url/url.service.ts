@@ -3,10 +3,10 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { nanoid } from 'nanoid';
 import { Roles } from 'src/config/constants/roles.constant';
-import { UserDocument } from '../user/schema/user.schema';
-import { CreateUrlDTO, UpdateUrlDTO } from './dto/url.dto';
-import { BaseUrlService } from './interfaces/url.service.interface';
-import { Url, UrlDocument } from './schemas/url.schema';
+import { CreateUrlDTO, UpdateUrlDTO } from 'src/models/url/dto/url.dto';
+import { BaseUrlService } from 'src/models/url/interfaces/url.service.interface';
+import { Url, UrlDocument } from 'src/models/url/schemas/url.schema';
+import { UserDocument } from 'src/models/user/schema/user.schema';
 
 @Injectable()
 export class UrlService implements BaseUrlService {

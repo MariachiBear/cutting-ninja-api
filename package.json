@@ -98,23 +98,23 @@
    },
    "scripts": {
       "build": "pnpm build:clear nest build",
+      "build:clear": "rimraf dist",
+      "docker": "pnpm docker:build && pnpm docker:run",
       "docker:build": "docker build -t url-shortener-api .",
       "docker:run": "docker run -it -d -p 1001:3000 --name url-shortener-api url-shortener-api",
-      "docker": "pnpm docker:build && pnpm docker:run",
       "eslint:check": "eslint --ext .js,.jsx,.ts,.tsx --ignore-path .gitignore . --color",
       "eslint:fix": "eslint --ext .js,.jsx,.ts,.tsx --ignore-path .gitignore . --fix",
-      "build:clear": "rimraf dist",
       "prettier:check": "prettier --ignore-path .gitignore -c \"./**/*.{js,jsx,ts,tsx}\"",
       "prettier:format": "prettier --ignore-path .gitignore -l -w \"./**/*.{js,jsx,ts,tsx}\"",
+      "start": "cross-env NODE_ENV=development nest start",
       "start:debug": "cross-env NODE_ENV=development nest start --debug --watch",
       "start:dev": "cross-env NODE_ENV=development nest start --watch",
       "start:prod": "cross-env NODE_ENV=production node dist/main",
-      "start": "cross-env NODE_ENV=development nest start",
+      "test": "jest",
       "test:cov": "jest --coverage",
       "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
       "test:e2e": "jest --config ./test/jest-e2e.json",
-      "test:watch": "jest --watch",
-      "test": "jest"
+      "test:watch": "jest --watch"
    },
    "version": "0.9.0"
 }

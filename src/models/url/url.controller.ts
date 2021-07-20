@@ -18,10 +18,10 @@ import { RequestParamsDTO } from 'src/config/dto/request-params.dto';
 import { JwtAuthGuard } from 'src/config/guards/jwt-auth.guard';
 import { OptionalJwtAuthGuard } from 'src/config/guards/optional-jwt.guard';
 import { RolesGuard } from 'src/config/guards/role.guard';
-import { UserDocument } from '../user/schema/user.schema';
-import { VisitService } from '../visit/visit.service';
-import { CreateUrlDTO, UpdateUrlDTO } from './dto/url.dto';
-import { UrlService } from './url.service';
+import { CreateUrlDTO, UpdateUrlDTO } from 'src/models/url/dto/url.dto';
+import { UrlService } from 'src/models/url/url.service';
+import { UserDocument } from 'src/models/user/schema/user.schema';
+import { VisitService } from 'src/models/visit/visit.service';
 
 @Controller('urls')
 @ApiTags("URL's")

@@ -15,14 +15,14 @@ import { ApiTags } from '@nestjs/swagger';
 import { Roles } from 'src/config/constants/roles.constant';
 import { EnabledRoles } from 'src/config/decorators/roles.decorator';
 import { RequestParamsDTO } from 'src/config/dto/request-params.dto';
+import { JwtAuthGuard } from 'src/config/guards/jwt-auth.guard';
+import { LocalAuthGuard } from 'src/config/guards/local-auth.guard';
 import { OptionalJwtAuthGuard } from 'src/config/guards/optional-jwt.guard';
 import { RolesGuard } from 'src/config/guards/role.guard';
-import { JwtAuthGuard } from '../../config/guards/jwt-auth.guard';
-import { LocalAuthGuard } from '../../config/guards/local-auth.guard';
-import { UrlService } from '../url/url.service';
-import { CreateUserDTO, UpdateUserDTO } from './dto/user.dto';
-import { UserDocument } from './schema/user.schema';
-import { UserService } from './user.service';
+import { UrlService } from 'src/models/url/url.service';
+import { CreateUserDTO, UpdateUserDTO } from 'src/models/user/dto/user.dto';
+import { UserDocument } from 'src/models/user/schema/user.schema';
+import { UserService } from 'src/models/user/user.service';
 
 @Controller('users')
 @ApiTags('Users')

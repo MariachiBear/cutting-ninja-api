@@ -9,5 +9,6 @@
       "prettierrc",
       "rubenconde",
       "virtuals"
-   ]
+   ],
+   "typescript.preferences.importModuleSpecifier": "non-relative",
 }

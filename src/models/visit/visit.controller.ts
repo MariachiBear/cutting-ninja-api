@@ -16,8 +16,8 @@ import { EnabledRoles } from 'src/config/decorators/roles.decorator';
 import { RequestParamsDTO } from 'src/config/dto/request-params.dto';
 import { JwtAuthGuard } from 'src/config/guards/jwt-auth.guard';
 import { RolesGuard } from 'src/config/guards/role.guard';
-import { CreateVisitDTO, UpdateVisitDTO } from './dto/visit.dto';
-import { VisitService } from './visit.service';
+import { CreateVisitDTO, UpdateVisitDTO } from 'src/models/visit/dto/visit.dto';
+import { VisitService } from 'src/models/visit/visit.service';
 
 @Controller('visits')
 @ApiTags('Visits')

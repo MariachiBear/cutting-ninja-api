@@ -9,7 +9,9 @@
       "experimentalDecorators": true,
       "forceConsistentCasingInFileNames": true,
       "incremental": true,
-      "lib": ["ESNext"],
+      "lib": [
+         "ESNext"
+      ],
       "module": "CommonJS",
       "outDir": "./dist",
       "removeComments": true,
@@ -18,8 +20,18 @@
       "sourceMap": true,
       "strictNullChecks": true,
       "target": "ESNext",
-      "typeRoots": ["./node_modules/@types", "./src/types"]
+      "typeRoots": [
+         "./node_modules/@types",
+         "./src/types"
+      ]
    },
-   "exclude": ["node_modules", "dist"],
-   "include": ["**/src/**/*.ts", "**/test/**/*.ts", "./.eslintrc.js"]
+   "exclude": [
+      "node_modules",
+      "dist"
+   ],
+   "include": [
+      "**/src/**/*.ts",
+      "**/test/**/*.ts",
+      "./.eslintrc.js"
+   ]
 }

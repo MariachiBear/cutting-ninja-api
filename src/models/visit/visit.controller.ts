@@ -28,22 +28,25 @@ export class VisitController {
    @UseGuards(JwtAuthGuard, RolesGuard)
    @EnabledRoles(Roles.ADMIN, Roles.CREATOR)
    async index() {
-      return await this.service.index();
+      const visitList = await this.service.index();
+      return visitList;
    }
 
    @Get(':id')
    @UseGuards(JwtAuthGuard, RolesGuard)
    @EnabledRoles(Roles.ADMIN)
    async find(@Param() params: RequestParamsDTO) {
-      const id = params.id;
-      return await this.service.show(id);
+      const { id } = params;
+      const visit = await this.service.show(id);
+      return visit;
    }
 
    @Post()
    @UseGuards(JwtAuthGuard, RolesGuard)
    @EnabledRoles(Roles.ADMIN)
    async store(@Body() urlData: CreateVisitDTO) {
-      return await this.service.store(urlData);
+      const visit = await this.service.store(urlData);
+      return visit;
    }
 
    @Put(':id')
@@ -51,8 +54,8 @@ export class VisitController {
    @EnabledRoles(Roles.ADMIN)
    @HttpCode(HttpStatus.NO_CONTENT)
    async update(@Param() params: RequestParamsDTO, @Body() urlData: UpdateVisitDTO) {
-      const id = params.id;
-      return await this.service.update(id, urlData);
+      const { id } = params;
+      await this.service.update(id, urlData);
    }
 
    @Delete(':id')
@@ -60,8 +63,8 @@ export class VisitController {
    @EnabledRoles(Roles.ADMIN)
    @HttpCode(HttpStatus.NO_CONTENT)
    async delete(@Param() params: RequestParamsDTO) {
-      const id = params.id;
-      return await this.service.delete(id);
+      const { id } = params;
+      await this.service.delete(id);
    }
 
    @Delete()
@@ -69,6 +72,6 @@ export class VisitController {
    @EnabledRoles(Roles.ADMIN)
    @HttpCode(HttpStatus.NO_CONTENT)
    async deleteAll() {
-      return await this.service.deleteAll();
+      await this.service.deleteAll();
    }
 }

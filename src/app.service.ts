@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { UrlService } from './models/url/url.service';
 import { VisitService } from './models/visit/visit.service';
+
 @Injectable()
 export class AppService {
    constructor(private urlService: UrlService, private visitService: VisitService) {}

@@ -1,5 +1,6 @@
 import {
    ConflictException,
+   ForbiddenException,
    Injectable,
    NotFoundException,
    UnauthorizedException,
@@ -16,32 +17,35 @@ import { User, UserDocument } from './schema/user.schema';
 @Injectable()
 export class UserService implements BaseUserService {
    constructor(
-      @InjectModel(User.name) private readonly modelUser: Model<UserDocument>,
-      private jwtService: JwtService
+      @InjectModel(User.name) private readonly UserModel: Model<UserDocument>,
+      private jwtService: JwtService,
    ) {}
 
    async index() {
-      return await this.modelUser.find().select('-__v -password').exec();
+      const urlList = await this.UserModel.find().select('-__v -password').exec();
+
+      return urlList;
    }
 
    async show(userId: string) {
-      return await this.modelUser
-         .findById(userId)
+      const url = await this.UserModel.findById(userId)
          .select('-__v -password')
          .exec()
          .then((foundUser) => {
             if (!foundUser) throw new NotFoundException(`${User.name} not found`);
             return foundUser;
          });
+
+      return url;
    }
 
    async store(userData: CreateUserDTO, requestUser: UserDocument | null) {
       const isRequestUserAdmin = requestUser?.role === Roles.ADMIN;
       const isNewUserAdmin = userData.role === Roles.ADMIN;
 
-      if (!isRequestUserAdmin && isNewUserAdmin) throw new UnauthorizedException();
+      if (!isRequestUserAdmin && isNewUserAdmin) throw new ForbiddenException('Forbidden resource');
 
-      const isAlreadyCreated = await this.modelUser.findOne({ email: userData.email }).exec();
+      const isAlreadyCreated = await this.UserModel.findOne({ email: userData.email }).exec();
 
       if (isAlreadyCreated) throw new ConflictException('User already exists');
 
@@ -50,26 +54,38 @@ export class UserService implements BaseUserService {
       const saltValue = 10;
       const hashedPassword = await hash(password, saltValue);
 
-      const newUser = await new this.modelUser({ ...userInfo, password: hashedPassword }).save();
+      const newUser = await new this.UserModel({ ...userInfo, password: hashedPassword }).save();
 
-      return await this.show(newUser.id);
+      const user = await this.show(newUser.id);
+
+      return user;
    }
 
    async update(userId: string, userData: UpdateUserDTO, requestUser: UserDocument | null) {
       const isRequestUserAdmin = requestUser?.role === Roles.ADMIN;
       const isModifyingRole = !!userData.role;
 
-      if (!isRequestUserAdmin && isModifyingRole) throw new UnauthorizedException();
+      console.log(isRequestUserAdmin);
+      console.log(isModifyingRole);
 
-      return await this.modelUser.findByIdAndUpdate(userId, userData).exec();
+      if (!isRequestUserAdmin && isModifyingRole)
+         throw new ForbiddenException('Forbidden resource');
+
+      const user = await this.UserModel.findByIdAndUpdate(userId, userData).exec();
+
+      return user;
    }
 
    async delete(userId: string) {
-      return await this.modelUser.findByIdAndDelete(userId).exec();
+      const user = await this.UserModel.findByIdAndDelete(userId).exec();
+
+      return user;
    }
 
    async deleteAll() {
-      return await this.modelUser.deleteMany({}).exec();
+      const deleteDetails = await this.UserModel.deleteMany({}).exec();
+
+      return deleteDetails;
    }
 
    async signIn(userData: UserDocument) {
@@ -85,7 +101,7 @@ export class UserService implements BaseUserService {
    }
 
    async validateUser(email: string, password: string) {
-      const user = await this.modelUser.findOne({ email: email }).select('-__v').exec();
+      const user = await this.UserModel.findOne({ email }).select('-__v').exec();
 
       if (!user) throw new NotFoundException(`${User.name} not found`);
 

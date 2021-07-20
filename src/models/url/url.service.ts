@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { nanoid } from 'nanoid';
@@ -10,64 +10,73 @@ import { Url, UrlDocument } from './schemas/url.schema';
 
 @Injectable()
 export class UrlService implements BaseUrlService {
-   constructor(@InjectModel(Url.name) private readonly modelUrl: Model<UrlDocument>) {}
+   constructor(@InjectModel(Url.name) private readonly UrlModel: Model<UrlDocument>) {}
 
    async index() {
-      return await this.modelUrl.find().select('-__v').exec();
+      const urlList = await this.UrlModel.find().select('-__v').exec();
+
+      return urlList;
    }
 
    async show(urlId: string) {
-      return await this.modelUrl
-         .findById(urlId)
+      const url = await this.UrlModel.findById(urlId)
          .select('-__v')
          .exec()
          .then((foundUrl) => {
             if (!foundUrl) throw new NotFoundException(`${Url.name} not found`);
             return foundUrl;
          });
+
+      return url;
    }
 
    async store(urlData: CreateUrlDTO, requestUser: UserDocument | null) {
       const shortUrlId = await this.secureShortUrlId();
-      const newUrl = await new this.modelUrl({
+      const newUrl = await new this.UrlModel({
          ...urlData,
          shortUrl: shortUrlId,
          user: requestUser?._id,
       }).save();
+      const url = await this.show(newUrl.id);
 
-      return await this.show(newUrl.id);
+      return url;
    }
 
    async update(urlId: string, urlData: UpdateUrlDTO, requestUser: UserDocument) {
       const urlToUpdate = await this.checkUrlPermissions(urlId, requestUser);
-      await this.modelUrl.findByIdAndUpdate(urlId, urlData).exec();
+      await this.UrlModel.findByIdAndUpdate(urlId, urlData).exec();
 
       return urlToUpdate;
    }
 
    async delete(urlId: string, requestUser: UserDocument) {
       const urlToDelete = await this.checkUrlPermissions(urlId, requestUser);
-      await this.modelUrl.findByIdAndDelete(urlId).exec();
+      await this.UrlModel.findByIdAndDelete(urlId).exec();
 
       return urlToDelete;
    }
 
    async deleteAll() {
-      return await this.modelUrl.deleteMany({}).exec();
+      const deleteDetails = await this.UrlModel.deleteMany({}).exec();
+
+      return deleteDetails;
    }
 
    async increaseVisitCount(shortUrl: string) {
-      return await this.modelUrl
-         .findOneAndUpdate({ shortUrl }, { $inc: { visits: 1 } })
+      const url = await this.UrlModel.findOneAndUpdate({ shortUrl }, { $inc: { visits: 1 } })
          .exec()
          .then((urlDoc) => {
             if (!urlDoc) throw new NotFoundException(`${Url.name} not found`);
             return urlDoc;
          });
+
+      return url;
    }
 
    async indexByUser(userId: string) {
-      return await this.modelUrl.find({ user: userId }).select('-__v').exec();
+      const urlList = await this.UrlModel.find({ user: userId }).select('-__v').exec();
+
+      return urlList;
    }
 
    async checkUrlPermissions(urlId: string, requestUser: UserDocument) {
@@ -76,19 +85,20 @@ export class UrlService implements BaseUrlService {
       const isUserAdmin = requestUser.role === Roles.ADMIN;
       const canDoAction = isUserOwningUrl || isUserAdmin;
 
-      if (!canDoAction) throw new UnauthorizedException();
+      if (!canDoAction) throw new ForbiddenException('Forbidden resource');
       return urlToCheck;
    }
 
    async showByShortUrl(shortUrlId: string) {
-      return await this.modelUrl
-         .findOne({ shortUrl: shortUrlId })
+      const urlList = await this.UrlModel.findOne({ shortUrl: shortUrlId })
          .select('-__v')
          .exec()
          .then((foundUrl) => {
             if (!foundUrl) throw new NotFoundException(`${Url.name} not found`);
             return foundUrl;
          });
+
+      return urlList;
    }
 
    /**
@@ -100,7 +110,9 @@ export class UrlService implements BaseUrlService {
     * @returns {Promise<UrlDocument[]>} List of urls
     */
    private async indexByShortUrlId(shortUrl: string): Promise<UrlDocument[]> {
-      return await this.modelUrl.find({ shortUrl }).select('-__v').exec();
+      const urlList = await this.UrlModel.find({ shortUrl }).select('-__v').exec();
+
+      return urlList;
    }
 
    /**

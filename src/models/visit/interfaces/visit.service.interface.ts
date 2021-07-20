@@ -41,7 +41,7 @@ export interface BaseVisitService {
    update(
       visitId: string,
       visitData: UpdateVisitDTO,
-      requestUser: UserDocument
+      requestUser: UserDocument,
    ): Promise<VisitDocument | null>;
 
    /**

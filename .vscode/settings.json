@@ -6,6 +6,7 @@
       "nestjs",
       "pnpm",
       "prebuild",
+      "prettierrc",
       "rubenconde",
       "virtuals"
    ]

@@ -49,7 +49,7 @@ export interface BaseUserService {
    update(
       userId: string,
       userData: UpdateUserDTO,
-      requestUser: UserDocument
+      requestUser: UserDocument,
    ): Promise<UserDocument | null>;
 
    /**

@@ -33,22 +33,25 @@ export class UserController {
    @UseGuards(JwtAuthGuard, RolesGuard)
    @EnabledRoles(Roles.ADMIN)
    async index() {
-      return await this.service.index();
+      const userList = await this.service.index();
+      return userList;
    }
 
    @Get(':id')
    @UseGuards(JwtAuthGuard, RolesGuard)
    @EnabledRoles(Roles.ADMIN)
    async show(@Param() params: RequestParamsDTO) {
-      const id = params.id;
-      return await this.service.show(id);
+      const { id } = params;
+      const user = await this.service.show(id);
+      return user;
    }
 
    @Post('sign-up')
    @UseGuards(OptionalJwtAuthGuard)
    async store(@Body() userData: CreateUserDTO, @Request() request) {
       const requestUser: UserDocument | null = request.user;
-      return await this.service.store(userData, requestUser);
+      const user = await this.service.store(userData, requestUser);
+      return user;
    }
 
    @Put(':id')
@@ -58,11 +61,11 @@ export class UserController {
    async update(
       @Param() params: RequestParamsDTO,
       @Body() userData: UpdateUserDTO,
-      @Request() request
+      @Request() request,
    ) {
-      const id = params.id;
+      const { id } = params;
       const requestUser: UserDocument = request.user;
-      return await this.service.update(id, userData, requestUser);
+      await this.service.update(id, userData, requestUser);
    }
 
    @Delete(':id')
@@ -70,8 +73,8 @@ export class UserController {
    @EnabledRoles(Roles.ADMIN)
    @HttpCode(HttpStatus.NO_CONTENT)
    async delete(@Param() params: RequestParamsDTO) {
-      const id = params.id;
-      return await this.service.delete(id);
+      const { id } = params;
+      await this.service.delete(id);
    }
 
    @Delete()
@@ -79,7 +82,7 @@ export class UserController {
    @EnabledRoles(Roles.ADMIN)
    @HttpCode(HttpStatus.NO_CONTENT)
    async deleteAll() {
-      return await this.service.deleteAll();
+      await this.service.deleteAll();
    }
 
    @Post('sign-in')
@@ -99,13 +102,14 @@ export class UserController {
    @HttpCode(HttpStatus.NO_CONTENT)
    async updateMe(@Body() userData: UpdateUserDTO, @Request() request) {
       const requestUser: UserDocument = request.user;
-      return await this.service.update(requestUser._id, userData, requestUser);
+      await this.service.update(requestUser._id, userData, requestUser);
    }
 
    @Get('me/urls')
    @UseGuards(JwtAuthGuard)
    getMyUrls(@Request() request) {
       const requestUser: UserDocument = request.user;
-      return this.urlService.indexByUser(requestUser._id);
+      const urlList = this.urlService.indexByUser(requestUser._id);
+      return urlList;
    }
 }

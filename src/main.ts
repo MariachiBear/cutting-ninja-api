@@ -16,18 +16,22 @@ async function bootstrap() {
       new FastifyAdapter({
          ignoreTrailingSlash: true,
          logger: true,
-      })
+      }),
    );
+
    app.enableCors();
+
+   app.useGlobalPipes(new ValidationPipe());
+
    await app.register(compression);
    await app.register(fastifyHelmet, helmetConfig);
    await app.register(fastifyCookie);
    await app.register(fastifyCsrf);
-   app.useGlobalPipes(new ValidationPipe());
 
    const document = SwaggerModule.createDocument(app, swaggerConfig);
    SwaggerModule.setup('docs', app, document, swaggerCustomConfig);
 
    await app.listen(Number(process.env.PORT) || 3000, '0.0.0.0');
 }
+
 bootstrap();

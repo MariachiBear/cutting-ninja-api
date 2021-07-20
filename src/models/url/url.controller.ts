@@ -22,6 +22,7 @@ import { UserDocument } from '../user/schema/user.schema';
 import { VisitService } from '../visit/visit.service';
 import { CreateUrlDTO, UpdateUrlDTO } from './dto/url.dto';
 import { UrlService } from './url.service';
+
 @Controller('urls')
 @ApiTags("URL's")
 export class UrlController {
@@ -31,22 +32,25 @@ export class UrlController {
    @UseGuards(JwtAuthGuard, RolesGuard)
    @EnabledRoles(Roles.ADMIN)
    async index() {
-      return await this.service.index();
+      const urlList = await this.service.index();
+      return urlList;
    }
 
    @Get(':id')
    @UseGuards(JwtAuthGuard, RolesGuard)
    @EnabledRoles(Roles.ADMIN)
    async show(@Param() params: RequestParamsDTO) {
-      const id = params.id;
-      return await this.service.show(id);
+      const { id } = params;
+      const url = await this.service.show(id);
+      return url;
    }
 
    @Post()
    @UseGuards(OptionalJwtAuthGuard)
    async store(@Body() urlData: CreateUrlDTO, @Request() request) {
       const requestUser: UserDocument | null = request.user;
-      return await this.service.store(urlData, requestUser);
+      const url = await this.service.store(urlData, requestUser);
+      return url;
    }
 
    @Put(':id')
@@ -56,11 +60,12 @@ export class UrlController {
    async update(
       @Param() params: RequestParamsDTO,
       @Body() urlData: UpdateUrlDTO,
-      @Request() request
+      @Request() request,
    ) {
-      const id = params.id;
+      const { id } = params;
       const requestUser: UserDocument = request.user;
-      return await this.service.update(id, urlData, requestUser);
+      const url = await this.service.update(id, urlData, requestUser);
+      return url;
    }
 
    @Delete(':id')
@@ -68,9 +73,9 @@ export class UrlController {
    @EnabledRoles(Roles.ADMIN, Roles.CREATOR)
    @HttpCode(HttpStatus.NO_CONTENT)
    async delete(@Param() params: RequestParamsDTO, @Request() request) {
-      const id = params.id;
+      const { id } = params;
       const requestUser: UserDocument = request.user;
-      return await this.service.delete(id, requestUser);
+      await this.service.delete(id, requestUser);
    }
 
    @Delete()
@@ -78,15 +83,16 @@ export class UrlController {
    @EnabledRoles(Roles.ADMIN)
    @HttpCode(HttpStatus.NO_CONTENT)
    async deleteAll() {
-      return await this.service.deleteAll();
+      await this.service.deleteAll();
    }
 
    @Get(':id/visits')
    @UseGuards(JwtAuthGuard, RolesGuard)
    @EnabledRoles(Roles.ADMIN, Roles.CREATOR)
    async showUrlVisits(@Param() params: RequestParamsDTO, @Request() request) {
-      const id = params.id;
+      const { id } = params;
       const requestUser: UserDocument = request.user;
-      return await this.visitService.indexByUrl(id, requestUser);
+      const visitList = await this.visitService.indexByUrl(id, requestUser);
+      return visitList;
    }
 }

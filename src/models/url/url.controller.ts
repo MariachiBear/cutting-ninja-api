@@ -16,6 +16,7 @@ import {
    ApiForbiddenResponse,
    ApiNoContentResponse,
    ApiNotFoundResponse,
+   ApiOkResponse,
    ApiTags,
    ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
@@ -29,6 +30,7 @@ import { SwaggerErrorDescriptions } from 'src/config/swagger/error.descriptions.
 import { swaggerErrorResponse } from 'src/config/swagger/error.response.swagger';
 import { SwaggerSuccessDescriptions } from 'src/config/swagger/success.descriptions.swagger';
 import { CreateUrlDTO, UpdateUrlDTO } from 'src/models/url/dto/url.dto';
+import { successUrlCollectionResponse } from 'src/models/url/swagger/url.collection.swagger';
 import { UrlService } from 'src/models/url/url.service';
 import { UserDocument } from 'src/models/user/schema/user.schema';
 import { VisitService } from 'src/models/visit/visit.service';
@@ -49,6 +51,7 @@ export class UrlController {
    @Get()
    @UseGuards(JwtAuthGuard, RolesGuard)
    @EnabledRoles(Roles.ADMIN)
+   @ApiOkResponse(successUrlCollectionResponse)
    async index() {
       const urlList = await this.service.index();
       return urlList;

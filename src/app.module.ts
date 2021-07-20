@@ -5,7 +5,7 @@ import { ThrottlerModule } from '@nestjs/throttler';
 import { AppController } from 'src/app.controller';
 import { AppService } from 'src/app.service';
 import { configModuleConfig } from 'src/config/config-module.config';
-import { mongodbConfig } from 'src/config/mongodb.config';
+import { mongodbConfig } from 'src/config/database/mongodb.config';
 import { cacheProvider } from 'src/config/providers/cache.provider';
 import { throttlerProvider } from 'src/config/providers/throttler.provider';
 import { throttlerConfig } from 'src/config/throttler.config';

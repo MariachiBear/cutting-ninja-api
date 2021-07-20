@@ -8,7 +8,7 @@ import fastifyCsrf from 'fastify-csrf';
 import { fastifyHelmet } from 'fastify-helmet';
 import { AppModule } from 'src/app.module';
 import { helmetConfig } from 'src/config/helmet.config';
-import { swaggerConfig, swaggerCustomConfig } from 'src/config/swagger.config';
+import { swaggerConfig, swaggerCustomConfig } from 'src/config/swagger/swagger.config';
 
 async function bootstrap() {
    const app = await NestFactory.create<NestFastifyApplication>(

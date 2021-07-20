@@ -11,7 +11,14 @@ import {
    Request,
    UseGuards,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import {
+   ApiBadRequestResponse,
+   ApiForbiddenResponse,
+   ApiNoContentResponse,
+   ApiNotFoundResponse,
+   ApiTags,
+   ApiUnauthorizedResponse,
+} from '@nestjs/swagger';
 import { Roles } from 'src/config/constants/roles.constant';
 import { EnabledRoles } from 'src/config/decorators/roles.decorator';
 import { RequestParamsDTO } from 'src/config/dto/request-params.dto';
@@ -19,6 +26,9 @@ import { JwtAuthGuard } from 'src/config/guards/jwt-auth.guard';
 import { LocalAuthGuard } from 'src/config/guards/local-auth.guard';
 import { OptionalJwtAuthGuard } from 'src/config/guards/optional-jwt.guard';
 import { RolesGuard } from 'src/config/guards/role.guard';
+import { SwaggerErrorDescriptions } from 'src/config/swagger/error.descriptions.swagger';
+import { swaggerErrorResponse } from 'src/config/swagger/error.response.swagger';
+import { SwaggerSuccessDescriptions } from 'src/config/swagger/success.descriptions.swagger';
 import { UrlService } from 'src/models/url/url.service';
 import { CreateUserDTO, UpdateUserDTO } from 'src/models/user/dto/user.dto';
 import { UserDocument } from 'src/models/user/schema/user.schema';
@@ -26,6 +36,14 @@ import { UserService } from 'src/models/user/user.service';
 
 @Controller('users')
 @ApiTags('Users')
+@ApiUnauthorizedResponse({
+   description: SwaggerErrorDescriptions.Unauthorized,
+   schema: swaggerErrorResponse,
+})
+@ApiForbiddenResponse({
+   description: SwaggerErrorDescriptions.Forbidden,
+   schema: swaggerErrorResponse,
+})
 export class UserController {
    constructor(private readonly service: UserService, private readonly urlService: UrlService) {}
 
@@ -40,6 +58,10 @@ export class UserController {
    @Get(':id')
    @UseGuards(JwtAuthGuard, RolesGuard)
    @EnabledRoles(Roles.ADMIN)
+   @ApiNotFoundResponse({
+      description: SwaggerErrorDescriptions.NotFound,
+      schema: swaggerErrorResponse,
+   })
    async show(@Param() params: RequestParamsDTO) {
       const { id } = params;
       const user = await this.service.show(id);
@@ -48,6 +70,12 @@ export class UserController {
 
    @Post('sign-up')
    @UseGuards(OptionalJwtAuthGuard)
+   @ApiBadRequestResponse({
+      description: SwaggerErrorDescriptions.BadRequest,
+      schema: swaggerErrorResponse,
+   })
+   @ApiUnauthorizedResponse()
+   @ApiForbiddenResponse()
    async store(@Body() userData: CreateUserDTO, @Request() request) {
       const requestUser: UserDocument | null = request.user;
       const user = await this.service.store(userData, requestUser);
@@ -58,6 +86,11 @@ export class UserController {
    @UseGuards(JwtAuthGuard, RolesGuard)
    @HttpCode(HttpStatus.NO_CONTENT)
    @EnabledRoles(Roles.ADMIN)
+   @ApiNoContentResponse({ description: SwaggerSuccessDescriptions.NoContent })
+   @ApiBadRequestResponse({
+      description: SwaggerErrorDescriptions.BadRequest,
+      schema: swaggerErrorResponse,
+   })
    async update(
       @Param() params: RequestParamsDTO,
       @Body() userData: UpdateUserDTO,
@@ -72,6 +105,7 @@ export class UserController {
    @UseGuards(JwtAuthGuard, RolesGuard)
    @EnabledRoles(Roles.ADMIN)
    @HttpCode(HttpStatus.NO_CONTENT)
+   @ApiNoContentResponse({ description: SwaggerSuccessDescriptions.NoContent })
    async delete(@Param() params: RequestParamsDTO) {
       const { id } = params;
       await this.service.delete(id);
@@ -81,18 +115,25 @@ export class UserController {
    @UseGuards(JwtAuthGuard, RolesGuard)
    @EnabledRoles(Roles.ADMIN)
    @HttpCode(HttpStatus.NO_CONTENT)
+   @ApiNoContentResponse({ description: SwaggerSuccessDescriptions.NoContent })
    async deleteAll() {
       await this.service.deleteAll();
    }
 
    @Post('sign-in')
    @UseGuards(LocalAuthGuard)
+   @ApiNotFoundResponse({
+      description: SwaggerErrorDescriptions.NotFound,
+      schema: swaggerErrorResponse,
+   })
+   @ApiForbiddenResponse()
    async signIn(@Request() request) {
       return this.service.signIn(request.user);
    }
 
    @Get('me')
    @UseGuards(JwtAuthGuard)
+   @ApiForbiddenResponse()
    getMe(@Request() request) {
       return request.user;
    }
@@ -100,6 +141,11 @@ export class UserController {
    @Put('me')
    @UseGuards(JwtAuthGuard)
    @HttpCode(HttpStatus.NO_CONTENT)
+   @ApiBadRequestResponse({
+      description: SwaggerErrorDescriptions.BadRequest,
+      schema: swaggerErrorResponse,
+   })
+   @ApiForbiddenResponse()
    async updateMe(@Body() userData: UpdateUserDTO, @Request() request) {
       const requestUser: UserDocument = request.user;
       await this.service.update(requestUser._id, userData, requestUser);
@@ -107,6 +153,7 @@ export class UserController {
 
    @Get('me/urls')
    @UseGuards(JwtAuthGuard)
+   @ApiForbiddenResponse()
    getMyUrls(@Request() request) {
       const requestUser: UserDocument = request.user;
       const urlList = this.urlService.indexByUser(requestUser._id);

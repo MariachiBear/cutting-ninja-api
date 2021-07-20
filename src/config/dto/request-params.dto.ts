@@ -11,3 +11,13 @@ export class RequestParamsDTO {
    })
    id: string;
 }
+
+export class RedirectRequestParamsDTO {
+   @IsString()
+   @IsNotEmpty()
+   @ApiProperty({
+      description: 'Short URL ID to redirect to',
+      type: 'string',
+   })
+   shortId: string;
+}

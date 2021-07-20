@@ -11,13 +11,23 @@ import {
    Request,
    UseGuards,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import {
+   ApiBadRequestResponse,
+   ApiForbiddenResponse,
+   ApiNoContentResponse,
+   ApiNotFoundResponse,
+   ApiTags,
+   ApiUnauthorizedResponse,
+} from '@nestjs/swagger';
 import { Roles } from 'src/config/constants/roles.constant';
 import { EnabledRoles } from 'src/config/decorators/roles.decorator';
 import { RequestParamsDTO } from 'src/config/dto/request-params.dto';
 import { JwtAuthGuard } from 'src/config/guards/jwt-auth.guard';
 import { OptionalJwtAuthGuard } from 'src/config/guards/optional-jwt.guard';
 import { RolesGuard } from 'src/config/guards/role.guard';
+import { SwaggerErrorDescriptions } from 'src/config/swagger/error.descriptions.swagger';
+import { swaggerErrorResponse } from 'src/config/swagger/error.response.swagger';
+import { SwaggerSuccessDescriptions } from 'src/config/swagger/success.descriptions.swagger';
 import { CreateUrlDTO, UpdateUrlDTO } from 'src/models/url/dto/url.dto';
 import { UrlService } from 'src/models/url/url.service';
 import { UserDocument } from 'src/models/user/schema/user.schema';
@@ -25,6 +35,14 @@ import { VisitService } from 'src/models/visit/visit.service';
 
 @Controller('urls')
 @ApiTags("URL's")
+@ApiUnauthorizedResponse({
+   description: SwaggerErrorDescriptions.Unauthorized,
+   schema: swaggerErrorResponse,
+})
+@ApiForbiddenResponse({
+   description: SwaggerErrorDescriptions.Forbidden,
+   schema: swaggerErrorResponse,
+})
 export class UrlController {
    constructor(private readonly service: UrlService, private readonly visitService: VisitService) {}
 
@@ -39,6 +57,10 @@ export class UrlController {
    @Get(':id')
    @UseGuards(JwtAuthGuard, RolesGuard)
    @EnabledRoles(Roles.ADMIN)
+   @ApiNotFoundResponse({
+      description: SwaggerErrorDescriptions.NotFound,
+      schema: swaggerErrorResponse,
+   })
    async show(@Param() params: RequestParamsDTO) {
       const { id } = params;
       const url = await this.service.show(id);
@@ -47,6 +69,12 @@ export class UrlController {
 
    @Post()
    @UseGuards(OptionalJwtAuthGuard)
+   @ApiBadRequestResponse({
+      description: SwaggerErrorDescriptions.BadRequest,
+      schema: swaggerErrorResponse,
+   })
+   @ApiUnauthorizedResponse()
+   @ApiForbiddenResponse()
    async store(@Body() urlData: CreateUrlDTO, @Request() request) {
       const requestUser: UserDocument | null = request.user;
       const url = await this.service.store(urlData, requestUser);
@@ -57,6 +85,11 @@ export class UrlController {
    @UseGuards(JwtAuthGuard, RolesGuard)
    @EnabledRoles(Roles.ADMIN, Roles.CREATOR)
    @HttpCode(HttpStatus.NO_CONTENT)
+   @ApiNoContentResponse({ description: SwaggerSuccessDescriptions.NoContent })
+   @ApiBadRequestResponse({
+      description: SwaggerErrorDescriptions.BadRequest,
+      schema: swaggerErrorResponse,
+   })
    async update(
       @Param() params: RequestParamsDTO,
       @Body() urlData: UpdateUrlDTO,
@@ -72,6 +105,7 @@ export class UrlController {
    @UseGuards(JwtAuthGuard, RolesGuard)
    @EnabledRoles(Roles.ADMIN, Roles.CREATOR)
    @HttpCode(HttpStatus.NO_CONTENT)
+   @ApiNoContentResponse({ description: SwaggerSuccessDescriptions.NoContent })
    async delete(@Param() params: RequestParamsDTO, @Request() request) {
       const { id } = params;
       const requestUser: UserDocument = request.user;
@@ -82,6 +116,7 @@ export class UrlController {
    @UseGuards(JwtAuthGuard, RolesGuard)
    @EnabledRoles(Roles.ADMIN)
    @HttpCode(HttpStatus.NO_CONTENT)
+   @ApiNoContentResponse({ description: SwaggerSuccessDescriptions.NoContent })
    async deleteAll() {
       await this.service.deleteAll();
    }

@@ -1,13 +1,4 @@
 {
-   "class-methods-use-this": [
-      "error",
-      {
-         "exceptMethods": [
-            "main",
-            "getMe"
-         ]
-      }
-   ],
    "env": {
       "jest": true,
       "node": true
@@ -39,6 +30,21 @@
       "@typescript-eslint/interface-name-prefix": "off",
       "@typescript-eslint/no-explicit-any": "off",
       "@typescript-eslint/no-shadow": "error",
+      "class-methods-use-this": [
+         "error",
+         {
+            "exceptMethods": [
+               "main",
+               "getMe"
+            ]
+         }
+      ],
+      "import/no-extraneous-dependencies": [
+         "error",
+         {
+            "devDependencies": true
+         }
+      ],
       "import/extensions": [
          "error",
          "never"

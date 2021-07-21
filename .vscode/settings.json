@@ -3,6 +3,7 @@
       "Csrf",
       "Fastify",
       "Parens",
+      "URL's",
       "nestjs",
       "pnpm",
       "prebuild",

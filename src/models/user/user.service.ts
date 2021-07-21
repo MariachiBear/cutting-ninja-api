@@ -65,9 +65,6 @@ export class UserService implements BaseUserService {
       const isRequestUserAdmin = requestUser?.role === Roles.ADMIN;
       const isModifyingRole = !!userData.role;
 
-      console.log(isRequestUserAdmin);
-      console.log(isModifyingRole);
-
       if (!isRequestUserAdmin && isModifyingRole)
          throw new ForbiddenException('Forbidden resource');
 

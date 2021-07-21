@@ -39,17 +39,17 @@
             ]
          }
       ],
+      "import/extensions": [
+         "error",
+         "never"
+      ],
+      "import/no-cycle": "off",
       "import/no-extraneous-dependencies": [
          "error",
          {
             "devDependencies": true
          }
       ],
-      "import/extensions": [
-         "error",
-         "never"
-      ],
-      "import/no-cycle": "off",
       "import/prefer-default-export": "off",
       "max-classes-per-file": [
          "error",

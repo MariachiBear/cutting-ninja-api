@@ -97,7 +97,7 @@
       "url": "git+https://github.com/RubenConde/url-shortener-api.git"
    },
    "scripts": {
-      "build": "pnpm build:clear nest build",
+      "build": "pnpm build:clear && nest build",
       "build:clear": "rimraf dist",
       "docker": "pnpm docker:build && pnpm docker:run",
       "docker:build": "docker build -t url-shortener-api .",
@@ -110,6 +110,7 @@
       "start:debug": "cross-env NODE_ENV=development nest start --debug --watch",
       "start:dev": "cross-env NODE_ENV=development nest start --watch",
       "start:prod": "cross-env NODE_ENV=production node dist/main",
+      "start:test": "cross-env NODE_ENV=development node dist/main",
       "test": "jest",
       "test:cov": "jest --coverage",
       "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",

@@ -3,10 +3,13 @@
       "Csrf",
       "Fastify",
       "Parens",
+      "URL's",
       "nestjs",
       "pnpm",
       "prebuild",
+      "prettierrc",
       "rubenconde",
       "virtuals"
-   ]
+   ],
+   "typescript.preferences.importModuleSpecifier": "non-relative",
 }

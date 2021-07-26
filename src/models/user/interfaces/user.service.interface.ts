@@ -1,5 +1,5 @@
+import { CreateUserDTO, UpdateUserDTO } from 'src/models/user/dto/user.dto';
 import { UserDocument } from 'src/models/user/schema/user.schema';
-import { CreateUserDTO, UpdateUserDTO } from '../dto/user.dto';
 
 export interface BaseUserService {
    /**
@@ -49,7 +49,7 @@ export interface BaseUserService {
    update(
       userId: string,
       userData: UpdateUserDTO,
-      requestUser: UserDocument
+      requestUser: UserDocument,
    ): Promise<UserDocument | null>;
 
    /**

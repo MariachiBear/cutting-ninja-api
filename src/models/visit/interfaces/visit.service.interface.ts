@@ -1,6 +1,6 @@
 import { UserDocument } from 'src/models/user/schema/user.schema';
-import { CreateVisitDTO, UpdateVisitDTO } from '../dto/visit.dto';
-import { VisitDocument } from '../schemas/visit.schema';
+import { CreateVisitDTO, UpdateVisitDTO } from 'src/models/visit/dto/visit.dto';
+import { VisitDocument } from 'src/models/visit/schemas/visit.schema';
 
 export interface BaseVisitService {
    /**
@@ -41,7 +41,7 @@ export interface BaseVisitService {
    update(
       visitId: string,
       visitData: UpdateVisitDTO,
-      requestUser: UserDocument
+      requestUser: UserDocument,
    ): Promise<VisitDocument | null>;
 
    /**

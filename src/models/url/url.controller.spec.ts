@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { UrlController } from './url.controller';
+import { UrlController } from 'src/models/url/url.controller';
 
 describe('UrlController', () => {
    let controller: UrlController;

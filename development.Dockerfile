@@ -2,7 +2,7 @@
 FROM node:lts-alpine
 
 # Default port
-EXPOSE 3000
+EXPOSE 9000
 
 # Non-root user for security purposes.
 #

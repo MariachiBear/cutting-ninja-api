@@ -13,9 +13,11 @@ import {
 } from '@nestjs/common';
 import {
    ApiBadRequestResponse,
+   ApiCreatedResponse,
    ApiForbiddenResponse,
    ApiNoContentResponse,
    ApiNotFoundResponse,
+   ApiOkResponse,
    ApiTags,
    ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
@@ -29,9 +31,15 @@ import { RolesGuard } from 'src/config/guards/role.guard';
 import { SwaggerErrorDescriptions } from 'src/config/swagger/error.descriptions.swagger';
 import { swaggerErrorResponse } from 'src/config/swagger/error.response.swagger';
 import { SwaggerSuccessDescriptions } from 'src/config/swagger/success.descriptions.swagger';
+import { successUrlCollectionResponse } from 'src/models/url/swagger/url.collection.swagger';
 import { UrlService } from 'src/models/url/url.service';
 import { CreateUserDTO, UpdateUserDTO } from 'src/models/user/dto/user.dto';
 import { UserDocument } from 'src/models/user/schema/user.schema';
+import { successUserCollectionResponse } from 'src/models/user/swagger/user.collection.swagger';
+import {
+   successUserJWTResourceResponse,
+   successUserResourceResponse,
+} from 'src/models/user/swagger/user.resource.swagger';
 import { UserService } from 'src/models/user/user.service';
 
 @Controller('users')
@@ -50,6 +58,7 @@ export class UserController {
    @Get()
    @UseGuards(JwtAuthGuard, RolesGuard)
    @EnabledRoles(Roles.ADMIN)
+   @ApiOkResponse(successUserCollectionResponse)
    async index() {
       const userList = await this.service.index();
       return userList;
@@ -58,6 +67,7 @@ export class UserController {
    @Get(':id')
    @UseGuards(JwtAuthGuard, RolesGuard)
    @EnabledRoles(Roles.ADMIN)
+   @ApiOkResponse(successUserResourceResponse)
    @ApiNotFoundResponse({
       description: SwaggerErrorDescriptions.NotFound,
       schema: swaggerErrorResponse,
@@ -70,6 +80,7 @@ export class UserController {
 
    @Post('sign-up')
    @UseGuards(OptionalJwtAuthGuard)
+   @ApiCreatedResponse(successUserResourceResponse)
    @ApiBadRequestResponse({
       description: SwaggerErrorDescriptions.BadRequest,
       schema: swaggerErrorResponse,
@@ -122,6 +133,8 @@ export class UserController {
 
    @Post('sign-in')
    @UseGuards(LocalAuthGuard)
+   @HttpCode(HttpStatus.OK)
+   @ApiOkResponse(successUserJWTResourceResponse)
    @ApiNotFoundResponse({
       description: SwaggerErrorDescriptions.NotFound,
       schema: swaggerErrorResponse,
@@ -133,6 +146,7 @@ export class UserController {
 
    @Get('me')
    @UseGuards(JwtAuthGuard)
+   @ApiOkResponse(successUserResourceResponse)
    @ApiForbiddenResponse()
    getMe(@Request() request) {
       return request.user;
@@ -153,6 +167,7 @@ export class UserController {
 
    @Get('me/urls')
    @UseGuards(JwtAuthGuard)
+   @ApiOkResponse(successUrlCollectionResponse)
    @ApiForbiddenResponse()
    getMyUrls(@Request() request) {
       const requestUser: UserDocument = request.user;

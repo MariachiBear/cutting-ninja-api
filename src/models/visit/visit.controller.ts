@@ -12,9 +12,11 @@ import {
 } from '@nestjs/common';
 import {
    ApiBadRequestResponse,
+   ApiCreatedResponse,
    ApiForbiddenResponse,
    ApiNoContentResponse,
    ApiNotFoundResponse,
+   ApiOkResponse,
    ApiTags,
    ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
@@ -27,6 +29,8 @@ import { SwaggerErrorDescriptions } from 'src/config/swagger/error.descriptions.
 import { swaggerErrorResponse } from 'src/config/swagger/error.response.swagger';
 import { SwaggerSuccessDescriptions } from 'src/config/swagger/success.descriptions.swagger';
 import { CreateVisitDTO, UpdateVisitDTO } from 'src/models/visit/dto/visit.dto';
+import { successVisitCollectionResponse } from 'src/models/visit/swagger/visit.collection.swagger';
+import { successVisitResourceResponse } from 'src/models/visit/swagger/visit.resource.swagger';
 import { VisitService } from 'src/models/visit/visit.service';
 
 @Controller('visits')
@@ -45,6 +49,7 @@ export class VisitController {
    @Get()
    @UseGuards(JwtAuthGuard, RolesGuard)
    @EnabledRoles(Roles.ADMIN, Roles.CREATOR)
+   @ApiOkResponse(successVisitCollectionResponse)
    async index() {
       const visitList = await this.service.index();
       return visitList;
@@ -53,6 +58,7 @@ export class VisitController {
    @Get(':id')
    @UseGuards(JwtAuthGuard, RolesGuard)
    @EnabledRoles(Roles.ADMIN)
+   @ApiOkResponse(successVisitResourceResponse)
    @ApiNotFoundResponse({
       description: SwaggerErrorDescriptions.NotFound,
       schema: swaggerErrorResponse,
@@ -66,6 +72,7 @@ export class VisitController {
    @Post()
    @UseGuards(JwtAuthGuard, RolesGuard)
    @EnabledRoles(Roles.ADMIN)
+   @ApiCreatedResponse(successVisitResourceResponse)
    @ApiBadRequestResponse({
       description: SwaggerErrorDescriptions.BadRequest,
       schema: swaggerErrorResponse,

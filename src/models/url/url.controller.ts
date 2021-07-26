@@ -13,6 +13,7 @@ import {
 } from '@nestjs/common';
 import {
    ApiBadRequestResponse,
+   ApiCreatedResponse,
    ApiForbiddenResponse,
    ApiNoContentResponse,
    ApiNotFoundResponse,
@@ -31,8 +32,10 @@ import { swaggerErrorResponse } from 'src/config/swagger/error.response.swagger'
 import { SwaggerSuccessDescriptions } from 'src/config/swagger/success.descriptions.swagger';
 import { CreateUrlDTO, UpdateUrlDTO } from 'src/models/url/dto/url.dto';
 import { successUrlCollectionResponse } from 'src/models/url/swagger/url.collection.swagger';
+import { successUrlResourceResponse } from 'src/models/url/swagger/url.resource.swagger';
 import { UrlService } from 'src/models/url/url.service';
 import { UserDocument } from 'src/models/user/schema/user.schema';
+import { successVisitCollectionResponse } from 'src/models/visit/swagger/visit.collection.swagger';
 import { VisitService } from 'src/models/visit/visit.service';
 
 @Controller('urls')
@@ -60,6 +63,7 @@ export class UrlController {
    @Get(':id')
    @UseGuards(JwtAuthGuard, RolesGuard)
    @EnabledRoles(Roles.ADMIN)
+   @ApiOkResponse(successUrlResourceResponse)
    @ApiNotFoundResponse({
       description: SwaggerErrorDescriptions.NotFound,
       schema: swaggerErrorResponse,
@@ -72,6 +76,7 @@ export class UrlController {
 
    @Post()
    @UseGuards(OptionalJwtAuthGuard)
+   @ApiCreatedResponse(successUrlResourceResponse)
    @ApiBadRequestResponse({
       description: SwaggerErrorDescriptions.BadRequest,
       schema: swaggerErrorResponse,
@@ -127,6 +132,7 @@ export class UrlController {
    @Get(':id/visits')
    @UseGuards(JwtAuthGuard, RolesGuard)
    @EnabledRoles(Roles.ADMIN, Roles.CREATOR)
+   @ApiOkResponse(successVisitCollectionResponse)
    async showUrlVisits(@Param() params: RequestParamsDTO, @Request() request) {
       const { id } = params;
       const requestUser: UserDocument = request.user;

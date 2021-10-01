@@ -56,7 +56,7 @@ export class UrlService implements BaseUrlService {
       return urlToDelete;
    }
 
-   async deleteAll() {
+   async deleteAll(): Promise<MongooseDeleteResponse> {
       const deleteDetails = await this.UrlModel.deleteMany({}).exec();
 
       return deleteDetails;

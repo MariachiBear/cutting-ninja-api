@@ -52,7 +52,7 @@ export class VisitService implements BaseVisitService {
       return visit;
    }
 
-   async deleteAll() {
+   async deleteAll(): Promise<MongooseDeleteResponse> {
       const deleteDetails = await this.VisitModel.deleteMany({}).exec();
 
       return deleteDetails;

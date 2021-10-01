@@ -79,7 +79,7 @@ export class UserService implements BaseUserService {
       return user;
    }
 
-   async deleteAll() {
+   async deleteAll(): Promise<MongooseDeleteResponse> {
       const deleteDetails = await this.UserModel.deleteMany({}).exec();
 
       return deleteDetails;

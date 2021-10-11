@@ -11,9 +11,9 @@ export class AppService {
     * visit count for the found url. After that it retrieves the long url to redirect the client
     *
     * @param {string} shortUrlId
-    * @returns {string} Long url to redirect
+    * @returns {Promise<string>} Long url to redirect
     */
-   async getLongUrl(shortUrlId: string) {
+   async getLongUrl(shortUrlId: string): Promise<string> {
       const urlToRedirect = await this.urlService.showByShortUrl(shortUrlId);
       await this.visitService.store({ url: urlToRedirect.id });
       await this.urlService.increaseVisitCount(shortUrlId);

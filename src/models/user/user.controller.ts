@@ -13,6 +13,7 @@ import {
 } from '@nestjs/common';
 import {
    ApiBadRequestResponse,
+   ApiBearerAuth,
    ApiCreatedResponse,
    ApiForbiddenResponse,
    ApiNoContentResponse,
@@ -33,7 +34,7 @@ import { swaggerErrorResponse } from 'src/config/swagger/error.response.swagger'
 import { SwaggerSuccessDescriptions } from 'src/config/swagger/success.descriptions.swagger';
 import { successUrlCollectionResponse } from 'src/models/url/swagger/url.collection.swagger';
 import { UrlService } from 'src/models/url/url.service';
-import { CreateUserDTO, UpdateUserDTO } from 'src/models/user/dto/user.dto';
+import { CreateUserDTO, LoginUserDTO, UpdateUserDTO } from 'src/models/user/dto/user.dto';
 import { UserDocument } from 'src/models/user/schema/user.schema';
 import { successUserCollectionResponse } from 'src/models/user/swagger/user.collection.swagger';
 import {
@@ -58,6 +59,7 @@ export class UserController {
    @Get()
    @UseGuards(JwtAuthGuard, RolesGuard)
    @EnabledRoles(Roles.ADMIN)
+   @ApiBearerAuth()
    @ApiOkResponse(successUserCollectionResponse)
    async index() {
       const userList = await this.service.index();
@@ -67,6 +69,7 @@ export class UserController {
    @Get(':id')
    @UseGuards(JwtAuthGuard, RolesGuard)
    @EnabledRoles(Roles.ADMIN)
+   @ApiBearerAuth()
    @ApiOkResponse(successUserResourceResponse)
    @ApiNotFoundResponse({
       description: SwaggerErrorDescriptions.NotFound,
@@ -85,8 +88,6 @@ export class UserController {
       description: SwaggerErrorDescriptions.BadRequest,
       schema: swaggerErrorResponse,
    })
-   @ApiUnauthorizedResponse()
-   @ApiForbiddenResponse()
    async store(@Body() userData: CreateUserDTO, @Request() request) {
       const requestUser: UserDocument | null = request.user;
       const user = await this.service.store(userData, requestUser);
@@ -97,6 +98,7 @@ export class UserController {
    @UseGuards(JwtAuthGuard, RolesGuard)
    @HttpCode(HttpStatus.NO_CONTENT)
    @EnabledRoles(Roles.ADMIN)
+   @ApiBearerAuth()
    @ApiNoContentResponse({ description: SwaggerSuccessDescriptions.NoContent })
    @ApiBadRequestResponse({
       description: SwaggerErrorDescriptions.BadRequest,
@@ -116,6 +118,7 @@ export class UserController {
    @UseGuards(JwtAuthGuard, RolesGuard)
    @EnabledRoles(Roles.ADMIN)
    @HttpCode(HttpStatus.NO_CONTENT)
+   @ApiBearerAuth()
    @ApiNoContentResponse({ description: SwaggerSuccessDescriptions.NoContent })
    async delete(@Param() params: RequestParamsDTO) {
       const { id } = params;
@@ -126,6 +129,7 @@ export class UserController {
    @UseGuards(JwtAuthGuard, RolesGuard)
    @EnabledRoles(Roles.ADMIN)
    @HttpCode(HttpStatus.NO_CONTENT)
+   @ApiBearerAuth()
    @ApiNoContentResponse({ description: SwaggerSuccessDescriptions.NoContent })
    async deleteAll() {
       await this.service.deleteAll();
@@ -140,12 +144,14 @@ export class UserController {
       schema: swaggerErrorResponse,
    })
    @ApiForbiddenResponse()
-   async signIn(@Request() request) {
+   // eslint-disable-next-line @typescript-eslint/no-unused-vars
+   async signIn(@Request() request, @Body() body: LoginUserDTO) {
       return this.service.signIn(request.user);
    }
 
    @Get('me')
    @UseGuards(JwtAuthGuard)
+   @ApiBearerAuth()
    @ApiOkResponse(successUserResourceResponse)
    @ApiForbiddenResponse()
    getMe(@Request() request) {
@@ -155,6 +161,7 @@ export class UserController {
    @Put('me')
    @UseGuards(JwtAuthGuard)
    @HttpCode(HttpStatus.NO_CONTENT)
+   @ApiBearerAuth()
    @ApiBadRequestResponse({
       description: SwaggerErrorDescriptions.BadRequest,
       schema: swaggerErrorResponse,
@@ -167,6 +174,7 @@ export class UserController {
 
    @Get('me/urls')
    @UseGuards(JwtAuthGuard)
+   @ApiBearerAuth()
    @ApiOkResponse(successUrlCollectionResponse)
    @ApiForbiddenResponse()
    getMyUrls(@Request() request) {

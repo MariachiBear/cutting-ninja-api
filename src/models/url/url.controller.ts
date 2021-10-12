@@ -13,6 +13,7 @@ import {
 } from '@nestjs/common';
 import {
    ApiBadRequestResponse,
+   ApiBearerAuth,
    ApiCreatedResponse,
    ApiForbiddenResponse,
    ApiNoContentResponse,
@@ -40,6 +41,7 @@ import { VisitService } from 'src/models/visit/visit.service';
 
 @Controller('urls')
 @ApiTags("URL's")
+@ApiBearerAuth()
 @ApiUnauthorizedResponse({
    description: SwaggerErrorDescriptions.Unauthorized,
    schema: swaggerErrorResponse,
@@ -81,8 +83,6 @@ export class UrlController {
       description: SwaggerErrorDescriptions.BadRequest,
       schema: swaggerErrorResponse,
    })
-   @ApiUnauthorizedResponse()
-   @ApiForbiddenResponse()
    async store(@Body() urlData: CreateUrlDTO, @Request() request) {
       const requestUser: UserDocument | null = request.user;
       const url = await this.service.store(urlData, requestUser);

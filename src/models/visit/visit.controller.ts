@@ -12,6 +12,7 @@ import {
 } from '@nestjs/common';
 import {
    ApiBadRequestResponse,
+   ApiBearerAuth,
    ApiCreatedResponse,
    ApiForbiddenResponse,
    ApiNoContentResponse,
@@ -35,6 +36,7 @@ import { VisitService } from 'src/models/visit/visit.service';
 
 @Controller('visits')
 @ApiTags('Visits')
+@ApiBearerAuth()
 @ApiUnauthorizedResponse({
    description: SwaggerErrorDescriptions.Unauthorized,
    schema: swaggerErrorResponse,

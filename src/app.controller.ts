@@ -1,11 +1,12 @@
 import { Controller, Get, HttpCode, HttpStatus, Param, Redirect } from '@nestjs/common';
-import { ApiFoundResponse, ApiTags } from '@nestjs/swagger';
+import { ApiExcludeController, ApiFoundResponse, ApiTags } from '@nestjs/swagger';
 import { AppService } from 'src/app.service';
 import { RedirectRequestParamsDTO } from 'src/config/dto/request-params.dto';
 import { SwaggerSuccessDescriptions } from 'src/config/swagger/success.descriptions.swagger';
 
 @Controller()
 @ApiTags('Root')
+@ApiExcludeController()
 export class AppController {
    constructor(private readonly appService: AppService) {}
 

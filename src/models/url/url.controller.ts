@@ -40,7 +40,7 @@ import { successVisitCollectionResponse } from 'src/models/visit/swagger/visit.c
 import { VisitService } from 'src/models/visit/visit.service';
 
 @Controller('urls')
-@ApiTags("URL's")
+@ApiTags('URLs')
 @ApiBearerAuth()
 @ApiUnauthorizedResponse({
    description: SwaggerErrorDescriptions.Unauthorized,

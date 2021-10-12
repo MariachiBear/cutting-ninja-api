@@ -12,4 +12,7 @@
       "virtuals"
    ],
    "typescript.preferences.importModuleSpecifier": "non-relative",
+   "conventionalCommits.scopes": [
+      "db"
+   ],
 }

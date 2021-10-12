@@ -3,9 +3,9 @@ import { JwtModule } from '@nestjs/jwt';
 import { dbUser } from 'src/config/database/user.db';
 import { JwtStrategy } from 'src/config/strategies/jwt.strategy';
 import { LocalStrategy } from 'src/config/strategies/local.strategy';
-import { UrlModule } from '../url/url.module';
-import { UserController } from './user.controller';
-import { UserService } from './user.service';
+import { UrlModule } from 'src/models/url/url.module';
+import { UserController } from 'src/models/user/user.controller';
+import { UserService } from 'src/models/user/user.service';
 
 @Module({
    controllers: [UserController],
@@ -15,7 +15,7 @@ import { UserService } from './user.service';
       JwtModule.registerAsync({
          useFactory: () => ({
             secret: process.env.JWT_SECRET,
-            signOptions: { expiresIn: '24h' },
+            signOptions: { expiresIn: '15 days' },
          }),
       }),
       dbUser,

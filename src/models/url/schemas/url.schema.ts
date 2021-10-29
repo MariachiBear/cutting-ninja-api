@@ -15,6 +15,9 @@ export class Url {
 
    @Prop({ type: Number, required: true, default: 0 })
    visits: number;
+
+   @Prop({ type: Date, required: false })
+   removedAt: Date;
 }
 
 export type UrlDocument = Url & Document;

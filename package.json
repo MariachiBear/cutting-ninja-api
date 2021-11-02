@@ -108,7 +108,7 @@
       "docker:clean": "docker stop url-shortener-api || true && docker rm url-shortener-api || true && docker rmi url-shortener-api || true ",
       "docker:run": "docker run -it -d --network host --name url-shortener-api url-shortener-api",
       "eslint:format": "eslint --ext .js,.jsx,.ts,.tsx --ignore-path .gitignore . --fix",
-      "generate:changelog": "whatchanged --fmt=md --preset=full --output=CHANGELOG.md HEAD~",
+      "generate:changelog": "whatchanged --fmt=md --output=CHANGELOG.md HEAD~",
       "prettier:format": "prettier --ignore-path .gitignore -l -w \"./**/*.{js,jsx,ts,tsx}\"",
       "start": "cross-env NODE_ENV=development nest start",
       "start:debug": "cross-env NODE_ENV=development nest start --debug --watch",

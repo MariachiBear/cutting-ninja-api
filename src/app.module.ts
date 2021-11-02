@@ -1,6 +1,7 @@
 import { CacheModule, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
+import { ScheduleModule } from '@nestjs/schedule';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { AppController } from 'src/app.controller';
 import { AppService } from 'src/app.service';
@@ -19,8 +20,9 @@ import { VisitModule } from 'src/models/visit/visit.module';
    imports: [
       CacheModule.register(),
       ConfigModule.forRoot(configModuleConfig),
-      ThrottlerModule.forRoot(throttlerConfig),
       MongooseModule.forRootAsync(mongodbConfig),
+      ScheduleModule.forRoot(),
+      ThrottlerModule.forRoot(throttlerConfig),
       UrlModule,
       UserModule,
       VisitModule,

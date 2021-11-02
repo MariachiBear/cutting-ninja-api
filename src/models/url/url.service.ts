@@ -1,5 +1,6 @@
 import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import { Cron, CronExpression } from '@nestjs/schedule';
 import { Model } from 'mongoose';
 import { nanoid } from 'nanoid';
 import { Roles } from 'src/config/constants/roles.constant';
@@ -74,7 +75,12 @@ export class UrlService implements BaseUrlService {
    }
 
    async indexByUser(userId: string) {
-      const urlList = await this.UrlModel.find({ user: userId }).select('-__v').exec();
+      const urlList = await this.UrlModel.find({
+         user: userId,
+         removedAt: { $exists: false },
+      })
+         .select('-__v -removedAt')
+         .exec();
 
       return urlList;
    }
@@ -131,5 +137,26 @@ export class UrlService implements BaseUrlService {
       }
 
       return shortUrlId;
+   }
+
+   @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT)
+   private async purgeUrls() {
+      const today = new Date();
+      const aMonthAgo = today.setDate(today.getDate() - 90);
+
+      const bulkResult = await this.UrlModel.bulkWrite([
+         {
+            updateOne: {
+               filter: {
+                  user: { $exists: false },
+                  removedAt: { $exists: false },
+                  createdAt: { $lt: aMonthAgo },
+               },
+               update: { removedAt: new Date() },
+            },
+         },
+      ]);
+
+      console.log(`Removed ${bulkResult.modifiedCount} urls`);
    }
 }

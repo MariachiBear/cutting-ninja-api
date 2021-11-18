@@ -4,7 +4,7 @@ import { Cron, CronExpression } from '@nestjs/schedule';
 import { Model } from 'mongoose';
 import { nanoid } from 'nanoid';
 import { Roles } from 'src/config/constants/roles.constant';
-import { CreateUrlDTO, UpdateUrlDTO } from 'src/models/url/dto/url.dto';
+import { CreateUrlDTO, TakeUrlDTO, UpdateUrlDTO } from 'src/models/url/dto/url.dto';
 import { BaseUrlService } from 'src/models/url/interfaces/url.service.interface';
 import { Url, UrlDocument } from 'src/models/url/schemas/url.schema';
 import { UserDocument } from 'src/models/user/schema/user.schema';
@@ -48,6 +48,11 @@ export class UrlService implements BaseUrlService {
       await this.UrlModel.findByIdAndUpdate(urlId, urlData).exec();
 
       return urlToUpdate;
+   }
+
+   async take(urlData: TakeUrlDTO, requestUser: UserDocument) {
+      const idArray = urlData.urls.map((url) => String(url._id));
+      await this.UrlModel.updateMany({ _id: { $in: idArray } }, { user: requestUser._id }).exec();
    }
 
    async delete(urlId: string, requestUser: UserDocument) {

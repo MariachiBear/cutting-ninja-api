@@ -1,6 +1,17 @@
+/* eslint-disable max-classes-per-file */
 import { ApiProperty, PartialType } from '@nestjs/swagger';
-import { IsNotEmpty, IsString, IsUrl } from 'class-validator';
+import { IsArray, IsNotEmpty, IsString, IsUrl } from 'class-validator';
+import { UrlDocument } from 'src/models/url/schemas/url.schema';
 
+export class TakeUrlDTO {
+   @IsNotEmpty()
+   @IsArray()
+   @ApiProperty({
+      type: 'array',
+      description: "URL's bulk",
+   })
+   urls: UrlDocument[];
+}
 export class CreateUrlDTO {
    @IsNotEmpty()
    @IsString()

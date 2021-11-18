@@ -106,7 +106,7 @@
       "docker": "pnpm docker:clean && pnpm docker:build && pnpm docker:run",
       "docker:build": "docker build -t url-shortener-api .",
       "docker:clean": "docker stop url-shortener-api || true && docker rm url-shortener-api || true && docker rmi url-shortener-api || true ",
-      "docker:run": "docker run -it -d --network host --name url-shortener-api url-shortener-api",
+      "docker:run": "docker run -it -d --restart always --network host --name url-shortener-api url-shortener-api",
       "eslint:format": "eslint --ext .js,.jsx,.ts,.tsx --ignore-path .gitignore . --fix",
       "generate:changelog": "whatchanged --fmt=md --output=CHANGELOG.md HEAD~",
       "prettier:format": "prettier --ignore-path .gitignore -l -w \"./**/*.{js,jsx,ts,tsx}\"",

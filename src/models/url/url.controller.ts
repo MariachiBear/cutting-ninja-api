@@ -31,7 +31,7 @@ import { RolesGuard } from 'src/config/guards/role.guard';
 import { SwaggerErrorDescriptions } from 'src/config/swagger/error.descriptions.swagger';
 import { swaggerErrorResponse } from 'src/config/swagger/error.response.swagger';
 import { SwaggerSuccessDescriptions } from 'src/config/swagger/success.descriptions.swagger';
-import { CreateUrlDTO, UpdateUrlDTO } from 'src/models/url/dto/url.dto';
+import { CreateUrlDTO, TakeUrlDTO, UpdateUrlDTO } from 'src/models/url/dto/url.dto';
 import { successUrlCollectionResponse } from 'src/models/url/swagger/url.collection.swagger';
 import { successUrlResourceResponse } from 'src/models/url/swagger/url.resource.swagger';
 import { UrlService } from 'src/models/url/url.service';
@@ -107,6 +107,20 @@ export class UrlController {
       const requestUser: UserDocument = request.user;
       const url = await this.service.update(id, urlData, requestUser);
       return url;
+   }
+
+   @Put('take')
+   @UseGuards(JwtAuthGuard, RolesGuard)
+   @EnabledRoles(Roles.ADMIN, Roles.CREATOR)
+   @HttpCode(HttpStatus.NO_CONTENT)
+   @ApiNoContentResponse({ description: SwaggerSuccessDescriptions.NoContent })
+   @ApiBadRequestResponse({
+      description: SwaggerErrorDescriptions.BadRequest,
+      schema: swaggerErrorResponse,
+   })
+   async take(@Body() urlData: TakeUrlDTO, @Request() request) {
+      const requestUser: UserDocument = request.user;
+      await this.service.take(urlData, requestUser);
    }
 
    @Delete(':id')

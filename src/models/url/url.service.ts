@@ -1,6 +1,7 @@
 import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Cron, CronExpression } from '@nestjs/schedule';
+import { DateTime } from 'luxon';
 import { Model } from 'mongoose';
 import { nanoid } from 'nanoid';
 import { Roles } from 'src/config/constants/roles.constant';
@@ -56,10 +57,17 @@ export class UrlService implements BaseUrlService {
    }
 
    async delete(urlId: string, requestUser: UserDocument) {
-      const urlToDelete = await this.checkUrlPermissions(urlId, requestUser);
-      await this.UrlModel.findByIdAndDelete(urlId).exec();
+      //* TO DELETE FROM SYSTEM
+      // const urlToDelete = await this.checkUrlPermissions(urlId, requestUser);
+      // await this.UrlModel.findByIdAndDelete(urlId).exec();
 
-      return urlToDelete;
+      // return urlToDelete;
+
+      //* TO UPDATE removedAt
+      const urlToUpdate = await this.checkUrlPermissions(urlId, requestUser);
+      await this.UrlModel.findByIdAndUpdate(urlId, { removedAt: new Date() }).exec();
+
+      return urlToUpdate;
    }
 
    async deleteAll(): Promise<MongooseDeleteResponse> {
@@ -146,16 +154,15 @@ export class UrlService implements BaseUrlService {
 
    @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT)
    private async purgeUrls() {
-      const today = new Date();
-      const aMonthAgo = today.setDate(today.getDate() - 90);
+      const lastValidDate = DateTime.now().startOf('day').minus({ days: 90 }).toJSDate();
 
       const bulkResult = await this.UrlModel.bulkWrite([
          {
             updateOne: {
                filter: {
-                  user: { $exists: false },
+                  createdAt: { $lt: lastValidDate },
                   removedAt: { $exists: false },
-                  createdAt: { $lt: aMonthAgo },
+                  user: { $exists: false },
                },
                update: { removedAt: new Date() },
             },

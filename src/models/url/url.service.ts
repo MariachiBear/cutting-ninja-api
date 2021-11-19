@@ -56,10 +56,17 @@ export class UrlService implements BaseUrlService {
    }
 
    async delete(urlId: string, requestUser: UserDocument) {
-      const urlToDelete = await this.checkUrlPermissions(urlId, requestUser);
-      await this.UrlModel.findByIdAndDelete(urlId).exec();
+      //* TO DELETE FROM SYSTEM
+      // const urlToDelete = await this.checkUrlPermissions(urlId, requestUser);
+      // await this.UrlModel.findByIdAndDelete(urlId).exec();
 
-      return urlToDelete;
+      // return urlToDelete;
+
+      //* TO UPDATE removedAt
+      const urlToUpdate = await this.checkUrlPermissions(urlId, requestUser);
+      await this.UrlModel.findByIdAndUpdate(urlId, { removedAt: new Date() }).exec();
+
+      return urlToUpdate;
    }
 
    async deleteAll(): Promise<MongooseDeleteResponse> {
@@ -147,7 +154,7 @@ export class UrlService implements BaseUrlService {
    @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT)
    private async purgeUrls() {
       const today = new Date();
-      const aMonthAgo = today.setDate(today.getDate() - 90);
+      const lastValidDate = today.setDate(today.getDate() - 90);
 
       const bulkResult = await this.UrlModel.bulkWrite([
          {
@@ -155,7 +162,7 @@ export class UrlService implements BaseUrlService {
                filter: {
                   user: { $exists: false },
                   removedAt: { $exists: false },
-                  createdAt: { $lt: aMonthAgo },
+                  createdAt: { $lt: lastValidDate },
                },
                update: { removedAt: new Date() },
             },

@@ -112,7 +112,7 @@
       "prettier:format": "prettier --ignore-path .gitignore -l -w \"./**/*.{js,jsx,ts,tsx}\"",
       "start:debug": "cross-env NODE_ENV=development nest start --debug --watch",
       "start:dev": "cross-env NODE_ENV=development nest start --watch",
-      "start:prod": "cross-env NODE_ENV=production pm2-runtime start dist/main.js -i max --name 'URL Shortener [Production]'",
+      "start:prod": "cross-env NODE_ENV=production pm2-runtime start dist/main.js -i 4 --name 'URL Shortener [Production]'",
       "start:test": "cross-env NODE_ENV=development pm2 start dist/main.js --watch --name 'URL Shortener [Development]'",
       "start": "cross-env NODE_ENV=development nest start",
       "test:cov": "jest --coverage",

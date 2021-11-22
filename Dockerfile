@@ -18,13 +18,13 @@ RUN apk add --no-cache
 WORKDIR /home/nonroot/url-shortener
 
 # Install PNPM
-RUN npm install -g pnpm
-
-# Install PM2
-RUN npm install pm2 -g
+RUN npm install -g npm pnpm pm2
 
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
 COPY package*.json ./
+
+# A wildcard is used to ensure pnpm-lock.yaml copied
+COPY pnpm*.yaml ./
 
 # Install dependencies
 RUN pnpm install

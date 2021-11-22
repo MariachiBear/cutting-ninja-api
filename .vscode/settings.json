@@ -2,14 +2,15 @@
    "cSpell.words": [
       "Csrf",
       "Fastify",
-      "Parens",
-      "URL's",
       "nestjs",
+      "Parens",
       "pnpm",
       "prebuild",
       "prettierrc",
       "rubenconde",
-      "virtuals"
+      "URL's",
+      "virtuals",
+      "whatchanged"
    ],
    "typescript.preferences.importModuleSpecifier": "non-relative",
    "conventionalCommits.scopes": [

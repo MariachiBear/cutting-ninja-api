@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import isbot from 'isbot';
 import { UrlService } from 'src/models/url/url.service';
 import { VisitService } from 'src/models/visit/visit.service';
 
@@ -13,10 +14,16 @@ export class AppService {
     * @param {string} shortUrlId
     * @returns {Promise<string>} Long url to redirect
     */
-   async getLongUrl(shortUrlId: string): Promise<string> {
+   async getLongUrl(shortUrlId: string, userAgent: string): Promise<string> {
+      const isBot = isbot(userAgent);
+
       const urlToRedirect = await this.urlService.showByShortUrl(shortUrlId);
-      await this.visitService.store({ url: urlToRedirect.id });
-      await this.urlService.increaseVisitCount(shortUrlId);
+
+      if (isBot) {
+         await this.visitService.store({ url: urlToRedirect.id });
+         await this.urlService.increaseVisitCount(shortUrlId);
+      }
+
       return urlToRedirect.longUrl;
    }
 }

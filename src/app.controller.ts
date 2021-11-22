@@ -1,4 +1,4 @@
-import { Controller, Get, HttpCode, HttpStatus, Param, Redirect } from '@nestjs/common';
+import { Controller, Get, HttpCode, HttpStatus, Param, Redirect, Request } from '@nestjs/common';
 import { ApiExcludeController, ApiFoundResponse, ApiTags } from '@nestjs/swagger';
 import { AppService } from 'src/app.service';
 import { RedirectRequestParamsDTO } from 'src/config/dto/request-params.dto';
@@ -22,9 +22,10 @@ export class AppController {
    @Redirect()
    @HttpCode(HttpStatus.FOUND)
    @ApiFoundResponse({ description: SwaggerSuccessDescriptions.Found })
-   async redirect(@Param() params: RedirectRequestParamsDTO) {
+   async redirect(@Param() params: RedirectRequestParamsDTO, @Request() request) {
+      const userAgent = String(request.headers['user-agent']) ?? '';
       const { shortId } = params;
-      const longUrl = await this.appService.getLongUrl(shortId);
+      const longUrl = await this.appService.getLongUrl(shortId, userAgent);
       return { url: longUrl };
    }
 }

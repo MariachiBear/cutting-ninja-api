@@ -1,4 +1,4 @@
-import { CacheModule, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ScheduleModule } from '@nestjs/schedule';
@@ -7,7 +7,6 @@ import { AppController } from 'src/app.controller';
 import { AppService } from 'src/app.service';
 import { configModuleConfig } from 'src/config/config-module.config';
 import { mongodbConfig } from 'src/config/database/mongodb.config';
-import { cacheProvider } from 'src/config/providers/cache.provider';
 import { throttlerProvider } from 'src/config/providers/throttler.provider';
 import { throttlerConfig } from 'src/config/throttler.config';
 import { UrlModule } from 'src/models/url/url.module';
@@ -16,9 +15,13 @@ import { VisitModule } from 'src/models/visit/visit.module';
 
 @Module({
    controllers: [AppController],
-   providers: [AppService, cacheProvider, throttlerProvider],
+   providers: [
+      AppService,
+      // cacheProvider,
+      throttlerProvider,
+   ],
    imports: [
-      CacheModule.register(),
+      // CacheModule.register(),
       ConfigModule.forRoot(configModuleConfig),
       MongooseModule.forRootAsync(mongodbConfig),
       ScheduleModule.forRoot(),

@@ -102,27 +102,26 @@
       "url": "git+https://github.com/RubenConde/url-shortener-api.git"
    },
    "scripts": {
-      "build": "pnpm build:clear && nest build",
       "build:clear": "rimraf dist",
+      "build": "pnpm build:clear && nest build",
       "deps:refresh": "rimraf node_modules pnpm-lock.yaml && pnpm install",
-      "docker": "pnpm docker:build && pnpm docker:run",
       "docker:build": "docker build -t url-shortener-api:$npm_package_version .",
-      "docker:run": "docker run -it -d --restart always --network host --name url-shortener-api url-shortener-api:$npm_package_version",
+      "docker:run": "docker run -it -d --restart always --network host --name url-shortener-api-$npm_package_version url-shortener-api:$npm_package_version",
+      "docker": "pnpm docker:build && pnpm docker:run",
       "eslint:format": "eslint --ext .js,.jsx,.ts,.tsx --ignore-path .gitignore . --fix",
-      "generate:changelog": "whatchanged --fmt=md --output=CHANGELOG.md HEAD~",
       "prettier:format": "prettier --ignore-path .gitignore -l -w \"./**/*.{js,jsx,ts,tsx}\"",
-      "start": "cross-env NODE_ENV=development nest start",
       "start:debug": "cross-env NODE_ENV=development nest start --debug --watch",
       "start:dev": "cross-env NODE_ENV=development nest start --watch",
-      "start:prod": "cross-env NODE_ENV=production node dist/main",
-      "start:test": "cross-env NODE_ENV=development node dist/main",
-      "test": "jest",
+      "start:prod": "cross-env NODE_ENV=production pm2-runtime start dist/main.js -i max --name 'URL Shortener [Production]'",
+      "start:test": "cross-env NODE_ENV=development pm2 start dist/main.js --watch --name 'URL Shortener [Development]'",
+      "start": "cross-env NODE_ENV=development nest start",
       "test:cov": "jest --coverage",
       "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
       "test:e2e": "jest --config ./test/jest-e2e.json",
       "test:eslint": "eslint --ext .js,.jsx,.ts,.tsx --ignore-path .gitignore . --color",
       "test:prettier": "prettier --ignore-path .gitignore -c \"./**/*.{js,jsx,ts,tsx}\"",
-      "test:watch": "jest --watch"
+      "test:watch": "jest --watch",
+      "test": "jest"
    },
    "version": "1.1.1"
 }

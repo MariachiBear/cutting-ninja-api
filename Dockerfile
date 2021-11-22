@@ -1,9 +1,6 @@
 # Lightest nodejs docker image
 FROM node:lts-alpine
 
-# Default port
-EXPOSE 3000
-
 # Non-root user for security purposes.
 #
 # UIDs below 10,000 are a security risk, as a container breakout could result
@@ -22,6 +19,9 @@ WORKDIR /home/nonroot/url-shortener
 
 # Install PNPM
 RUN npm install -g pnpm
+
+# Install PM2
+RUN npm install pm2 -g
 
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
 COPY package*.json ./
@@ -43,7 +43,3 @@ ENTRYPOINT ["pnpm"]
 
 # Arguments to run with the command at the entrypoint
 CMD ["start:prod"]
-
-
-# BUILD : docker build -t <username>/<rep-name>:tag .
-# RUN : docker run -it -d -p <host-port>:3000 --name <container-name> <username>/<rep-name>:tag

@@ -19,7 +19,7 @@ export class AppService {
 
       const urlToRedirect = await this.urlService.showByShortUrl(shortUrlId);
 
-      if (isBot) {
+      if (!isBot) {
          await this.visitService.store({ url: urlToRedirect.id });
          await this.urlService.increaseVisitCount(shortUrlId);
       }

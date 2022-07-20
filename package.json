@@ -1,7 +1,7 @@
 {
    "author": "Rubén Conde <dev@rubn.xyz>",
    "bugs": {
-      "url": "https://github.com/RubenConde/url-shortener-api/issues"
+      "url": "https://github.com/RubenConde/cutting-ninja-api/issues"
    },
    "dependencies": {
       "@nestjs/common": "8.2.2",
@@ -76,7 +76,7 @@
    "directories": {
       "test": "test"
    },
-   "homepage": "https://github.com/RubenConde/url-shortener-api#readme",
+   "homepage": "https://github.com/RubenConde/cutting-ninja-api#readme",
    "jest": {
       "collectCoverageFrom": [
          "**/*.(t|j)s"
@@ -96,25 +96,25 @@
    },
    "keywords": [],
    "license": "UNLICENSED",
-   "name": "url-shortener-api",
+   "name": "cutting-ninja-api",
    "private": true,
    "repository": {
       "type": "git",
-      "url": "git+https://github.com/RubenConde/url-shortener-api.git"
+      "url": "git+https://github.com/RubenConde/cutting-ninja-api.git"
    },
    "scripts": {
       "build:clear": "rimraf dist",
       "build": "pnpm build:clear && nest build",
       "deps:refresh": "rimraf node_modules pnpm-lock.yaml && pnpm install",
-      "docker:build": "docker build -t url-shortener-api:$npm_package_version .",
-      "docker:run": "docker run -it -d --restart always --network host --name url-shortener-api-$npm_package_version url-shortener-api:$npm_package_version",
+      "docker:build": "docker build -t cutting-ninja-api:$npm_package_version .",
+      "docker:run": "docker run -it -d --restart always --network host --name cutting-ninja-api-$npm_package_version cutting-ninja-api:$npm_package_version",
       "docker": "pnpm docker:build && pnpm docker:run",
       "eslint:format": "eslint --ext .js,.jsx,.ts,.tsx --ignore-path .gitignore . --fix",
       "prettier:format": "prettier --ignore-path .gitignore -l -w \"./**/*.{js,jsx,ts,tsx}\"",
       "start:debug": "cross-env NODE_ENV=development nest start --debug --watch",
       "start:dev": "cross-env NODE_ENV=development nest start --watch",
-      "start:prod": "cross-env NODE_ENV=production pm2-runtime start dist/main.js -i 4 --name 'URL Shortener [Production]'",
-      "start:test": "cross-env NODE_ENV=development pm2 start dist/main.js --watch --name 'URL Shortener [Development]'",
+      "start:prod": "cross-env NODE_ENV=production pm2-runtime start dist/main.js -i 4 --name 'Cutting Ninja [Production]'",
+      "start:test": "cross-env NODE_ENV=development pm2 start dist/main.js --watch --name 'Cutting Ninja [Development]'",
       "start": "cross-env NODE_ENV=development nest start",
       "test:cov": "jest --coverage",
       "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
@@ -124,5 +124,5 @@
       "test:watch": "jest --watch",
       "test": "jest"
    },
-   "version": "1.1.4"
+   "version": "1.1.6"
 }

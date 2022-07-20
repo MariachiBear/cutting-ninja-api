@@ -7,8 +7,8 @@ export const swaggerConfig = new DocumentBuilder()
    .addTag('Users')
    .addTag('Visits')
    .setContact('Contact', 'https://rubenconde.com', 'support@rubn.xyz')
-   .setDescription('API REST for the url shortener')
-   .setTitle('URL Shortener')
+   .setDescription('API REST for Cutting Ninja')
+   .setTitle('Cutting Ninja')
    .setVersion(String(process.env.npm_package_version))
    .build();
 
@@ -18,5 +18,5 @@ export const swaggerCustomConfig: SwaggerCustomOptions = {
    swaggerOptions: {
       persistAuthorization: true,
    },
-   customSiteTitle: 'URL Shortener API Documentation',
+   customSiteTitle: 'Cutting Ninja API Documentation',
 };

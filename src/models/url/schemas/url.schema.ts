@@ -18,6 +18,9 @@ export class Url {
 
    @Prop({ type: Date, required: false })
    removedAt: Date;
+
+   @Prop({ type: Array<string>, required: false, default: [] })
+   tags: Array<string>;
 }
 
 export type UrlDocument = Url & Document;

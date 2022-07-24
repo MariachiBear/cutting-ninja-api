@@ -1,7 +1,7 @@
 {
    "author": "Rubén Conde <dev@rubn.xyz>",
    "bugs": {
-      "url": "https://github.com/RubenConde/cutting-ninja-api/issues"
+      "url": "https://github.com/MariachiBear/cutting-ninja-api/issues"
    },
    "dependencies": {
       "@fastify/compress": "^6.1.0",
@@ -78,7 +78,7 @@
    "directories": {
       "test": "test"
    },
-   "homepage": "https://github.com/RubenConde/cutting-ninja-api#readme",
+   "homepage": "https://github.com/MariachiBear/cutting-ninja-api#readme",
    "jest": {
       "collectCoverageFrom": [
          "**/*.(t|j)s"
@@ -102,14 +102,14 @@
    "private": true,
    "repository": {
       "type": "git",
-      "url": "git+https://github.com/RubenConde/cutting-ninja-api.git"
+      "url": "git+https://github.com/MariachiBear/cutting-ninja-api.git"
    },
    "scripts": {
       "build:clear": "rimraf dist",
       "build": "pnpm build:clear && nest build",
       "deps:refresh": "rimraf node_modules pnpm-lock.yaml && pnpm install",
       "docker:build": "docker build -t cutting-ninja-api:$npm_package_version .",
-      "docker:run": "docker run -it -d --restart always --network host --name cutting-ninja-api-$npm_package_version cutting-ninja-api:$npm_package_version",
+      "docker:run": "docker run -it -d --restart always -p 9001:3000 --name cutting-ninja-api-$npm_package_version cutting-ninja-api:$npm_package_version",
       "docker": "pnpm docker:build && pnpm docker:run",
       "eslint:format": "eslint --ext .js,.jsx,.ts,.tsx --ignore-path .gitignore . --fix",
       "prettier:format": "prettier --ignore-path .gitignore -l -w \"./**/*.{js,jsx,ts,tsx}\"",

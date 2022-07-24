@@ -6,7 +6,7 @@ const swaggerConfiguration = new DocumentBuilder()
    .addTag('URLs')
    .addTag('Users')
    .addTag('Visits')
-   .setContact('Contact', 'https://rubenconde.com', 'support@rubn.xyz')
+   .setContact('Contact', 'https://mariachibear.com', 'support.cuttingninja@mariachibear.com')
    .setDescription('API REST for Cutting Ninja')
    .setTitle('Cutting Ninja')
    .setVersion(String(process.env.npm_package_version));

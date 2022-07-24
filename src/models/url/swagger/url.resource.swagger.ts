@@ -22,6 +22,11 @@ export const successUrlResourceSchema: SchemaObject = {
          description: 'URL short identifier to use',
          type: 'string',
       },
+      tags: {
+         description: 'Tags used to group different URLs',
+         type: 'array',
+         items: { type: 'string' },
+      },
       updatedAt: {
          description: 'Modification date',
          format: 'date-time',

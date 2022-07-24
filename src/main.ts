@@ -1,11 +1,10 @@
+import compression from '@fastify/compress';
+import fastifyCookie from '@fastify/cookie';
+import fastifyHelmet from '@fastify/helmet';
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
 import { SwaggerModule } from '@nestjs/swagger';
-import compression from 'fastify-compress';
-import fastifyCookie from 'fastify-cookie';
-import fastifyCsrf from 'fastify-csrf';
-import { fastifyHelmet } from 'fastify-helmet';
 import { AppModule } from 'src/app.module';
 import { helmetConfig } from 'src/config/helmet.config';
 import { swaggerConfig, swaggerCustomConfig } from 'src/config/swagger/swagger.config';
@@ -26,7 +25,6 @@ async function bootstrap() {
    await app.register(compression);
    await app.register(fastifyHelmet, helmetConfig);
    await app.register(fastifyCookie);
-   await app.register(fastifyCsrf);
 
    const document = SwaggerModule.createDocument(app, swaggerConfig);
    SwaggerModule.setup('docs', app, document, swaggerCustomConfig);

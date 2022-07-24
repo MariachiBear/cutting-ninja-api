@@ -91,10 +91,12 @@ export class UserService implements BaseUserService {
 
       const user = await this.show(userData.id);
 
-      return {
+      const returnUser: UserWithToken = {
          ...user?.toJSON(),
          accessToken,
       };
+
+      return returnUser;
    }
 
    async validateUser(email: string, password: string) {

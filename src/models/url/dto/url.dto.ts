@@ -29,10 +29,19 @@ export class CreateUrlDTO {
    @ApiProperty({
       type: 'array',
       items: { type: 'string' },
-      description: "URL's bulk",
+      description: 'Tags used to group different URLs',
       required: false,
    })
    tags: Array<string>;
+
+   @IsString()
+   @IsOptional()
+   @ApiProperty({
+      type: 'string',
+      description: "URL's name",
+      required: false,
+   })
+   name: string;
 }
 
 export class UpdateUrlDTO extends PartialType(CreateUrlDTO) {}

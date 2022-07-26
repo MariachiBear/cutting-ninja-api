@@ -2,7 +2,6 @@ import { DocumentBuilder, SwaggerCustomOptions, SwaggerDocumentOptions } from '@
 
 const swaggerConfiguration = new DocumentBuilder()
    .addBearerAuth({ scheme: 'bearer', type: 'http' })
-   .addServer(String(process.env.SERVER_URL))
    .addTag('URLs')
    .addTag('Users')
    .addTag('Visits')
@@ -13,6 +12,9 @@ const swaggerConfiguration = new DocumentBuilder()
 
 if (process.env.NODE_ENV === 'development') {
    swaggerConfiguration.addServer(`http://localhost:${process.env.PORT}`);
+}
+if (process.env.NODE_ENV === 'production') {
+   swaggerConfiguration.addServer(String(process.env.SERVER_URL));
 }
 
 export const swaggerConfig = swaggerConfiguration.build();

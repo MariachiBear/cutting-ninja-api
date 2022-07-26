@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { DateTime } from 'luxon';
 import { Model } from 'mongoose';
-import { generate } from 'shortid';
+import { nanoid } from 'nanoid';
 import { Roles } from 'src/config/constants/roles.constant';
 import { CreateUrlDTO, TakeUrlDTO, UpdateUrlDTO } from 'src/models/url/dto/url.dto';
 import { BaseUrlService } from 'src/models/url/interfaces/url.service.interface';
@@ -141,11 +141,11 @@ export class UrlService implements BaseUrlService {
     * @returns {Promise<string>} Short URL to use
     */
    private async secureShortUrlId(): Promise<string> {
-      let shortUrlId = generate();
+      let shortUrlId = nanoid(5);
       let shortUrlCheck = await this.indexByShortUrlId(shortUrlId);
 
       while (shortUrlCheck.length > 0) {
-         shortUrlId = generate();
+         shortUrlId = nanoid(5);
          shortUrlCheck = await this.indexByShortUrlId(shortUrlId);
       }
 

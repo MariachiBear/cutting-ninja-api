@@ -1,5 +1,8 @@
 # Lightest nodejs docker image
-FROM node:lts-alpine
+FROM node:lts
+
+# API production port
+EXPOSE 3000
 
 # Non-root user for security purposes.
 #
@@ -9,16 +12,23 @@ FROM node:lts-alpine
 #
 # Static GID/UID is also useful for chown'ing files outside the container where
 # such a user does not exist.
-RUN addgroup -g 10001 -S nonroot && adduser -u 10000 -S -G nonroot -h /home/nonroot nonroot
+RUN groupmod -g 10000 node && usermod -u 10000 -g 10000 node
 
-# Packages update
-RUN apk add --no-cache
+# Change node user name to nonroot
+RUN usermod -d /home/nonroot -l nonroot node
+
+# Change npm global packages folder
+ENV NPM_CONFIG_PREFIX=/home/nonroot/.npm-global
+ENV PATH=$PATH:/home/nonroot/.npm-global/bin
 
 # Create app directory
-WORKDIR /home/nonroot/url-shortener
+WORKDIR /home/nonroot/cutting-ninja
+
+# Change PM2 log folder permissions
+RUN mkdir /home/nonroot/.pm2 && chmod -R 777 /home/nonroot/.pm2
 
 # Install PNPM
-RUN npm install -g npm pnpm pm2
+RUN npm install npm pnpm pm2 --location=global
 
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
 COPY package*.json ./
@@ -33,7 +43,7 @@ RUN pnpm install
 COPY . .
 
 # Build application
-RUN pnpm build
+RUN pnpm run build
 
 # Use the non-root user to run our application
 USER nonroot

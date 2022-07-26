@@ -18,6 +18,10 @@ export const successUrlResourceSchema: SchemaObject = {
          description: 'URL where to redirect',
          type: 'string',
       },
+      name: {
+         description: 'Name for the URL',
+         type: 'string',
+      },
       shortUrl: {
          description: 'URL short identifier to use',
          type: 'string',

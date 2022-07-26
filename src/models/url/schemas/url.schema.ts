@@ -21,6 +21,9 @@ export class Url {
 
    @Prop({ type: Array<string>, required: false, default: [] })
    tags: Array<string>;
+
+   @Prop({ type: String, required: false })
+   name: string;
 }
 
 export type UrlDocument = Url & Document;

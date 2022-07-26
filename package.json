@@ -16,9 +16,7 @@
       "@nestjs/schedule": "2.1.0",
       "@nestjs/swagger": "6.0.4",
       "@nestjs/throttler": "3.0.0",
-      "@types/shortid": "0.0.29",
       "bcryptjs": "2.4.3",
-      "cache-manager": "4.1.0",
       "class-transformer": "0.5.1",
       "class-validator": "0.13.2",
       "fastify": "4.3.0",
@@ -26,18 +24,16 @@
       "helmet": "^5.1.1",
       "isbot": "3.5.0",
       "luxon": "3.0.1",
-      "mongoose": "6.4.7",
-      "nanoid": "3.3.4",
+      "mongoose": "6.5.0",
       "passport": "0.6.0",
       "passport-jwt": "4.0.0",
       "passport-local": "1.0.0",
-      "reflect-metadata": "0.1.13",
       "rimraf": "3.0.2",
-      "rxjs": "7.5.6"
+      "rxjs": "7.5.6",
+      "shortid": "^2.2.16"
    },
    "description": "Backend application to generate short urls and then redirect them. Made with Nest.js and MongoDB",
    "devDependencies": {
-      "@axetroy/whatchanged": "0.1.0",
       "@nestjs/cli": "9.0.0",
       "@nestjs/schematics": "9.0.1",
       "@nestjs/testing": "9.0.5",
@@ -50,6 +46,7 @@
       "@types/passport": "1.0.9",
       "@types/passport-jwt": "3.0.6",
       "@types/passport-local": "1.0.34",
+      "@types/shortid": "0.0.29",
       "@types/supertest": "2.0.12",
       "@typescript-eslint/eslint-plugin": "5.31.0",
       "@typescript-eslint/parser": "5.31.0",
@@ -102,26 +99,26 @@
       "url": "git+https://github.com/MariachiBear/cutting-ninja-api.git"
    },
    "scripts": {
-      "build:clear": "rimraf dist",
       "build": "pnpm build:clear && nest build",
+      "build:clear": "rimraf dist",
       "deps:refresh": "rimraf node_modules pnpm-lock.yaml && pnpm install",
+      "docker": "pnpm docker:build && pnpm docker:run",
       "docker:build": "docker build -t cutting-ninja-api:$npm_package_version .",
       "docker:run": "docker run -it -d --restart always -p 9001:3000 --name cutting-ninja-api-$npm_package_version cutting-ninja-api:$npm_package_version",
-      "docker": "pnpm docker:build && pnpm docker:run",
       "eslint:format": "eslint --ext .js,.jsx,.ts,.tsx --ignore-path .gitignore . --fix",
       "prettier:format": "prettier --ignore-path .gitignore -l -w \"./**/*.{js,jsx,ts,tsx}\"",
+      "start": "cross-env NODE_ENV=development nest start",
       "start:debug": "cross-env NODE_ENV=development nest start --debug --watch",
       "start:dev": "cross-env NODE_ENV=development nest start --watch",
       "start:prod": "cross-env NODE_ENV=production pm2-runtime start dist/main.js -i 4 --name 'Cutting Ninja [Production]'",
       "start:test": "cross-env NODE_ENV=development pm2 start dist/main.js --watch --name 'Cutting Ninja [Development]'",
-      "start": "cross-env NODE_ENV=development nest start",
+      "test": "jest",
       "test:cov": "jest --coverage",
       "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
       "test:e2e": "jest --config ./test/jest-e2e.json",
       "test:eslint": "eslint --ext .js,.jsx,.ts,.tsx --ignore-path .gitignore . --color",
       "test:prettier": "prettier --ignore-path .gitignore -c \"./**/*.{js,jsx,ts,tsx}\"",
-      "test:watch": "jest --watch",
-      "test": "jest"
+      "test:watch": "jest --watch"
    },
-   "version": "1.2.2"
+   "version": "1.2.3"
 }

@@ -19,7 +19,9 @@ export class UserService implements BaseUserService {
    constructor(
       @InjectModel(User.name) private readonly UserModel: Model<UserDocument>,
       private jwtService: JwtService,
-   ) {}
+   ) {
+      this.insertDefaultUser();
+   }
 
    async index() {
       const urlList = await this.UserModel.find().select('-__v -password').exec();
@@ -109,5 +111,27 @@ export class UserService implements BaseUserService {
       if (!isValidPassword) throw new UnauthorizedException();
 
       return user;
+   }
+
+   private async insertDefaultUser() {
+      const user: CreateUserDTO = {
+         email: 'admin@example.com',
+         firstName: 'Admin',
+         lastName: 'User',
+         password: String(process.env.DEFAULT_USER_PASSWORD),
+         role: 'admin',
+      };
+
+      const foundUser = await this.UserModel.findOne({ email: user.email }).exec();
+
+      if (foundUser === null) {
+         const { password, ...userInfo } = user;
+         const saltValue = 10;
+         const hashedPassword = await hash(password, saltValue);
+         await new this.UserModel({
+            ...userInfo,
+            password: hashedPassword,
+         }).save();
+      }
    }
 }

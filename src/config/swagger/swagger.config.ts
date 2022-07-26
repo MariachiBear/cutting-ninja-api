@@ -5,9 +5,9 @@ const swaggerConfiguration = new DocumentBuilder()
    .addTag('URLs')
    .addTag('Users')
    .addTag('Visits')
-   .setContact('Contact', 'https://mariachibear.com', 'support.cuttingninja@mariachibear.com')
-   .setDescription('API REST for Cutting Ninja')
-   .setTitle('Cutting Ninja')
+   .setContact('Contact', String(process.env.SITE_URL), String(process.env.CONTACT_EMAIL))
+   .setDescription(`API REST for ${process.env.API_NAME}`)
+   .setTitle(String(process.env.API_NAME))
    .setVersion(String(process.env.npm_package_version));
 
 if (process.env.NODE_ENV === 'development') {
@@ -25,5 +25,5 @@ export const swaggerCustomConfig: SwaggerCustomOptions = {
    swaggerOptions: {
       persistAuthorization: true,
    },
-   customSiteTitle: 'Cutting Ninja API Documentation',
+   customSiteTitle: `${process.env.API_NAME} API Documentation`,
 };

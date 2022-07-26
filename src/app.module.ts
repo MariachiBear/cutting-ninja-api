@@ -15,13 +15,8 @@ import { VisitModule } from 'src/models/visit/visit.module';
 
 @Module({
    controllers: [AppController],
-   providers: [
-      AppService,
-      // cacheProvider,
-      throttlerProvider,
-   ],
+   providers: [AppService, throttlerProvider],
    imports: [
-      // CacheModule.register(),
       ConfigModule.forRoot(configModuleConfig),
       MongooseModule.forRootAsync(mongodbConfig),
       ScheduleModule.forRoot(),

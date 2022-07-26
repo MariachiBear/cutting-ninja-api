@@ -4,9 +4,6 @@
       "url": "https://github.com/MariachiBear/cutting-ninja-api/issues"
    },
    "dependencies": {
-      "@fastify/compress": "6.1.0",
-      "@fastify/cookie": "7.3.1",
-      "@fastify/helmet": "9.1.0",
       "@fastify/static": "6.4.1",
       "@nestjs/common": "9.0.5",
       "@nestjs/config": "2.2.0",
@@ -26,6 +23,7 @@
       "class-validator": "0.13.2",
       "fastify": "4.3.0",
       "fastify-swagger": "5.2.0",
+      "helmet": "^5.1.1",
       "isbot": "3.5.0",
       "luxon": "3.0.1",
       "mongoose": "6.4.7",
@@ -125,5 +123,5 @@
       "test:watch": "jest --watch",
       "test": "jest"
    },
-   "version": "1.2.1"
+   "version": "1.2.2"
 }

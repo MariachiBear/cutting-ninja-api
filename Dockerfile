@@ -36,11 +36,11 @@ COPY package*.json ./
 # A wildcard is used to ensure pnpm-lock.yaml copied
 COPY pnpm*.yaml ./
 
-# Install dependencies
-RUN pnpm install
-
 # Bundle app source
 COPY . .
+
+# Install dependencies
+RUN pnpm install
 
 # Build application
 RUN pnpm run build

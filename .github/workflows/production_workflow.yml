@@ -29,6 +29,9 @@ jobs:
     uses: mariachibear/cutting-ninja-api/.github/workflows/docker_build_push.yml@master
     with:
       tag: ${{ needs.setup.outputs.tag }}
+    secrets:
+      DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+      DOCKER_HUB_ACCESS_TOKEN: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
   deploy:
     needs: [setup, docker]

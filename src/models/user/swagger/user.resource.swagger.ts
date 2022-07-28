@@ -34,6 +34,10 @@ const baseUserInfo = {
       format: 'date-time',
       type: 'string',
    },
+   useGravatar: {
+      description: 'Defines if gravatar is used for the user profile picture',
+      type: 'boolean',
+   },
 };
 
 export const successUserResourceSchema: SchemaObject = {

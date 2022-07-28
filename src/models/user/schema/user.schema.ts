@@ -18,6 +18,9 @@ export class User {
 
    @Prop({ enum: Object.values(Roles), required: true, type: String, default: Roles.CREATOR })
    role: string;
+
+   @Prop({ required: false, type: Boolean, default: false })
+   useGravatar: boolean;
 }
 
 export type UserDocument = User & Document;

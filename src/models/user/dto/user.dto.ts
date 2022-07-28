@@ -1,6 +1,14 @@
 /* eslint-disable max-classes-per-file */
 import { ApiProperty, ApiPropertyOptional, PartialType } from '@nestjs/swagger';
-import { IsEmail, IsEnum, IsNotEmpty, IsOptional, IsString, MinLength } from 'class-validator';
+import {
+   IsBoolean,
+   IsEmail,
+   IsEnum,
+   IsNotEmpty,
+   IsOptional,
+   IsString,
+   MinLength,
+} from 'class-validator';
 import { Roles } from 'src/config/constants/roles.constant';
 
 export class LoginUserDTO {
@@ -74,6 +82,15 @@ export class CreateUserDTO {
       enum: Object.values(Roles),
    })
    role: string;
+
+   @IsNotEmpty()
+   @IsOptional()
+   @IsBoolean()
+   @ApiPropertyOptional({
+      type: 'bool',
+      description: 'Defines if gravatar is used for the user profile picture',
+   })
+   useGravatar?: boolean;
 }
 
 export class UpdateUserDTO extends PartialType(CreateUserDTO) {}

@@ -12,7 +12,6 @@
     ":renovatePrefix",
     "config:base",
     "github>whitesource/merge-confidence:beta",
-    "helpers:followTypescriptNext",
     "monorepo:nest",
     "packages:eslint",
     "replacements:all",

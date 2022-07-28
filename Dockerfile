@@ -1,5 +1,5 @@
 # Lightest nodejs docker image
-FROM node:lts
+FROM node:lts-slim
 
 # API production port
 EXPOSE 3000

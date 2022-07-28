@@ -70,6 +70,28 @@ export class UserService implements BaseUserService {
       if (!isRequestUserAdmin && isModifyingRole)
          throw new ForbiddenException('Forbidden resource');
 
+      if (userData.email) {
+         const isAlreadyCreated = await this.UserModel.findOne({
+            email: userData.email,
+         }).exec();
+
+         if (isAlreadyCreated) throw new ConflictException('User already exists');
+      }
+
+      if (userData.password) {
+         const { password, ...userInfo } = userData;
+
+         const saltValue = 10;
+         const hashedPassword = await hash(password, saltValue);
+
+         const user = await this.UserModel.findByIdAndUpdate(userId, {
+            ...userInfo,
+            password: hashedPassword,
+         }).exec();
+
+         return user;
+      }
+
       const user = await this.UserModel.findByIdAndUpdate(userId, userData).exec();
 
       return user;

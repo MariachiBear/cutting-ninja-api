@@ -7,6 +7,8 @@
     ":maintainLockFilesWeekly",
     ":npm",
     ":pinAllExceptPeerDependencies",
+    ":prConcurrentLimitNone",
+    ":prHourlyLimitNone",
     ":renovatePrefix",
     "config:base",
     "github>whitesource/merge-confidence:beta",

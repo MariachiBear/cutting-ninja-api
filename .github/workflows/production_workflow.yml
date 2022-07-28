@@ -44,7 +44,7 @@ jobs:
         uses: actions/checkout@v2
       -
         name: Create ENV file
-        run: echo $PRODUCTION_ENV >> ./.env.production
+        run: echo "$PRODUCTION_ENV" >> ./.env.production
         env:
           PRODUCTION_ENV: ${{ secrets.PRODUCTION_ENV }}
       - 
@@ -66,4 +66,3 @@ jobs:
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           key: ${{ secrets.SSH_KEY }}
           script: ${{ secrets.HOST_CMDS }}
-    

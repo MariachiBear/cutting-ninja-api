@@ -3,21 +3,19 @@ name: Production Deployment
 on:
   create:
     tags:
-      - 'v*.*.*'
+      - "v*.*.*"
 
 jobs:
-  setup :
+  setup:
     runs-on: ubuntu-latest
 
     outputs:
       tag: ${{ steps.tag.outputs.tag }}
-      
+
     steps:
-      -
-        name: Checkout 
+      - name: Checkout
         uses: actions/checkout@v2
-      - 
-        name: Get tag version
+      - name: Get tag version
         id: tag
         uses: dawidd6/action-get-tag@v1
         with:
@@ -37,32 +35,28 @@ jobs:
     needs: [setup, docker]
 
     runs-on: ubuntu-latest
-    
-    steps:      
-      -
-        name: Checkout 
+
+    steps:
+      - name: Checkout
         uses: actions/checkout@v2
-      -
-        name: Create ENV file
+      - name: Create ENV file
         run: echo "$PRODUCTION_ENV" >> ./.env.production
         env:
           PRODUCTION_ENV: ${{ secrets.PRODUCTION_ENV }}
-      - 
-        name: Push ENV file
+      - name: Push ENV file
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          passphrase: ${{ secrets.SSH_PASSPHRASE }}
           key: ${{ secrets.SSH_KEY }}
+          passphrase: ${{ secrets.SSH_PASSPHRASE }}
           source: "./.env.production"
           target: "~/github"
-      - 
-        name: Deploy commands
+          username: ${{ secrets.SSH_USER }}
+      - name: Deploy
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          passphrase: ${{ secrets.SSH_PASSPHRASE }}
           key: ${{ secrets.SSH_KEY }}
+          passphrase: ${{ secrets.SSH_PASSPHRASE }}
           script: ${{ secrets.HOST_CMDS }}
+          username: ${{ secrets.SSH_USER }}

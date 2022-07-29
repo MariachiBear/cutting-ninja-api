@@ -4,18 +4,26 @@ on:
   push:
     branches:
       - master
+  workflow_call:
+    inputs:
+      branch_name:
+        required: true
+        default: dependencies
+        type: string
 
 jobs:
   rebase_dependencies:
-    name: Rebase `dependencies` with `master`
+    name: Rebase `${{ inputs.branch_name }}` with `master`
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0 # otherwise, you will fail to push refs to dest repo
-          ref: dependencies
-      - run: |
+          ref: ${{ inputs.branch_name }}
+      - env:
+          BRANCH_NAME: ${{ inputs.branch_name }}
+        run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
           git rebase origin/master
-          git push origin dependencies --force
+          git push origin $BRANCH_NAME --force

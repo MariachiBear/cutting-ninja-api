@@ -41,7 +41,9 @@ jobs:
         uses: actions/cache@v3
         id: cache-nodemodules
         with:
-          path: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
+          path: |
+            **/node_modules
+            ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
@@ -49,12 +51,6 @@ jobs:
       - name: Install dependencies
         if: steps.cache-nodemodules.outputs.cache-hit != 'true'
         run: pnpm install --no-frozen-lockfile
-
-      - name: Artifact dependencies
-        uses: actions/upload-artifact@v2
-        with:
-          name: node_modules
-          path: ./node_modules
 
   build:
     needs: cache_and_install
@@ -70,10 +66,15 @@ jobs:
           version: 7
           run_install: false
 
-      - name: Artifact dependencies
-        uses: actions/download-artifact@v2
+      - name: Setup pnpm cache
+        uses: actions/cache@v3
         with:
-          name: node_modules
+          path: |
+            **/node_modules
+            ${{ needs.cache_and_install.outputs.pnpm_cache_dir }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
 
       - name: Build
         run: pnpm build

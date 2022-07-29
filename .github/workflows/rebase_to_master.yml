@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - master
+
   workflow_call:
     inputs:
       branch_name:
@@ -11,14 +12,15 @@ on:
         type: string
 
 jobs:
-  rebase_dependencies:
-    name: Rebase ${{ inputs.branch_name }} with master
+  rebase:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v3
         with:
-          fetch-depth: 0 # otherwise, you will fail to push refs to dest repo
+          fetch-depth: 0
           ref: ${{ inputs.branch_name }}
+
       - env:
           BRANCH_NAME: ${{ inputs.branch_name }}
         run: |

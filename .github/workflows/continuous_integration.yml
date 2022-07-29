@@ -8,14 +8,18 @@ on:
     branches:
       - develop
       - master
+
   workflow_call:
+
   workflow_dispatch:
 
 jobs:
   cache_and_install:
     runs-on: ubuntu-latest
+
     outputs:
       pnpm_cache_dir: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v3

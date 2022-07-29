@@ -4,6 +4,7 @@ on:
   push:
     tags:
       - "v*.*.*"
+  workflow_dispatch:
 
 jobs:
   setup:
@@ -26,7 +27,7 @@ jobs:
 
   docker:
     needs: [setup, ci]
-    uses: mariachibear/cutting-ninja-api/.github/workflows/docker_build_push.yml@master
+    uses: mariachibear/cutting-ninja-api/.github/workflows/build_and_push_docker.yml@master
     with:
       tag: ${{ needs.setup.outputs.tag }}
     secrets: inherit

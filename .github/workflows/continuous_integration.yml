@@ -14,6 +14,8 @@ on:
 jobs:
   cache_and_install:
     runs-on: ubuntu-latest
+    outputs:
+      pnpm_cache_dir: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -40,5 +42,19 @@ jobs:
             ${{ runner.os }}-pnpm-store-
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile
+
+  build:
+    needs: cache_and_install
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup pnpm cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ needs.cache_and_install.outputs.pnpm_cache_dir }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
       - name: Build
         run: pnpm build

@@ -121,5 +121,5 @@
       "test:prettier": "prettier --ignore-path .gitignore -c \"./**/*.{js,jsx,ts,tsx}\"",
       "test:watch": "jest --watch"
    },
-   "version": "1.5.0"
+   "version": "1.5.1"
 }

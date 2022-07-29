@@ -1,4 +1,4 @@
-name: Docker Build & Push
+name: Build and Push Docker Image
 
 on:
   workflow_call:
@@ -7,14 +7,15 @@ on:
         required: true
         type: string
     secrets:
-      DOCKER_HUB_USERNAME:
-        required: true
       DOCKER_HUB_ACCESS_TOKEN:
+        required: true
+      DOCKER_HUB_USERNAME:
         required: true
 
 jobs:
-  docker:
+  build_and_push:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v2

@@ -15,10 +15,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout to ${{ inputs.branch_name }}
+        if: ${{ inputs.branch_name != 0 }}
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
           ref: ${{ inputs.branch_name }}
+
+      - name: Checkout to dependencies
+        if: ${{ inputs.branch_name == 0 }}
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: dependencies
 
       - env:
           BRANCH_NAME: ${{ inputs.branch_name }}

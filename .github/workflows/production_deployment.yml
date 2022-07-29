@@ -33,15 +33,6 @@ jobs:
 
   rebase_develop:
     needs: [setup, ci, cd]
-    name: Rebase `develop` with `master`
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-          ref: develop
-      - run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git rebase origin/master
-          git push origin develop --force
+    uses: mariachibear/cutting-ninja-api/.github/workflows/rebase_to_master.yml@master
+    with:
+      tag: develop

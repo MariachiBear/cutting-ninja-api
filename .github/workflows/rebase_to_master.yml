@@ -26,4 +26,4 @@ jobs:
           git config user.name github-actions
           git config user.email github-actions@github.com
           git rebase origin/master
-          [ -z "$BRANCH_NAME" ] && git push origin dependencies --force || git push origin $BRANCH_NAME --force
+          [ -z $BRANCH_NAME ] && git push origin dependencies --force || git push origin $BRANCH_NAME --force

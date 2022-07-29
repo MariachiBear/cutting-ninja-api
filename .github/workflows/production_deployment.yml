@@ -30,7 +30,7 @@ jobs:
     secrets: inherit
 
   docker:
-    needs: [setup, ci]
+    needs: [setup, continuous_integration]
 
     if: needs.setup.outputs.tag != 'deprecated'
 
@@ -40,7 +40,7 @@ jobs:
     secrets: inherit
 
   ssh:
-    needs: [setup, ci, docker]
+    needs: [setup, continuous_integration, docker]
 
     if: needs.setup.outputs.tag != 'deprecated'
 
@@ -48,7 +48,7 @@ jobs:
     secrets: inherit
 
   develop_branch:
-    needs: [setup, ci, docker, ssh]
+    needs: [setup, continuous_integration, docker, ssh]
 
     if: needs.setup.outputs.tag != 'deprecated'
 

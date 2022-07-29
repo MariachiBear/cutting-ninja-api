@@ -41,4 +41,4 @@ jobs:
     needs: [setup, ci, docker, ssh]
     uses: mariachibear/cutting-ninja-api/.github/workflows/rebase_to_master.yml@master
     with:
-      tag: "develop"
+      branch_name: "develop"

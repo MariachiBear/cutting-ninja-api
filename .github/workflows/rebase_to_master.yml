@@ -12,7 +12,7 @@ on:
 
 jobs:
   rebase_dependencies:
-    name: Rebase `${{ inputs.branch_name }}` with `master`
+    name: Rebase ${{ inputs.branch_name }} with master
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3

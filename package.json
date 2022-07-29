@@ -1,5 +1,5 @@
 {
-   "author": "Rubén Conde <dev@rubn.xyz>",
+   "author": "Rubén Conde <code@rubn.dev>",
    "bugs": {
       "url": "https://github.com/MariachiBear/cutting-ninja-api/issues"
    },
@@ -120,5 +120,5 @@
       "test:prettier": "prettier --ignore-path .gitignore -c \"./**/*.{js,jsx,ts,tsx}\"",
       "test:watch": "jest --watch"
    },
-   "version": "1.4.0"
+   "version": "1.4.1"
 }

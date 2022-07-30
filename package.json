@@ -4,7 +4,7 @@
       "url": "https://github.com/MariachiBear/cutting-ninja-api/issues"
    },
    "dependencies": {
-      "@fastify/static": "6.4.1",
+      "@fastify/static": "6.5.0",
       "@nestjs/common": "9.0.7",
       "@nestjs/config": "2.2.0",
       "@nestjs/core": "9.0.7",

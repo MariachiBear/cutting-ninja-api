@@ -1,1 +1,1 @@
-# Cutting Ninja API [![Production Deployment](https://github.com/MariachiBear/cutting-ninja-api/actions/workflows/production_deploy.yml/badge.svg)](https://github.com/MariachiBear/cutting-ninja-api/actions/workflows/production_deploy.yml)
+# Cutting Ninja API [![Production Deployment](https://github.com/MariachiBear/cutting-ninja-api/actions/workflows/production_deployment.yml/badge.svg)](https://github.com/MariachiBear/cutting-ninja-api/actions/workflows/production_deployment.yml)

@@ -25,8 +25,8 @@ jobs:
           fallback: deprecated
 
   continuous_integration:
-    needs: setup
-    uses: mariachibear/cutting-ninja-api/.github/workflows/continuous_integration.yml@master
+    needs: [setup]
+    uses: ${{ needs.setup.outputs.repository-name }}/.github/workflows/continuous_integration.yml@${{github.event.repository.default_branch}}
     secrets: inherit
 
   docker:
@@ -34,7 +34,7 @@ jobs:
 
     if: needs.setup.outputs.tag != 'deprecated'
 
-    uses: mariachibear/cutting-ninja-api/.github/workflows/build_and_push_docker.yml@master
+    uses: ${{ needs.setup.outputs.repository-name }}/.github/workflows/build_and_push_docker.yml@${{github.event.repository.default_branch}}
     with:
       tag: ${{ needs.setup.outputs.tag }}
     secrets: inherit
@@ -44,7 +44,7 @@ jobs:
 
     if: needs.setup.outputs.tag != 'deprecated'
 
-    uses: mariachibear/cutting-ninja-api/.github/workflows/ssh_deploy.yml@master
+    uses: ${{ needs.setup.outputs.repository-name }}/.github/workflows/ssh_deploy.yml@${{github.event.repository.default_branch}}
     secrets: inherit
 
   develop_branch:
@@ -52,6 +52,6 @@ jobs:
 
     if: needs.setup.outputs.tag != 'deprecated'
 
-    uses: mariachibear/cutting-ninja-api/.github/workflows/rebase_to_master.yml@master
+    uses: ${{ needs.setup.outputs.repository-name }}/.github/workflows/rebase_to_master.yml@${{github.event.repository.default_branch}}
     with:
       branch_name: "develop"

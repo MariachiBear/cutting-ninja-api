@@ -33,15 +33,22 @@ jobs:
           registry: ghcr.io
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
 
+      - name: Get repository name
+        id: repo-name
+        uses: MariachiBear/get-repo-name-action@v1.1.0
+        with:
+          string-case: "lowercase"
+
       - name: Build and Push
         uses: docker/build-push-action@v3
         env:
           RELEASE_VERSION: ${{ inputs.tag }}
+          REPOSITORY_NAME: ${{ steps.repo-name.outputs.repository-name }}
         with:
           context: .
           file: ./Dockerfile
           platforms: linux/amd64, linux/arm/v7, linux/arm64/v8, linux/ppc64le, linux/s390x
           push: true
           tags: |
-            ${{ secrets.DOCKER_HUB_USERNAME }}/cutting-ninja-api:latest
-            ${{ secrets.DOCKER_HUB_USERNAME }}/cutting-ninja-api:${{ env.RELEASE_VERSION }}
+            ${{ secrets.DOCKER_HUB_USERNAME }}/${{ env.REPOSITORY_NAME }}:latest
+            ${{ secrets.DOCKER_HUB_USERNAME }}/${{ env.REPOSITORY_NAME }}:${{ env.RELEASE_VERSION }}

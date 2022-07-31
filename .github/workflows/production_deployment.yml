@@ -13,6 +13,7 @@ jobs:
 
     outputs:
       tag: ${{ steps.tag.outputs.tag }}
+      repository-name: ${{ steps.repo-name.outputs.repository-name }}
 
     steps:
       - name: Checkout
@@ -22,17 +23,26 @@ jobs:
         id: tag
         uses: WyriHaximus/github-action-get-previous-tag@v1
         with:
-          fallback: deprecated
+          fallback: "no-tag"
+
+      - name: Get repository name
+        id: repo-name
+        uses: MariachiBear/get-repo-name-action@v1.1.0
+        with:
+          string-case: "lowercase"
+          with-owner: "true"
 
   continuous_integration:
     needs: [setup]
+    
     uses: ${{ needs.setup.outputs.repository-name }}/.github/workflows/continuous_integration.yml@${{github.event.repository.default_branch}}
+    
     secrets: inherit
 
   docker:
     needs: [setup, continuous_integration]
 
-    if: needs.setup.outputs.tag != 'deprecated'
+    if: needs.setup.outputs.tag != 'no-tag'
 
     uses: ${{ needs.setup.outputs.repository-name }}/.github/workflows/build_and_push_docker.yml@${{github.event.repository.default_branch}}
     with:
@@ -42,16 +52,18 @@ jobs:
   ssh:
     needs: [setup, continuous_integration, docker]
 
-    if: needs.setup.outputs.tag != 'deprecated'
+    if: needs.setup.outputs.tag != 'no-tag'
 
     uses: ${{ needs.setup.outputs.repository-name }}/.github/workflows/ssh_deploy.yml@${{github.event.repository.default_branch}}
+
     secrets: inherit
 
   develop_branch:
     needs: [setup, continuous_integration, docker, ssh]
 
-    if: needs.setup.outputs.tag != 'deprecated'
+    if: needs.setup.outputs.tag != 'no-tag'
 
     uses: ${{ needs.setup.outputs.repository-name }}/.github/workflows/rebase_to_master.yml@${{github.event.repository.default_branch}}
+
     with:
       branch_name: "develop"

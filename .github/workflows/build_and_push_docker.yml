@@ -11,6 +11,8 @@ on:
         required: true
       DOCKER_HUB_USERNAME:
         required: true
+      DOCKER_HUB_REGISTRY:
+        required: true
 
 jobs:
   build_and_push:

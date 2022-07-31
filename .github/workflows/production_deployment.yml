@@ -16,8 +16,7 @@ jobs:
     runs-on: ubuntu-latest
 
     outputs:
-      tag: ${{ steps.tag.outputs.tag }}
-      repository-name: ${{ steps.repo-name.outputs.repository-name }}
+      tag: ${{ steps.get-tag.outputs.tag }}
 
     steps:
       - name: Checkout
@@ -28,13 +27,6 @@ jobs:
         uses: wyrihaximus/github-action-get-previous-tag@v1
         with:
           fallback: ${{ inputs.tag }}
-
-      - name: Get repository name
-        id: repo-name
-        uses: mariachibear/get-repo-name-action@v1.1.0
-        with:
-          string-case: "lowercase"
-          with-owner: "true"
 
   continuous_integration:
     needs: [setup]

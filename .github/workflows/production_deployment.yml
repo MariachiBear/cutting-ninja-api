@@ -4,8 +4,12 @@ on:
   push:
     tags:
       - "v*.*.*"
-
   workflow_dispatch:
+    inputs:
+      tag:
+        description: Tag to deploy
+        required: true
+        type: string
 
 jobs:
   setup:
@@ -20,50 +24,37 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Get tag version
-        id: tag
-        uses: WyriHaximus/github-action-get-previous-tag@v1
+        id: get-tag
+        uses: wyrihaximus/github-action-get-previous-tag@v1
         with:
-          fallback: "no-tag"
+          fallback: ${{ inputs.tag }}
 
       - name: Get repository name
         id: repo-name
-        uses: MariachiBear/get-repo-name-action@v1.1.0
+        uses: mariachibear/get-repo-name-action@v1.1.0
         with:
           string-case: "lowercase"
           with-owner: "true"
 
-  continuous_integration:
+  continuous-integration:
     needs: [setup]
-
-    uses: ./.github/workflows/continuous_integration.yml
-
     secrets: inherit
+    uses: ./.github/workflows/continuous_integration.yml
 
   docker:
     needs: [setup, continuous_integration]
-
-    if: needs.setup.outputs.tag != 'no-tag'
-
+    secrets: inherit
     uses: ./.github/workflows/build_and_push_docker.yml
     with:
       tag: ${{ needs.setup.outputs.tag }}
-    secrets: inherit
 
   ssh:
     needs: [setup, continuous_integration, docker]
-
-    if: needs.setup.outputs.tag != 'no-tag'
-
+    secrets: inherit
     uses: ./.github/workflows/ssh_deploy.yml
 
-    secrets: inherit
-
-  develop_branch:
+  develop-branch:
     needs: [setup, continuous_integration, docker, ssh]
-
-    if: needs.setup.outputs.tag != 'no-tag'
-
     uses: ./.github/workflows/rebase_to_master.yml
-
     with:
       branch_name: "develop"

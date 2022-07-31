@@ -2,16 +2,10 @@ name: Continuous Integration
 
 on:
   pull_request:
-    types:
-      - opened
-      - reopened
-      - synchronize
     branches:
       - develop
       - master
-
   workflow_call:
-
   workflow_dispatch:
 
 jobs:
@@ -31,8 +25,8 @@ jobs:
           node-version: 16
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v2.2.2
         id: pnpm-install
+        uses: pnpm/action-setup@v2.2.2
         with:
           version: 7
           run_install: false
@@ -43,8 +37,8 @@ jobs:
           echo "::set-output name=pnpm_cache_dir::$(pnpm store path)"
 
       - name: Setup pnpm cache
-        uses: actions/cache@v3
         id: cache-nodemodules
+        uses: actions/cache@v3
         with:
           path: |
             **/node_modules
@@ -60,15 +54,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    needs: cache_and_install
+    needs: [cache-and-install]
 
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v2.2.2
         id: pnpm-install
+        uses: pnpm/action-setup@v2.2.2
         with:
           version: 7
           run_install: false

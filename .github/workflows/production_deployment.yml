@@ -35,7 +35,7 @@ jobs:
   continuous_integration:
     needs: [setup]
 
-    uses: ./.github/workflows/continuous_integration.yml@${{github.event.repository.default_branch}}
+    uses: ./.github/workflows/continuous_integration.yml
 
     secrets: inherit
 
@@ -44,7 +44,7 @@ jobs:
 
     if: needs.setup.outputs.tag != 'no-tag'
 
-    uses: ./.github/workflows/build_and_push_docker.yml@${{github.event.repository.default_branch}}
+    uses: ./.github/workflows/build_and_push_docker.yml
     with:
       tag: ${{ needs.setup.outputs.tag }}
     secrets: inherit
@@ -54,7 +54,7 @@ jobs:
 
     if: needs.setup.outputs.tag != 'no-tag'
 
-    uses: ./.github/workflows/ssh_deploy.yml@${{github.event.repository.default_branch}}
+    uses: ./.github/workflows/ssh_deploy.yml
 
     secrets: inherit
 
@@ -63,7 +63,7 @@ jobs:
 
     if: needs.setup.outputs.tag != 'no-tag'
 
-    uses: ./.github/workflows/rebase_to_master.yml@${{github.event.repository.default_branch}}
+    uses: ./.github/workflows/rebase_to_master.yml
 
     with:
       branch_name: "develop"

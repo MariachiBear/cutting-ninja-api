@@ -59,7 +59,7 @@ specifiers:
   rxjs: 7.5.6
   shortid: 2.2.16
   supertest: 6.2.4
-  ts-jest: 28.0.7
+  ts-jest: 28.0.8
   ts-loader: 9.3.1
   ts-node: 10.9.1
   tsconfig-paths: 4.1.0
@@ -126,7 +126,7 @@ devDependencies:
   pnpm: 7.9.0
   prettier: 2.7.1
   supertest: 6.2.4
-  ts-jest: 28.0.7_qfrsgica3z6cdgxy6jhs4zk72q
+  ts-jest: 28.0.8_qfrsgica3z6cdgxy6jhs4zk72q
   ts-loader: 9.3.1_xnp4kzegbjokq62cajex2ovgkm
   ts-node: 10.9.1_f6w67sjx3imwytyzb2qhabnzqe
   tsconfig-paths: 4.1.0
@@ -5989,8 +5989,8 @@ packages:
     hasBin: true
     dev: true
 
-  /ts-jest/28.0.7_qfrsgica3z6cdgxy6jhs4zk72q:
-    resolution: {integrity: sha512-wWXCSmTwBVmdvWrOpYhal79bDpioDy4rTT+0vyUnE3ZzM7LOAAGG9NXwzkEL/a516rQEgnMmS/WKP9jBPCVJyA==}
+  /ts-jest/28.0.8_qfrsgica3z6cdgxy6jhs4zk72q:
+    resolution: {integrity: sha512-5FaG0lXmRPzApix8oFG8RKjAz4ehtm8yMKOTy5HX3fY6W8kmvOrmcY0hKDElW52FJov+clhUbrKAqofnj4mXTg==}
     engines: {node: ^12.13.0 || ^14.15.0 || ^16.10.0 || >=17.0.0}
     hasBin: true
     peerDependencies:

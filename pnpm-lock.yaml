@@ -36,7 +36,7 @@ specifiers:
   eslint: 8.21.0
   eslint-config-airbnb: 19.0.4
   eslint-config-prettier: 8.5.0
-  eslint-import-resolver-typescript: 3.4.1
+  eslint-import-resolver-typescript: 3.4.2
   eslint-plugin-import: 2.26.0
   eslint-plugin-jsx-a11y: 6.6.1
   eslint-plugin-prettier: 4.2.1
@@ -117,8 +117,8 @@ devDependencies:
   eslint: 8.21.0
   eslint-config-airbnb: 19.0.4_oyn2uifcemcbkyuj2uapcqffk4
   eslint-config-prettier: 8.5.0_eslint@8.21.0
-  eslint-import-resolver-typescript: 3.4.1_jatgrcxl4x7ywe7ak6cnjca2ae
-  eslint-plugin-import: 2.26.0_tcvc3bmlaoc4qhdhbeibbc7s6u
+  eslint-import-resolver-typescript: 3.4.2_jatgrcxl4x7ywe7ak6cnjca2ae
+  eslint-plugin-import: 2.26.0_wdgfimu2qgel7feo67763d4rae
   eslint-plugin-jsx-a11y: 6.6.1_eslint@8.21.0
   eslint-plugin-prettier: 4.2.1_h62lvancfh4b7r6zn2dgodrh5e
   eslint-plugin-react: 7.30.1_eslint@8.21.0
@@ -2669,7 +2669,7 @@ packages:
     dependencies:
       confusing-browser-globals: 1.0.11
       eslint: 8.21.0
-      eslint-plugin-import: 2.26.0_tcvc3bmlaoc4qhdhbeibbc7s6u
+      eslint-plugin-import: 2.26.0_wdgfimu2qgel7feo67763d4rae
       object.assign: 4.1.2
       object.entries: 1.1.5
       semver: 6.3.0
@@ -2687,7 +2687,7 @@ packages:
     dependencies:
       eslint: 8.21.0
       eslint-config-airbnb-base: 15.0.0_jatgrcxl4x7ywe7ak6cnjca2ae
-      eslint-plugin-import: 2.26.0_tcvc3bmlaoc4qhdhbeibbc7s6u
+      eslint-plugin-import: 2.26.0_wdgfimu2qgel7feo67763d4rae
       eslint-plugin-jsx-a11y: 6.6.1_eslint@8.21.0
       eslint-plugin-react: 7.30.1_eslint@8.21.0
       eslint-plugin-react-hooks: 4.6.0_eslint@8.21.0
@@ -2713,8 +2713,8 @@ packages:
       - supports-color
     dev: true
 
-  /eslint-import-resolver-typescript/3.4.1_jatgrcxl4x7ywe7ak6cnjca2ae:
-    resolution: {integrity: sha512-rcD4V2nnxk76JF6nuLcclGpya18KLhr/lwpl5xFXrVWZtdRSepfCGHk/oFn9HNstWX317Nuo/E3Z1vymPyPhlQ==}
+  /eslint-import-resolver-typescript/3.4.2_jatgrcxl4x7ywe7ak6cnjca2ae:
+    resolution: {integrity: sha512-8SuWlRIEO83X9PsJSK9VjgH0EDk1ZzNI36+r3C0xNYVJ+O1+TprOFtTwqqyPMHG+br/I9A5Q80RE7K3/eIr9XA==}
     engines: {node: ^12.20.0 || ^14.18.0 || >=16.0.0}
     peerDependencies:
       eslint: '*'
@@ -2723,17 +2723,17 @@ packages:
       debug: 4.3.4
       enhanced-resolve: 5.10.0
       eslint: 8.21.0
-      eslint-plugin-import: 2.26.0_tcvc3bmlaoc4qhdhbeibbc7s6u
+      eslint-plugin-import: 2.26.0_wdgfimu2qgel7feo67763d4rae
       get-tsconfig: 4.2.0
       globby: 13.1.2
       is-core-module: 2.9.0
       is-glob: 4.0.3
-      synckit: 0.8.1
+      synckit: 0.8.3
     transitivePeerDependencies:
       - supports-color
     dev: true
 
-  /eslint-module-utils/2.7.3_6x5kbau4ilpuvei7whdn3u7b5a:
+  /eslint-module-utils/2.7.3_r5ljpzt2xhwtipb57jxeqchieu:
     resolution: {integrity: sha512-088JEC7O3lDZM9xGe0RerkOMd0EjFl+Yvd1jPWIkMT5u3H9+HC34mWWPnqPrN13gieT9pBOO+Qt07Nb/6TresQ==}
     engines: {node: '>=4'}
     peerDependencies:
@@ -2754,13 +2754,13 @@ packages:
       '@typescript-eslint/parser': 5.32.0_qugx7qdu5zevzvxaiqyxfiwquq
       debug: 3.2.7
       eslint-import-resolver-node: 0.3.6
-      eslint-import-resolver-typescript: 3.4.1_jatgrcxl4x7ywe7ak6cnjca2ae
+      eslint-import-resolver-typescript: 3.4.2_jatgrcxl4x7ywe7ak6cnjca2ae
       find-up: 2.1.0
     transitivePeerDependencies:
       - supports-color
     dev: true
 
-  /eslint-plugin-import/2.26.0_tcvc3bmlaoc4qhdhbeibbc7s6u:
+  /eslint-plugin-import/2.26.0_wdgfimu2qgel7feo67763d4rae:
     resolution: {integrity: sha512-hYfi3FXaM8WPLf4S1cikh/r4IxnO6zrhZbEGz2b660EJRbuxgpDS5gkCuYgGWg2xxh2rBuIr4Pvhve/7c31koA==}
     engines: {node: '>=4'}
     peerDependencies:
@@ -2777,7 +2777,7 @@ packages:
       doctrine: 2.1.0
       eslint: 8.21.0
       eslint-import-resolver-node: 0.3.6
-      eslint-module-utils: 2.7.3_6x5kbau4ilpuvei7whdn3u7b5a
+      eslint-module-utils: 2.7.3_r5ljpzt2xhwtipb57jxeqchieu
       has: 1.0.3
       is-core-module: 2.9.0
       is-glob: 4.0.3
@@ -5833,8 +5833,8 @@ packages:
     engines: {node: '>=0.10'}
     dev: true
 
-  /synckit/0.8.1:
-    resolution: {integrity: sha512-rJEeygO5PNmcZICmrgnbOd2usi5zWE1ESc0Gn5tTmJlongoU8zCTwMFQtar2UgMSiR68vK9afPQ+uVs2lURSIA==}
+  /synckit/0.8.3:
+    resolution: {integrity: sha512-1goXnDYNJlKwCM37f5MTzRwo+8SqutgVtg2d37D6YnHHT4E3IhQMRfKiGdfTZU7LBlI6T8inCQUxnMBFHrbqWw==}
     engines: {node: ^14.18.0 || >=16.0.0}
     dependencies:
       '@pkgr/utils': 2.3.0

@@ -161,6 +161,7 @@ export class UrlService implements BaseUrlService {
       const bulkResult = await this.UrlModel.bulkWrite([
          {
             updateOne: {
+               // @ts-ignore
                filter: {
                   createdAt: { $lt: lastValidDate },
                   removedAt: { $exists: false },

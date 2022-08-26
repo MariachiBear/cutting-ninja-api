@@ -22,7 +22,7 @@
       "fastify": "4.5.2",
       "fastify-swagger": "5.2.0",
       "helmet": "5.1.1",
-      "isbot": "3.5.1",
+      "isbot": "3.5.2",
       "luxon": "3.0.1",
       "mongoose": "6.5.3",
       "nanoid": "3.3.4",

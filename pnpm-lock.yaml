@@ -41,7 +41,7 @@ specifiers:
   eslint-plugin-jsx-a11y: 6.6.1
   eslint-plugin-prettier: 4.2.1
   eslint-plugin-react: 7.31.0
-  fastify: 4.5.2
+  fastify: 4.5.3
   fastify-swagger: 5.2.0
   helmet: 5.1.1
   isbot: 3.5.1
@@ -81,7 +81,7 @@ dependencies:
   bcryptjs: 2.4.3
   class-transformer: 0.5.1
   class-validator: 0.13.2
-  fastify: 4.5.2
+  fastify: 4.5.3
   fastify-swagger: 5.2.0
   helmet: 5.1.1
   isbot: 3.5.1
@@ -3186,7 +3186,7 @@ packages:
       abstract-logging: 2.0.1
       avvio: 8.2.0
       find-my-way: 7.0.1
-      light-my-request: 5.4.0
+      light-my-request: 5.5.1
       pino: 8.4.2
       process-warning: 2.0.0
       proxy-addr: 2.0.7
@@ -3198,8 +3198,8 @@ packages:
       - supports-color
     dev: false
 
-  /fastify/4.5.2:
-    resolution: {integrity: sha512-cDLhc0bh1ftzMoS7ccGGPUW/xTUnk6I51TktQqKFeJnhoAfk56tfn+xDs8JcJYfouPK23Ljx4OpMaEi+kIDwEg==}
+  /fastify/4.5.3:
+    resolution: {integrity: sha512-Q8Zvkmg7GnioMCDX1jT2Q7iRqjywlnDZ1735D2Ipf7ashCM/3/bqPKv2Jo1ZF2iDExct2eP1C/tdhcj0GG/OuQ==}
     dependencies:
       '@fastify/ajv-compiler': 3.1.2
       '@fastify/error': 3.0.0

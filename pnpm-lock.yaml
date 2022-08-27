@@ -44,7 +44,7 @@ specifiers:
   fastify: 4.5.3
   fastify-swagger: 5.2.0
   helmet: 5.1.1
-  isbot: 3.5.1
+  isbot: 3.5.2
   jest: 28.1.3
   luxon: 3.0.1
   mongoose: 6.5.3
@@ -84,7 +84,7 @@ dependencies:
   fastify: 4.5.3
   fastify-swagger: 5.2.0
   helmet: 5.1.1
-  isbot: 3.5.1
+  isbot: 3.5.2
   luxon: 3.0.1
   mongoose: 6.5.3
   nanoid: 3.3.4
@@ -3901,8 +3901,8 @@ packages:
       is-docker: 2.2.1
     dev: true
 
-  /isbot/3.5.1:
-    resolution: {integrity: sha512-IJrUiLudoYIhbNa9EuR7foEyXYPyWDe5Nnd1pTKTyPZKlDA0K5XcVzJEwvNLLstz37KokXP1pZWVKuyW34c4xQ==}
+  /isbot/3.5.2:
+    resolution: {integrity: sha512-7iXQPDK1GBKvWS9N71bNnQ2KMcqwlMhdLkPma/EBn+8ZRkCbhun3yqqS1hmRqysTwJLGvJrUTmRIHibLWrXQQA==}
     engines: {node: '>=12'}
     dev: false
 

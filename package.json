@@ -31,7 +31,7 @@
       "passport-local": "1.0.0",
       "reflect-metadata": "0.1.13",
       "rimraf": "3.0.2",
-      "rxjs": "7.5.6",
+      "rxjs": "7.5.7",
       "shortid": "2.2.16"
    },
    "description": "Backend application to generate short urls and then redirect them. Made with Nest.js and MongoDB",

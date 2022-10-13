@@ -58,7 +58,7 @@ specifiers:
   rimraf: 3.0.2
   rxjs: 7.5.7
   shortid: 2.2.16
-  supertest: 6.2.4
+  supertest: 6.3.0
   ts-jest: 29.0.3
   ts-loader: 9.4.1
   ts-node: 10.9.1
@@ -125,7 +125,7 @@ devDependencies:
   jest: 29.0.3_pq4lb27wczlmkje7q43vo4whau
   pnpm: 7.12.2
   prettier: 2.7.1
-  supertest: 6.2.4
+  supertest: 6.3.0
   ts-jest: 29.0.3_5l7ocn45mn2l5su42drwgu3ncq
   ts-loader: 9.4.1_qqxisngxjbp7lstdk7boexbu3e
   ts-node: 10.9.1_t6iukbiom2jlsbp4uv3roalcz4
@@ -5968,8 +5968,8 @@ packages:
       - supports-color
     dev: true
 
-  /supertest/6.2.4:
-    resolution: {integrity: sha512-M8xVnCNv+q2T2WXVzxDECvL2695Uv2uUj2O0utxsld/HRyJvOU8W9f1gvsYxSNU4wmIe0/L/ItnpU4iKq0emDA==}
+  /supertest/6.3.0:
+    resolution: {integrity: sha512-QgWju1cNoacP81Rv88NKkQ4oXTzGg0eNZtOoxp1ROpbS4OHY/eK5b8meShuFtdni161o5X0VQvgo7ErVyKK+Ow==}
     engines: {node: '>=6.4.0'}
     dependencies:
       methods: 1.1.2

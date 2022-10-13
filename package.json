@@ -20,7 +20,7 @@
       "class-transformer": "0.5.1",
       "class-validator": "0.13.2",
       "fastify": "4.8.1",
-      "@fastify/swagger": "6.1.0",
+      "@fastify/swagger": "8.0.0",
       "helmet": "6.0.0",
       "isbot": "3.5.4",
       "luxon": "3.0.4",

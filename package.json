@@ -19,7 +19,7 @@
       "bcryptjs": "2.4.3",
       "class-transformer": "0.5.1",
       "class-validator": "0.13.2",
-      "fastify": "4.8.1",
+      "fastify": "4.9.2",
       "@fastify/swagger": "8.0.0",
       "helmet": "6.0.0",
       "isbot": "3.6.1",

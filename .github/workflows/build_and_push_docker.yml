@@ -46,7 +46,7 @@ jobs:
           DOCKER_IMAGE_PATH: ${{ secrets.DOCKER_HUB_REGISTRY }}/${{ secrets.DOCKER_HUB_USERNAME }}
           RELEASE_VERSION: ${{ inputs.tag }}
           REPOSITORY_NAME: ${{ steps.get-repo-name.outputs.repository-name }}
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v4
         with:
           context: .
           file: ./Dockerfile

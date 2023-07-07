@@ -16,7 +16,7 @@ specifiers:
   '@nestjs/schematics': 9.0.4
   '@nestjs/swagger': 6.2.1
   '@nestjs/testing': 9.3.12
-  '@nestjs/throttler': 3.1.0
+  '@nestjs/throttler': 4.2.1
   '@types/bcryptjs': 2.4.2
   '@types/cache-manager': 4.0.2
   '@types/cron': 2.0.0
@@ -78,7 +78,7 @@ dependencies:
   '@nestjs/platform-fastify': 9.3.12_uigyde6cayemfkuayooax6tgry
   '@nestjs/schedule': 2.1.0_bgmtsjzu2jyijhogwtog4e3a6e
   '@nestjs/swagger': 6.2.1_6wfl47aw5n2myo6acchkszzdqe
-  '@nestjs/throttler': 3.1.0_bgmtsjzu2jyijhogwtog4e3a6e
+  '@nestjs/throttler': 4.2.1_bgmtsjzu2jyijhogwtog4e3a6e
   bcryptjs: 2.4.3
   class-transformer: 0.5.1
   class-validator: 0.14.0
@@ -2131,11 +2131,11 @@ packages:
       tslib: 2.5.0
     dev: true
 
-  /@nestjs/throttler/3.1.0_bgmtsjzu2jyijhogwtog4e3a6e:
-    resolution: {integrity: sha512-u9a5+rci6ybYtJ2is6gZWxE2dMZEpnK0qJ0C1OnchuNCvM21Bg6qym1TB6Uihhci+JfTv6E15WuASLXcIclsbA==}
+  /@nestjs/throttler/4.2.1_bgmtsjzu2jyijhogwtog4e3a6e:
+    resolution: {integrity: sha512-wVPMuIyr0KdrK1RVVQceWVNesogCm9IgYC1V5EkaTZ+usIE4qxEyzdwU5IqQLgOO/Loiq98MLwReDxazX7i9Uw==}
     peerDependencies:
-      '@nestjs/common': ^7.0.0 || ^8.0.0 || ^9.0.0
-      '@nestjs/core': ^7.0.0 || ^8.0.0 || ^9.0.0
+      '@nestjs/common': ^7.0.0 || ^8.0.0 || ^9.0.0 || ^10.0.0
+      '@nestjs/core': ^7.0.0 || ^8.0.0 || ^9.0.0 || ^10.0.0
       reflect-metadata: ^0.1.13
     dependencies:
       '@nestjs/common': 9.3.12_weizl6uyifxeltqqggsn4erezy

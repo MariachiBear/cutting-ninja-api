@@ -24,7 +24,7 @@ specifiers:
   '@types/luxon': 3.0.2
   '@types/node': 18.15.3
   '@types/passport': 1.0.11
-  '@types/passport-jwt': 3.0.7
+  '@types/passport-jwt': 3.0.13
   '@types/passport-local': 1.0.34
   '@types/shortid': 0.0.29
   '@types/supertest': 2.0.12
@@ -107,7 +107,7 @@ devDependencies:
   '@types/luxon': 3.0.2
   '@types/node': 18.15.3
   '@types/passport': 1.0.11
-  '@types/passport-jwt': 3.0.7
+  '@types/passport-jwt': 3.0.13
   '@types/passport-local': 1.0.34
   '@types/shortid': 0.0.29
   '@types/supertest': 2.0.12
@@ -2380,8 +2380,8 @@ packages:
     resolution: {integrity: sha512-//oorEZjL6sbPcKUaCdIGlIUeH26mgzimjBB77G6XRgnDl/L5wOnpyBGRe/Mmf5CVW3PwEBE1NjiMZ/ssFh4wA==}
     dev: true
 
-  /@types/passport-jwt/3.0.7:
-    resolution: {integrity: sha512-qRQ4qlww1Yhs3IaioDKrsDNmKy6gLDLgFsGwpCnc2YqWovO2Oxu9yCQdWHMJafQ7UIuOba4C4/TNXcGkQfEjlQ==}
+  /@types/passport-jwt/3.0.13:
+    resolution: {integrity: sha512-fjHaC6Bv8EpMMqzTnHP32SXlZGaNfBPC/Po5dmRGYi2Ky7ljXPbGnOy+SxZqa6iZvFgVhoJ1915Re3m93zmcfA==}
     dependencies:
       '@types/express': 4.17.17
       '@types/jsonwebtoken': 9.0.1

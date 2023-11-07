@@ -26,7 +26,7 @@ specifiers:
   '@types/passport': 1.0.11
   '@types/passport-jwt': 3.0.7
   '@types/passport-local': 1.0.34
-  '@types/shortid': 0.0.29
+  '@types/shortid': 0.0.32
   '@types/supertest': 2.0.12
   '@typescript-eslint/eslint-plugin': 5.55.0
   '@typescript-eslint/parser': 5.55.0
@@ -109,7 +109,7 @@ devDependencies:
   '@types/passport': 1.0.11
   '@types/passport-jwt': 3.0.7
   '@types/passport-local': 1.0.34
-  '@types/shortid': 0.0.29
+  '@types/shortid': 0.0.32
   '@types/supertest': 2.0.12
   '@typescript-eslint/eslint-plugin': 5.55.0_gbrymshiwbruly5dfbpezf4fny
   '@typescript-eslint/parser': 5.55.0_oetr3kuzbjncgm24ninkrag7ya
@@ -2432,8 +2432,8 @@ packages:
       '@types/node': 18.15.3
     dev: true
 
-  /@types/shortid/0.0.29:
-    resolution: {integrity: sha512-9BCYD9btg2CY4kPcpMQ+vCR8U6V8f/KvixYD5ZbxoWlkhddNF5IeZMVL3p+QFUkg+Hb+kPAG9Jgk4bnnF1v/Fw==}
+  /@types/shortid/0.0.32:
+    resolution: {integrity: sha512-LwWF89yy6Ol8abraYbVedIKzMlgJCTx8zm40yx9t0ZPOJaVR0OmSO4zRRAKfyOJtCwZrEBmhueZX8OiNbQydYw==}
     dev: true
 
   /@types/stack-utils/2.0.1:

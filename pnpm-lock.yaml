@@ -60,7 +60,7 @@ specifiers:
   shortid: 2.2.16
   supertest: 6.3.3
   ts-jest: 29.0.3
-  ts-loader: 9.4.1
+  ts-loader: 9.5.1
   ts-node: 10.9.1
   tsconfig-paths: 4.1.0
   typescript: 4.8.4
@@ -127,7 +127,7 @@ devDependencies:
   prettier: 2.7.1
   supertest: 6.3.3
   ts-jest: 29.0.3_kzytpoyhvc2f2ho3woskpup2uy
-  ts-loader: 9.4.1_j5rugx4e7uccgt5wt6wauvlf64
+  ts-loader: 9.5.1_j5rugx4e7uccgt5wt6wauvlf64
   ts-node: 10.9.1_x7wmykdye3n75c4332b67wrzwm
   tsconfig-paths: 4.1.0
   typescript: 4.8.4
@@ -7034,8 +7034,8 @@ packages:
       yargs-parser: 21.1.1
     dev: true
 
-  /ts-loader/9.4.1_j5rugx4e7uccgt5wt6wauvlf64:
-    resolution: {integrity: sha512-384TYAqGs70rn9F0VBnh6BPTfhga7yFNdC5gXbQpDrBj9/KsT4iRkGqKXhziofHOlE2j6YEaiTYVGKKvPhGWvw==}
+  /ts-loader/9.5.1_j5rugx4e7uccgt5wt6wauvlf64:
+    resolution: {integrity: sha512-rNH3sK9kGZcH9dYzC7CewQm4NtxJTjSEVRJ2DyBZR7f8/wcta+iV44UPCXc5+nzDzivKtlzV6c9P4e+oFhDLYg==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
       typescript: '*'
@@ -7045,6 +7045,7 @@ packages:
       enhanced-resolve: 5.12.0
       micromatch: 4.0.5
       semver: 7.3.8
+      source-map: 0.7.4
       typescript: 4.8.4
       webpack: 5.76.3
     dev: true

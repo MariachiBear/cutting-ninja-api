@@ -18,7 +18,7 @@ specifiers:
   '@nestjs/testing': 9.3.12
   '@nestjs/throttler': 3.1.0
   '@types/bcryptjs': 2.4.2
-  '@types/cache-manager': 4.0.2
+  '@types/cache-manager': 4.0.6
   '@types/cron': 2.0.0
   '@types/jest': 29.5.0
   '@types/luxon': 3.0.2
@@ -101,7 +101,7 @@ devDependencies:
   '@nestjs/schematics': 9.0.4_typescript@4.8.4
   '@nestjs/testing': 9.3.12_ge4qplnzbmfyi5znl534zhtkn4
   '@types/bcryptjs': 2.4.2
-  '@types/cache-manager': 4.0.2
+  '@types/cache-manager': 4.0.6
   '@types/cron': 2.0.0
   '@types/jest': 29.5.0
   '@types/luxon': 3.0.2
@@ -2260,8 +2260,8 @@ packages:
       '@types/node': 18.15.3
     dev: true
 
-  /@types/cache-manager/4.0.2:
-    resolution: {integrity: sha512-fT5FMdzsiSX0AbgnS5gDvHl2Nco0h5zYyjwDQy4yPC7Ww6DeGMVKPRqIZtg9HOXDV2kkc18SL1B0N8f0BecrCA==}
+  /@types/cache-manager/4.0.6:
+    resolution: {integrity: sha512-8qL93MF05/xrzFm/LSPtzNEOE1eQF3VwGHAcQEylgp5hDSTe41jtFwbSYAPfyYcVa28y1vYSjIt0c1fLLUiC/Q==}
     dev: true
 
   /@types/connect/3.4.35:

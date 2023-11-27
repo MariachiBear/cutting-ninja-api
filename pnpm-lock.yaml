@@ -49,7 +49,7 @@ specifiers:
   luxon: 3.0.4
   mongoose: 6.10.4
   nanoid: 3.3.4
-  passport: 0.6.0
+  passport: 0.7.0
   passport-jwt: 4.0.0
   passport-local: 1.0.0
   pnpm: 7.30.5
@@ -74,7 +74,7 @@ dependencies:
   '@nestjs/jwt': 9.0.0_@nestjs+common@9.3.12
   '@nestjs/mapped-types': 1.2.0_5pvgaw2xy5j677zk7xp6almw2q
   '@nestjs/mongoose': 9.2.0_he7ppljxqrd646bbx7z3l7uc7u
-  '@nestjs/passport': 9.0.3_ajy2slul3age3kopk444psnhqq
+  '@nestjs/passport': 9.0.3_tc5q2kyctihmfhy5lcbfbrsime
   '@nestjs/platform-fastify': 9.3.12_uigyde6cayemfkuayooax6tgry
   '@nestjs/schedule': 2.1.0_bgmtsjzu2jyijhogwtog4e3a6e
   '@nestjs/swagger': 6.2.1_6wfl47aw5n2myo6acchkszzdqe
@@ -88,7 +88,7 @@ dependencies:
   luxon: 3.0.4
   mongoose: 6.10.4
   nanoid: 3.3.4
-  passport: 0.6.0
+  passport: 0.7.0
   passport-jwt: 4.0.0
   passport-local: 1.0.0
   reflect-metadata: 0.1.13
@@ -2002,14 +2002,14 @@ packages:
       rxjs: 7.5.7
     dev: false
 
-  /@nestjs/passport/9.0.3_ajy2slul3age3kopk444psnhqq:
+  /@nestjs/passport/9.0.3_tc5q2kyctihmfhy5lcbfbrsime:
     resolution: {integrity: sha512-HplSJaimEAz1IOZEu+pdJHHJhQyBOPAYWXYHfAPQvRqWtw4FJF1VXl1Qtk9dcXQX1eKytDtH+qBzNQc19GWNEg==}
     peerDependencies:
       '@nestjs/common': ^8.0.0 || ^9.0.0
       passport: ^0.4.0 || ^0.5.0 || ^0.6.0
     dependencies:
       '@nestjs/common': 9.3.12_weizl6uyifxeltqqggsn4erezy
-      passport: 0.6.0
+      passport: 0.7.0
     dev: false
 
   /@nestjs/platform-fastify/9.3.12_uigyde6cayemfkuayooax6tgry:
@@ -6091,8 +6091,8 @@ packages:
     engines: {node: '>= 0.4.0'}
     dev: false
 
-  /passport/0.6.0:
-    resolution: {integrity: sha512-0fe+p3ZnrWRW74fe8+SvCyf4a3Pb2/h7gFkQ8yTJpAO50gDzlfjZUZTO1k5Eg9kUct22OxHLqDZoKUWRHOh9ug==}
+  /passport/0.7.0:
+    resolution: {integrity: sha512-cPLl+qZpSc+ireUvt+IzqbED1cHHkDoVYMo30jbJIdOOjQ1MQYZBPiNvmi8UM6lJuOpTPXJGZQk0DtC4y61MYQ==}
     engines: {node: '>= 0.4.0'}
     dependencies:
       passport-strategy: 1.0.0

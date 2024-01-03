@@ -44,7 +44,7 @@ specifiers:
   eslint-plugin-react: 7.31.10
   fastify: 4.9.2
   helmet: 6.0.0
-  isbot: 3.6.1
+  isbot: 3.8.0
   jest: 29.5.0
   luxon: 3.0.4
   mongoose: 6.10.4
@@ -84,7 +84,7 @@ dependencies:
   class-validator: 0.14.0
   fastify: 4.9.2
   helmet: 6.0.0
-  isbot: 3.6.1
+  isbot: 3.8.0
   luxon: 3.0.4
   mongoose: 6.10.4
   nanoid: 3.3.4
@@ -4887,8 +4887,8 @@ packages:
       is-docker: 2.2.1
     dev: true
 
-  /isbot/3.6.1:
-    resolution: {integrity: sha512-e1RmjWns87x60QyiHberWWMJGutL3+Ad0nZ8cz735iDEDDS6ApPfKSFo4EMj0PmMZ0m0ntpWIM0ADdqDFvUJPQ==}
+  /isbot/3.8.0:
+    resolution: {integrity: sha512-vne1mzQUTR+qsMLeCBL9+/tgnDXRyc2pygLGl/WsgA+EZKIiB5Ehu0CiVTHIIk30zhJ24uGz4M5Ppse37aR0Hg==}
     engines: {node: '>=12'}
     dev: false
 

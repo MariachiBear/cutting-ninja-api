@@ -38,7 +38,7 @@ jobs:
 
       - name: Setup pnpm cache
         id: cache-nodemodules
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             **/node_modules
@@ -68,7 +68,7 @@ jobs:
           run_install: false
 
       - name: Setup pnpm cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             **/node_modules

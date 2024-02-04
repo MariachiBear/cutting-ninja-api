@@ -53,7 +53,7 @@ specifiers:
   passport-jwt: 4.0.0
   passport-local: 1.0.0
   pnpm: 7.30.5
-  prettier: 2.7.1
+  prettier: 3.2.5
   reflect-metadata: 0.1.13
   rimraf: 3.0.2
   rxjs: 7.5.7
@@ -120,11 +120,11 @@ devDependencies:
   eslint-import-resolver-typescript: 3.5.2_6efblkktgpzjjbdhcug3twoi7q
   eslint-plugin-import: 2.26.0_amx6thowfmjirmsrwlgdrr37ke
   eslint-plugin-jsx-a11y: 6.6.1_eslint@8.36.0
-  eslint-plugin-prettier: 4.2.1_e36spvmi6ukdcmpxntnu6amr5y
+  eslint-plugin-prettier: 4.2.1_ocmtbhjxzfuot4zme6mx5h7c2e
   eslint-plugin-react: 7.31.10_eslint@8.36.0
   jest: 29.5.0_d2dllaz5dte7avnjm55wl7fmsu
   pnpm: 7.30.5
-  prettier: 2.7.1
+  prettier: 3.2.5
   supertest: 6.3.3
   ts-jest: 29.0.3_kzytpoyhvc2f2ho3woskpup2uy
   ts-loader: 9.4.1_j5rugx4e7uccgt5wt6wauvlf64
@@ -3847,7 +3847,7 @@ packages:
       semver: 6.3.0
     dev: true
 
-  /eslint-plugin-prettier/4.2.1_e36spvmi6ukdcmpxntnu6amr5y:
+  /eslint-plugin-prettier/4.2.1_ocmtbhjxzfuot4zme6mx5h7c2e:
     resolution: {integrity: sha512-f/0rXLXUt0oFYs8ra4w49wYZBG5GKZpAYsJSm6rnYL5uVDjd+zowwMwVZHnAjf4edNrKpCDYfXDgmRE/Ak7QyQ==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
@@ -3860,7 +3860,7 @@ packages:
     dependencies:
       eslint: 8.36.0
       eslint-config-prettier: 8.5.0_eslint@8.36.0
-      prettier: 2.7.1
+      prettier: 3.2.5
       prettier-linter-helpers: 1.0.0
     dev: true
 
@@ -6206,9 +6206,9 @@ packages:
       fast-diff: 1.2.0
     dev: true
 
-  /prettier/2.7.1:
-    resolution: {integrity: sha512-ujppO+MkdPqoVINuDFDRLClm7D78qbDt0/NR+wp5FqEZOoTNAjPHWj17QRhu7geIHJfcNhRk1XVQmF8Bp3ye+g==}
-    engines: {node: '>=10.13.0'}
+  /prettier/3.2.5:
+    resolution: {integrity: sha512-3/GWa9aOC0YeD7LUfvOG2NiDyhOWRvt1k+rcKhOuYnMY24iiCphgneUfJDyFXd6rZCAnuLBv6UeAULtrhT/F4A==}
+    engines: {node: '>=14'}
     hasBin: true
     dev: true
 

@@ -19,5 +19,19 @@
     "packages:eslint",
     "replacements:all",
     "schedule:nonOfficeHours"
+  ],
+  "packageRules": [
+    {
+      "matchPackageNames": [
+        "eslint"
+      ],
+      "allowedVersions": "<9.0.0"
+    },
+    {
+      "matchPackageNames": [
+        "nanoid"
+      ],
+      "allowedVersions": "<4.0.0"
+    }
   ]
 }

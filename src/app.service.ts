@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import isbot from 'isbot';
+import { isbot } from 'isbot';
 import { UrlService } from 'src/models/url/url.service';
 import { VisitService } from 'src/models/visit/visit.service';
 
 @Injectable()
 export class AppService {
-   constructor(private urlService: UrlService, private visitService: VisitService) {}
+   constructor(private urlService: UrlService, private visitService: VisitService) { }
 
    /**
     * Finds the url record in the database. Creates a new `Visit` record and then increases the

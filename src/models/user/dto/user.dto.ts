@@ -87,7 +87,7 @@ export class CreateUserDTO {
    @IsOptional()
    @IsBoolean()
    @ApiPropertyOptional({
-      type: 'bool',
+      type: 'boolean',
       description: 'Defines if gravatar is used for the user profile picture',
    })
    useGravatar?: boolean;

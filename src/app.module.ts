@@ -20,7 +20,7 @@ import { VisitModule } from 'src/models/visit/visit.module';
       ConfigModule.forRoot(configModuleConfig),
       MongooseModule.forRootAsync(mongodbConfig),
       ScheduleModule.forRoot(),
-      ThrottlerModule.forRoot(throttlerConfig),
+      ThrottlerModule.forRoot([throttlerConfig]),
       UrlModule,
       UserModule,
       VisitModule,

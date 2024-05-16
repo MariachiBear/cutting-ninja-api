@@ -37,7 +37,7 @@ jobs:
 
       - name: Get repository name
         id: get-repo-name
-        uses: mariachibear/get-repo-name-action@v1.1.0
+        uses: mariachibear/get-repo-name-action@v1.3.0
         with:
           string-case: "lowercase"
 

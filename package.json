@@ -35,7 +35,7 @@
    },
    "description": "Backend application to generate short urls and then redirect them. Made with Nest.js and MongoDB",
    "devDependencies": {
-      "@nestjs/cli": "10.3.2",
+      "@nestjs/cli": "10.4.7",
       "@nestjs/schematics": "10.1.1",
       "@nestjs/testing": "10.3.8",
       "@types/bcryptjs": "2.4.6",

@@ -76,8 +76,13 @@ export class UrlService implements BaseUrlService {
       return deleteDetails;
    }
 
-   async increaseVisitCount(shortUrl: string) {
-      const url = await this.UrlModel.findOneAndUpdate({ shortUrl }, { $inc: { visits: 1 } })
+   async increaseVisitCount(shortUrl: string, isFromBot: boolean) {
+      const incrementField = isFromBot ? 'visits.fromBot' : 'visits.fromUser';
+
+      const url = await this.UrlModel.findOneAndUpdate(
+         { shortUrl },
+         { $inc: { [incrementField]: 1 } },
+      )
          .exec()
          .then((urlDoc) => {
             if (!urlDoc) throw new NotFoundException(`${Url.name} not found`);

@@ -12,6 +12,7 @@ export class TakeUrlDTO {
    })
    urls: UrlDocument[];
 }
+
 export class CreateUrlDTO {
    @IsNotEmpty()
    @IsString()

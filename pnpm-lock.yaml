@@ -66,8 +66,8 @@ importers:
         specifier: 0.14.1
         version: 0.14.1
       fastify:
-        specifier: 4.27.0
-        version: 4.27.0
+        specifier: 4.29.0
+        version: 4.29.0
       helmet:
         specifier: 7.1.0
         version: 7.1.0
@@ -1853,8 +1853,8 @@ packages:
   fastify@4.26.2:
     resolution: {integrity: sha512-90pjTuPGrfVKtdpLeLzND5nyC4woXZN5VadiNQCicj/iJU4viNHKhsAnb7jmv1vu2IzkLXyBiCzdWuzeXgQ5Ug==}
 
-  fastify@4.27.0:
-    resolution: {integrity: sha512-ci9IXzbigB8dyi0mSy3faa3Bsj0xWAPb9JeT4KRzubdSb6pNhcADRUaXCBml6V1Ss/a05kbtQls5LBmhHydoTA==}
+  fastify@4.29.0:
+    resolution: {integrity: sha512-MaaUHUGcCgC8fXQDsDtioaCcag1fmPJ9j64vAKunqZF4aSub040ZGi/ag8NGE2714yREPOKZuHCfpPzuUD3UQQ==}
 
   fastq@1.19.0:
     resolution: {integrity: sha512-7SFSRCNjBQIZH/xZR3iy5iQYR8aGBE0h3VG6/cwlbrpdciNYBMotQav8c1XI3HjHH+NikUpP53nPdlZSdWmFzA==}
@@ -5854,7 +5854,7 @@ snapshots:
       semver: 7.7.1
       toad-cache: 3.7.0
 
-  fastify@4.27.0:
+  fastify@4.29.0:
     dependencies:
       '@fastify/ajv-compiler': 3.6.0
       '@fastify/error': 3.4.1

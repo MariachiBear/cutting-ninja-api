@@ -6,7 +6,7 @@ export const successUrlResourceSchema: SchemaObject = {
 	properties: {
 		_id: {
 			description: "URL's Identifier",
-			format: 'uuid',
+			pattern: '^[0-9a-fA-F]{24}$',
 			type: 'string',
 		},
 		createdAt: {

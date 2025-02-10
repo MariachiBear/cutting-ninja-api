@@ -45,6 +45,8 @@ export class UserService implements BaseUserService {
 		const isRequestUserAdmin = requestUser?.role === Roles.ADMIN;
 		const isNewUserAdmin = userData.role === Roles.ADMIN;
 
+		console.log(requestUser?.role, userData.role);
+
 		if (!isRequestUserAdmin && isNewUserAdmin) throw new ForbiddenException('Forbidden resource');
 
 		const isAlreadyCreated = await this.UserModel.findOne({ email: userData.email }).exec();

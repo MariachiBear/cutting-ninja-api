@@ -18,7 +18,7 @@ if (process.env.NODE_ENV === 'development') {
    swaggerConfiguration.addServer(`http://localhost:${process.env.PORT}`);
 }
 if (process.env.NODE_ENV === 'production') {
-   swaggerConfiguration.addServer(String(process.env.SERVER_URL));
+   swaggerConfiguration.addServer(String(process.env.SWAGGER_SERVER_URL));
 }
 
 export const swaggerConfig = swaggerConfiguration.build();

@@ -6,7 +6,7 @@ export const successVisitResourceSchema: SchemaObject = {
 	properties: {
 		_id: {
 			description: "Visit's identifier",
-			format: 'uuid',
+			pattern: '^[0-9a-fA-F]{24}$',
 			type: 'string',
 		},
 		createdAt: {
@@ -21,7 +21,7 @@ export const successVisitResourceSchema: SchemaObject = {
 		},
 		url: {
 			description: "Visit's URL identifier",
-			format: 'uuid',
+			pattern: '^[0-9a-fA-F]{24}$',
 			type: 'string',
 		},
 	},

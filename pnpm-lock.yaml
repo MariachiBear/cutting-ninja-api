@@ -175,8 +175,8 @@ importers:
         specifier: 29.7.0
         version: 29.7.0(@types/node@20.12.12)(ts-node@10.9.2(@types/node@20.12.12)(typescript@5.4.5))
       pnpm:
-        specifier: '>=9.15.0'
-        version: 10.2.1
+        specifier: 9.15.5
+        version: 9.15.5
       prettier:
         specifier: 3.2.5
         version: 3.2.5
@@ -2981,8 +2981,8 @@ packages:
     resolution: {integrity: sha512-Nc3IT5yHzflTfbjgqWcCPpo7DaKy4FnpB0l/zCAW0Tc7jxAiuqSxHasntB3D7887LSrA93kDJ9IXovxJYxyLCA==}
     engines: {node: '>=4'}
 
-  pnpm@10.2.1:
-    resolution: {integrity: sha512-OYA1x71pbQugsQpojtVYKFMp0n6plIBKUrrZFn2OOnK8uZP5aZWF08old5rGSUnvQidXpsMRAsEquTLly+XMkg==}
+  pnpm@9.15.5:
+    resolution: {integrity: sha512-hFGWAmqrHMPwmKBHS2TfurKv56G06R3YaJXY5Koyp6bQMEni0K13C75N4COnEi+2jBodbg0DPHB2CF+dXUgA1A==}
     engines: {node: '>=18.12'}
     hasBin: true
 
@@ -7231,7 +7231,7 @@ snapshots:
 
   pluralize@8.0.0: {}
 
-  pnpm@10.2.1: {}
+  pnpm@9.15.5: {}
 
   possible-typed-array-names@1.1.0: {}
 

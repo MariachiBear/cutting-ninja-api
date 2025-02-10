@@ -1,8 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "baseBranches": [
-    "dependencies"
-  ],
+  "baseBranches": ["dependencies"],
   "extends": [
     ":automergeDisabled",
     ":docker",
@@ -13,8 +11,8 @@
     ":prConcurrentLimitNone",
     ":prHourlyLimitNone",
     ":renovatePrefix",
-    "config:base",
-    "github>whitesource/merge-confidence:beta",
+    "config:recommended",
+    "mergeConfidence:all-badges",
     "monorepo:nest",
     "packages:eslint",
     "replacements:all",
@@ -22,15 +20,11 @@
   ],
   "packageRules": [
     {
-      "matchPackageNames": [
-        "eslint"
-      ],
+      "matchPackageNames": ["eslint"],
       "allowedVersions": "<9.0.0"
     },
     {
-      "matchPackageNames": [
-        "nanoid"
-      ],
+      "matchPackageNames": ["nanoid"],
       "allowedVersions": "<4.0.0"
     }
   ]

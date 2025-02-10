@@ -12,170 +12,170 @@ import { UserDocument } from 'src/models/user/schema/user.schema';
 
 @Injectable()
 export class UrlService implements BaseUrlService {
-   constructor(@InjectModel(Url.name) private readonly UrlModel: Model<UrlDocument>) {}
+	constructor(@InjectModel(Url.name) private readonly UrlModel: Model<UrlDocument>) {}
 
-   async index() {
-      const urlList = await this.UrlModel.find().select('-__v').exec();
+	async index() {
+		const urlList = await this.UrlModel.find().select('-__v').exec();
 
-      return urlList;
-   }
+		return urlList;
+	}
 
-   async show(urlId: string) {
-      const url = await this.UrlModel.findById(urlId)
-         .select('-__v')
-         .exec()
-         .then((foundUrl) => {
-            if (!foundUrl) throw new NotFoundException(`${Url.name} not found`);
-            return foundUrl;
-         });
+	async show(urlId: string) {
+		const url = await this.UrlModel.findById(urlId)
+			.select('-__v')
+			.exec()
+			.then((foundUrl) => {
+				if (!foundUrl) throw new NotFoundException(`${Url.name} not found`);
+				return foundUrl;
+			});
 
-      return url;
-   }
+		return url;
+	}
 
-   async store(urlData: CreateUrlDTO, requestUser: UserDocument | null) {
-      const shortUrlId = await this.secureShortUrlId();
-      const newUrl = await new this.UrlModel({
-         ...urlData,
-         shortUrl: shortUrlId,
-         user: requestUser?._id,
-      }).save();
-      const url = await this.show(newUrl.id);
+	async store(urlData: CreateUrlDTO, requestUser: UserDocument | null) {
+		const shortUrlId = await this.secureShortUrlId();
+		const newUrl = await new this.UrlModel({
+			...urlData,
+			shortUrl: shortUrlId,
+			user: requestUser?._id,
+		}).save();
+		const url = await this.show(String(newUrl.id));
 
-      return url;
-   }
+		return url;
+	}
 
-   async update(urlId: string, urlData: UpdateUrlDTO, requestUser: UserDocument) {
-      const urlToUpdate = await this.checkUrlPermissions(urlId, requestUser);
-      await this.UrlModel.findByIdAndUpdate(urlId, urlData).exec();
+	async update(urlId: string, urlData: UpdateUrlDTO, requestUser: UserDocument) {
+		const urlToUpdate = await this.checkUrlPermissions(urlId, requestUser);
+		await this.UrlModel.findByIdAndUpdate(urlId, urlData).exec();
 
-      return urlToUpdate;
-   }
+		return urlToUpdate;
+	}
 
-   async take(urlData: TakeUrlDTO, requestUser: UserDocument) {
-      const idArray = urlData.urls.map((url) => String(url._id));
-      await this.UrlModel.updateMany({ _id: { $in: idArray } }, { user: requestUser._id }).exec();
-   }
+	async take(urlData: TakeUrlDTO, requestUser: UserDocument) {
+		const idArray = urlData.urls.map((url) => String(url._id));
+		await this.UrlModel.updateMany({ _id: { $in: idArray } }, { user: requestUser._id }).exec();
+	}
 
-   async delete(urlId: string, requestUser: UserDocument) {
-      //* TO DELETE FROM SYSTEM
-      // const urlToDelete = await this.checkUrlPermissions(urlId, requestUser);
-      // await this.UrlModel.findByIdAndDelete(urlId).exec();
+	async delete(urlId: string, requestUser: UserDocument) {
+		//* TO DELETE FROM SYSTEM
+		// const urlToDelete = await this.checkUrlPermissions(urlId, requestUser);
+		// await this.UrlModel.findByIdAndDelete(urlId).exec();
 
-      // return urlToDelete;
+		// return urlToDelete;
 
-      //* TO UPDATE removedAt
-      const urlToUpdate = await this.checkUrlPermissions(urlId, requestUser);
-      await this.UrlModel.findByIdAndUpdate(urlId, { removedAt: new Date() }).exec();
+		//* TO UPDATE removedAt
+		const urlToUpdate = await this.checkUrlPermissions(urlId, requestUser);
+		await this.UrlModel.findByIdAndUpdate(urlId, { removedAt: new Date() }).exec();
 
-      return urlToUpdate;
-   }
+		return urlToUpdate;
+	}
 
-   async deleteAll(): Promise<MongooseDeleteResponse> {
-      const deleteDetails = await this.UrlModel.deleteMany({}).exec();
+	async deleteAll(): Promise<MongooseDeleteResponse> {
+		const deleteDetails = await this.UrlModel.deleteMany({}).exec();
 
-      return deleteDetails;
-   }
+		return deleteDetails;
+	}
 
-   async increaseVisitCount(shortUrl: string, isFromBot: boolean) {
-      const incrementField = isFromBot ? 'visits.fromBot' : 'visits.fromUser';
+	async increaseVisitCount(shortUrl: string, isFromBot: boolean) {
+		const incrementField = isFromBot ? 'visits.fromBot' : 'visits.fromUser';
 
-      const url = await this.UrlModel.findOneAndUpdate(
-         { shortUrl },
-         { $inc: { [incrementField]: 1 } },
-      )
-         .exec()
-         .then((urlDoc) => {
-            if (!urlDoc) throw new NotFoundException(`${Url.name} not found`);
-            return urlDoc;
-         });
+		const url = await this.UrlModel.findOneAndUpdate(
+			{ shortUrl },
+			{ $inc: { [incrementField]: 1 } },
+		)
+			.exec()
+			.then((urlDoc) => {
+				if (!urlDoc) throw new NotFoundException(`${Url.name} not found`);
+				return urlDoc;
+			});
 
-      return url;
-   }
+		return url;
+	}
 
-   async indexByUser(userId: string) {
-      const urlList = await this.UrlModel.find({
-         user: userId,
-         removedAt: { $exists: false },
-      })
-         .select('-__v -removedAt')
-         .exec();
+	async indexByUser(userId: string) {
+		const urlList = await this.UrlModel.find({
+			user: userId,
+			removedAt: { $exists: false },
+		})
+			.select('-__v -removedAt')
+			.exec();
 
-      return urlList;
-   }
+		return urlList;
+	}
 
-   async checkUrlPermissions(urlId: string, requestUser: UserDocument) {
-      const urlToCheck = await this.show(urlId);
-      const isUserOwningUrl = String(urlToCheck.user) === String(requestUser._id);
-      const isUserAdmin = requestUser.role === Roles.ADMIN;
-      const canDoAction = isUserOwningUrl || isUserAdmin;
+	async checkUrlPermissions(urlId: string, requestUser: UserDocument) {
+		const urlToCheck = await this.show(urlId);
+		const isUserOwningUrl = String(urlToCheck.user) === String(requestUser._id);
+		const isUserAdmin = requestUser.role === Roles.ADMIN;
+		const canDoAction = isUserOwningUrl || isUserAdmin;
 
-      if (!canDoAction) throw new ForbiddenException('Forbidden resource');
-      return urlToCheck;
-   }
+		if (!canDoAction) throw new ForbiddenException('Forbidden resource');
+		return urlToCheck;
+	}
 
-   async showByShortUrl(shortUrlId: string) {
-      const urlList = await this.UrlModel.findOne({ shortUrl: shortUrlId })
-         .select('-__v')
-         .exec()
-         .then((foundUrl) => {
-            if (!foundUrl) throw new NotFoundException(`${Url.name} not found`);
-            return foundUrl;
-         });
+	async showByShortUrl(shortUrlId: string) {
+		const urlList = await this.UrlModel.findOne({ shortUrl: shortUrlId })
+			.select('-__v')
+			.exec()
+			.then((foundUrl) => {
+				if (!foundUrl) throw new NotFoundException(`${Url.name} not found`);
+				return foundUrl;
+			});
 
-      return urlList;
-   }
+		return urlList;
+	}
 
-   /**
-    * Gets a list of urls that belong to a specific user.
-    *
-    * @private
-    * @param {string} shortUrl Short url identifier
-    *
-    * @returns {Promise<UrlDocument[]>} List of urls
-    */
-   private async indexByShortUrlId(shortUrl: string): Promise<UrlDocument[]> {
-      const urlList = await this.UrlModel.find({ shortUrl }).select('-__v').exec();
+	/**
+	 * Gets a list of urls that belong to a specific user.
+	 *
+	 * @private
+	 * @param {string} shortUrl Short url identifier
+	 *
+	 * @returns {Promise<UrlDocument[]>} List of urls
+	 */
+	private async indexByShortUrlId(shortUrl: string): Promise<UrlDocument[]> {
+		const urlList = await this.UrlModel.find({ shortUrl }).select('-__v').exec();
 
-      return urlList;
-   }
+		return urlList;
+	}
 
-   /**
-    * Generates safely a short URL to use in the system.
-    *
-    * @private
-    * @returns {Promise<string>} Short URL to use
-    */
-   private async secureShortUrlId(): Promise<string> {
-      const nanoidUrl = customAlphabet(urlAlphabet, 3);
+	/**
+	 * Generates safely a short URL to use in the system.
+	 *
+	 * @private
+	 * @returns {Promise<string>} Short URL to use
+	 */
+	private async secureShortUrlId(): Promise<string> {
+		const nanoidUrl = customAlphabet(urlAlphabet, 3);
 
-      let shortUrlId = nanoidUrl();
-      let shortUrlCheck = await this.indexByShortUrlId(shortUrlId);
+		let shortUrlId = nanoidUrl();
+		let shortUrlCheck = await this.indexByShortUrlId(shortUrlId);
 
-      while (shortUrlCheck.length > 0) {
-         shortUrlId = nanoidUrl();
-         shortUrlCheck = await this.indexByShortUrlId(shortUrlId);
-      }
+		while (shortUrlCheck.length > 0) {
+			shortUrlId = nanoidUrl();
+			shortUrlCheck = await this.indexByShortUrlId(shortUrlId);
+		}
 
-      return shortUrlId;
-   }
+		return shortUrlId;
+	}
 
-   @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT)
-   private async purgeUrls() {
-      const lastValidDate = DateTime.now().startOf('day').minus({ days: 90 }).toJSDate();
+	@Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT)
+	private async purgeUrls() {
+		const lastValidDate = DateTime.now().startOf('day').minus({ days: 90 }).toJSDate();
 
-      const bulkResult = await this.UrlModel.bulkWrite([
-         {
-            updateOne: {
-               filter: {
-                  createdAt: { $lt: lastValidDate },
-                  removedAt: { $exists: false },
-                  user: { $exists: false },
-               },
-               update: { removedAt: new Date() },
-            },
-         },
-      ]);
+		const bulkResult = await this.UrlModel.bulkWrite([
+			{
+				updateOne: {
+					filter: {
+						createdAt: { $lt: lastValidDate },
+						removedAt: { $exists: false },
+						user: { $exists: false },
+					},
+					update: { removedAt: new Date() },
+				},
+			},
+		]);
 
-      console.log(`Removed ${bulkResult.modifiedCount} urls`);
-   }
+		console.log(`Removed ${bulkResult.modifiedCount} urls`);
+	}
 }

@@ -3,12 +3,12 @@ import type { SchemaObject } from '@nestjs/swagger/dist/interfaces/open-api-spec
 import { successUrlResourceSchema } from 'src/models/url/swagger/url.resource.swagger';
 
 const successUrlCollectionSchema: SchemaObject = {
-   description: 'List of URL',
-   items: successUrlResourceSchema,
-   type: 'array',
+	description: 'List of URL',
+	items: successUrlResourceSchema,
+	type: 'array',
 };
 
 export const successUrlCollectionResponse: ApiResponseOptions = {
-   description: 'Successful collection data',
-   schema: successUrlCollectionSchema,
+	description: 'Successful collection data',
+	schema: successUrlCollectionSchema,
 };

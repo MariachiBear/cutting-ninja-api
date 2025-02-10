@@ -8,6 +8,7 @@ export class TakeUrlDTO {
 	@IsArray()
 	@ApiProperty({
 		type: 'array',
+		items: { type: 'string' },
 		description: "URL's bulk",
 	})
 	urls: UrlDocument[];
@@ -29,7 +30,7 @@ export class CreateUrlDTO {
 	@IsOptional()
 	@ApiProperty({
 		type: 'array',
-		items: { type: 'string' },
+		items: { type: 'string', pattern: '^[0-9a-fA-F]{24}$' },
 		description: 'Tags used to group different URLs',
 		required: false,
 	})

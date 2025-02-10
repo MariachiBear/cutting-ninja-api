@@ -51,7 +51,10 @@ import { VisitService } from 'src/models/visit/visit.service';
    schema: swaggerErrorResponse,
 })
 export class UrlController {
-   constructor(private readonly service: UrlService, private readonly visitService: VisitService) {}
+   constructor(
+      private readonly service: UrlService,
+      private readonly visitService: VisitService,
+   ) {}
 
    @Get()
    @UseGuards(JwtAuthGuard, RolesGuard)

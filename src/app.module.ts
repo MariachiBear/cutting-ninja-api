@@ -14,16 +14,16 @@ import { UserModule } from 'src/models/user/user.module';
 import { VisitModule } from 'src/models/visit/visit.module';
 
 @Module({
-   controllers: [AppController],
-   providers: [AppService, throttlerProvider],
-   imports: [
-      ConfigModule.forRoot(configModuleConfig),
-      MongooseModule.forRootAsync(mongodbConfig),
-      ScheduleModule.forRoot(),
-      ThrottlerModule.forRoot([throttlerConfig]),
-      UrlModule,
-      UserModule,
-      VisitModule,
-   ],
+	controllers: [AppController],
+	providers: [AppService, throttlerProvider],
+	imports: [
+		ConfigModule.forRoot(configModuleConfig),
+		MongooseModule.forRootAsync(mongodbConfig),
+		ScheduleModule.forRoot(),
+		ThrottlerModule.forRoot([throttlerConfig]),
+		UrlModule,
+		UserModule,
+		VisitModule,
+	],
 })
 export class AppModule {}

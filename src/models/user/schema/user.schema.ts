@@ -4,23 +4,23 @@ import { Roles } from 'src/config/constants/roles.constant';
 
 @Schema({ timestamps: true, id: true })
 export class User {
-   @Prop({ required: true, type: String, unique: true })
-   email: string;
+	@Prop({ required: true, type: String, unique: true })
+	email: string;
 
-   @Prop({ required: true, type: String })
-   firstName: string;
+	@Prop({ required: true, type: String })
+	firstName: string;
 
-   @Prop({ required: true, type: String })
-   lastName: string;
+	@Prop({ required: true, type: String })
+	lastName: string;
 
-   @Prop({ required: true, type: String })
-   password: string;
+	@Prop({ required: true, type: String })
+	password: string;
 
-   @Prop({ enum: Object.values(Roles), required: true, type: String, default: Roles.CREATOR })
-   role: string;
+	@Prop({ enum: Object.values(Roles), required: true, type: String, default: Roles.CREATOR })
+	role: string;
 
-   @Prop({ required: false, type: Boolean, default: false })
-   useGravatar: boolean;
+	@Prop({ required: false, type: Boolean, default: false })
+	useGravatar: boolean;
 }
 
 export type UserDocument = User & Document;

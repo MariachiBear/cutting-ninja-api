@@ -5,9 +5,9 @@ import { UrlService } from 'src/models/url/url.service';
 import { VisitModule } from 'src/models/visit/visit.module';
 
 @Module({
-   providers: [UrlService],
-   controllers: [UrlController],
-   exports: [UrlService],
-   imports: [dbUrl, forwardRef(() => VisitModule)],
+	providers: [UrlService],
+	controllers: [UrlController],
+	exports: [UrlService],
+	imports: [dbUrl, forwardRef(() => VisitModule)],
 })
 export class UrlModule {}

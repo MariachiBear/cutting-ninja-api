@@ -5,9 +5,9 @@ import { VisitController } from './visit.controller';
 import { VisitService } from './visit.service';
 
 @Module({
-   controllers: [VisitController],
-   exports: [VisitService],
-   providers: [VisitService],
-   imports: [dbVisit, forwardRef(() => UrlModule)],
+	controllers: [VisitController],
+	exports: [VisitService],
+	providers: [VisitService],
+	imports: [dbVisit, forwardRef(() => UrlModule)],
 })
 export class VisitModule {}

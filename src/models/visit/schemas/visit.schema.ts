@@ -4,11 +4,11 @@ import { Url } from 'src/models/url/schemas/url.schema';
 
 @Schema({ timestamps: true })
 export class Visit {
-   @Prop({ ref: Url.name, required: true, type: MongooseSchema.Types.ObjectId })
-   url: string;
+	@Prop({ ref: Url.name, required: true, type: MongooseSchema.Types.ObjectId })
+	url: string;
 
-   @Prop({ type: Boolean, required: true })
-   isFromBot: boolean;
+	@Prop({ type: Boolean, required: true })
+	isFromBot: boolean;
 }
 
 export type VisitDocument = Visit & Document;

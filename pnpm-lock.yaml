@@ -5,13 +5,13 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  webpack@>=5.0.0-alpha.0 <5.94.0: '>=5.94.0'
-  cookie@<0.7.0: '>=0.7.0'
-  mongoose@>=8.0.0-rc0 <8.8.3: '>=8.8.3'
-  pnpm@<9.15.0: '>=9.15.0'
-  nanoid@<3.3.8: '>=3.3.8'
-  mongoose@>=8.0.0-rc0 <8.9.5: '>=8.9.5'
-  path-to-regexp@>=2.0.0 <3.3.0: '>=3.3.0'
+  cookie@<0.7.0: 1.0.2
+  mongoose@>=8.0.0-rc0 <8.8.3: 8.10.0
+  mongoose@>=8.0.0-rc0 <8.9.5: 8.10.0
+  nanoid@<3.3.8: 5.0.9
+  path-to-regexp@>=2.0.0 <3.3.0: 8.2.0
+  pnpm@<9.15.0: 10.2.1
+  webpack@>=5.0.0-alpha.0 <5.94.0: 5.97.1
 
 importers:
 
@@ -78,10 +78,10 @@ importers:
         specifier: 3.5.0
         version: 3.5.0
       mongoose:
-        specifier: ^8.10.0
+        specifier: 8.10.0
         version: 8.10.0
       nanoid:
-        specifier: ^5.0.9
+        specifier: 5.0.9
         version: 5.0.9
       passport:
         specifier: 0.7.0
@@ -103,7 +103,7 @@ importers:
         version: 7.8.1
     devDependencies:
       '@eslint/compat':
-        specifier: ^1.2.6
+        specifier: 1.2.6
         version: 1.2.6(eslint@9.20.0)
       '@nestjs/cli':
         specifier: 11.0.2
@@ -175,7 +175,7 @@ importers:
         specifier: 29.7.0
         version: 29.7.0(@types/node@22.13.1)(ts-node@10.9.2(@types/node@22.13.1)(typescript@5.7.3))
       pnpm:
-        specifier: ^10.2.1
+        specifier: 10.2.1
         version: 10.2.1
       prettier:
         specifier: 3.5.0
@@ -824,7 +824,7 @@ packages:
     peerDependencies:
       '@nestjs/common': ^10.0.0 || ^11.0.0
       '@nestjs/core': ^10.0.0 || ^11.0.0
-      mongoose: '>=8.9.5'
+      mongoose: 8.10.0
       rxjs: ^7.0.0
 
   '@nestjs/passport@11.0.5':
@@ -2046,7 +2046,7 @@ packages:
     engines: {node: '>=12.13.0', yarn: '>=1.0.0'}
     peerDependencies:
       typescript: '>3.6.0'
-      webpack: '>=5.94.0'
+      webpack: 5.97.1
 
   form-data@4.0.1:
     resolution: {integrity: sha512-tzN8e4TX8+kkxGPK8D5u0FNmjPUjw3lwC9lSLxxoB/+GtsJG91CO8bSWy73APlgAZzZbXEYZJuxjkHH2w+Ezhw==}
@@ -3462,7 +3462,7 @@ packages:
       '@swc/core': '*'
       esbuild: '*'
       uglify-js: '*'
-      webpack: '>=5.94.0'
+      webpack: 5.97.1
     peerDependenciesMeta:
       '@swc/core':
         optional: true
@@ -3545,7 +3545,7 @@ packages:
     engines: {node: '>=12.0.0'}
     peerDependencies:
       typescript: '*'
-      webpack: '>=5.94.0'
+      webpack: 5.97.1
 
   ts-node@10.9.2:
     resolution: {integrity: sha512-f0FFpIdcHgn8zcPSbf1dRevwt047YMnaiJM3u2w2RewrB+fob/zePZcrOyQoLMMO7aBIddLcQIEK5dYjkLnGrQ==}

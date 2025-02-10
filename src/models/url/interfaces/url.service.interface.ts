@@ -66,7 +66,7 @@ export interface BaseUrlService {
     *
     * @returns {Promise<UrlDocument>} Information from the updated url
     */
-   increaseVisitCount(shortUrl: string): Promise<UrlDocument>;
+   increaseVisitCount(shortUrl: string, isFromBot: boolean): Promise<UrlDocument>;
 
    /**
     * Gets a list of urls that belong to a specific user.

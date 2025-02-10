@@ -1,11 +1,14 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { isbot } from 'isbot';
 import { UrlService } from 'src/models/url/url.service';
 import { VisitService } from 'src/models/visit/visit.service';
 
 @Injectable()
 export class AppService {
-   constructor(private urlService: UrlService, private visitService: VisitService) { }
+   constructor(
+      private urlService: UrlService,
+      private visitService: VisitService,
+   ) {}
 
    /**
     * Finds the url record in the database. Creates a new `Visit` record and then increases the
@@ -19,10 +22,11 @@ export class AppService {
 
       const urlToRedirect = await this.urlService.showByShortUrl(shortUrlId);
 
-      if (!isBot) {
-         await this.visitService.store({ url: urlToRedirect.id });
-         await this.urlService.increaseVisitCount(shortUrlId);
-      }
+      if (!urlToRedirect || urlToRedirect.removedAt)
+         throw new NotFoundException(`${shortUrlId} not found`);
+
+      await this.visitService.store({ url: urlToRedirect.id, isFromBot: isBot });
+      await this.urlService.increaseVisitCount(shortUrlId, isBot);
 
       return urlToRedirect.longUrl;
    }

@@ -6,6 +6,9 @@ import { Url } from 'src/models/url/schemas/url.schema';
 export class Visit {
    @Prop({ ref: Url.name, required: true, type: MongooseSchema.Types.ObjectId })
    url: string;
+
+   @Prop({ type: Boolean, required: true })
+   isFromBot: boolean;
 }
 
 export type VisitDocument = Visit & Document;

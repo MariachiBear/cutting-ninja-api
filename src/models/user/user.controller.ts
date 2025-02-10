@@ -54,7 +54,10 @@ import { UserService } from 'src/models/user/user.service';
    schema: swaggerErrorResponse,
 })
 export class UserController {
-   constructor(private readonly service: UserService, private readonly urlService: UrlService) {}
+   constructor(
+      private readonly service: UserService,
+      private readonly urlService: UrlService,
+   ) {}
 
    @Get()
    @UseGuards(JwtAuthGuard, RolesGuard)
@@ -169,7 +172,7 @@ export class UserController {
    @ApiForbiddenResponse()
    async updateMe(@Body() userData: UpdateUserDTO, @Request() request) {
       const requestUser: UserDocument = request.user;
-      await this.service.update(requestUser._id, userData, requestUser);
+      await this.service.update(String(requestUser._id), userData, requestUser);
    }
 
    @Get('me/urls')
@@ -179,7 +182,7 @@ export class UserController {
    @ApiForbiddenResponse()
    getMyUrls(@Request() request) {
       const requestUser: UserDocument = request.user;
-      const urlList = this.urlService.indexByUser(requestUser._id);
+      const urlList = this.urlService.indexByUser(String(requestUser._id));
       return urlList;
    }
 }

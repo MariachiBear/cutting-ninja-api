@@ -92,6 +92,20 @@
    "keywords": [],
    "license": "MIT",
    "name": "cutting-ninja-api",
+   "pnpm": {
+      "onlyBuiltDependencies": [
+         "@nestjs/core"
+      ],
+      "overrides": {
+         "cookie@<0.7.0": ">=0.7.0",
+         "mongoose@>=8.0.0-rc0 <8.8.3": ">=8.8.3",
+         "mongoose@>=8.0.0-rc0 <8.9.5": ">=8.9.5",
+         "nanoid@<3.3.8": ">=3.3.8",
+         "path-to-regexp@>=2.0.0 <3.3.0": ">=3.3.0",
+         "pnpm@<9.15.0": ">=9.15.0",
+         "webpack@>=5.0.0-alpha.0 <5.94.0": ">=5.94.0"
+      }
+   },
    "private": true,
    "repository": {
       "type": "git",

@@ -35,9 +35,10 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSPHRASE }}
           source: "./.env.production"
           target: "~/"
-          username: ${{ secrets.SSH_USER }}
 
       - name: Deploy
         uses: appleboy/ssh-action@master

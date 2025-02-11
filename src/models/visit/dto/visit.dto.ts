@@ -1,5 +1,5 @@
 import { ApiProperty, PartialType } from '@nestjs/swagger';
-import { IsBoolean, IsMongoId, isNotEmpty, IsNotEmpty, IsString } from 'class-validator';
+import { IsBoolean, IsMongoId, IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateVisitDTO {
 	@IsString()

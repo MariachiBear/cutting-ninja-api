@@ -11,7 +11,7 @@ overrides:
   nanoid@<3.3.8: 5.0.9
   path-to-regexp@>=2.0.0 <3.3.0: 8.2.0
   pnpm@<9.15.0: 10.2.1
-  webpack@>=5.0.0-alpha.0 <5.94.0: 5.97.1
+  webpack@>=5.0.0-alpha.0 <5.94.0: 5.98.0
 
 importers:
 
@@ -2040,7 +2040,7 @@ packages:
     engines: {node: '>=12.13.0', yarn: '>=1.0.0'}
     peerDependencies:
       typescript: '>3.6.0'
-      webpack: 5.97.1
+      webpack: 5.98.0
 
   form-data@4.0.1:
     resolution: {integrity: sha512-tzN8e4TX8+kkxGPK8D5u0FNmjPUjw3lwC9lSLxxoB/+GtsJG91CO8bSWy73APlgAZzZbXEYZJuxjkHH2w+Ezhw==}
@@ -3460,7 +3460,7 @@ packages:
       '@swc/core': '*'
       esbuild: '*'
       uglify-js: '*'
-      webpack: 5.97.1
+      webpack: 5.98.0
     peerDependenciesMeta:
       '@swc/core':
         optional: true
@@ -3543,7 +3543,7 @@ packages:
     engines: {node: '>=12.0.0'}
     peerDependencies:
       typescript: '*'
-      webpack: 5.97.1
+      webpack: 5.98.0
 
   ts-node@10.9.2:
     resolution: {integrity: sha512-f0FFpIdcHgn8zcPSbf1dRevwt047YMnaiJM3u2w2RewrB+fob/zePZcrOyQoLMMO7aBIddLcQIEK5dYjkLnGrQ==}

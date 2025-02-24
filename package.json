@@ -15,7 +15,7 @@
       "@nestjs/passport": "11.0.5",
       "@nestjs/platform-fastify": "11.0.9",
       "@nestjs/schedule": "5.0.1",
-      "@nestjs/swagger": "11.0.3",
+      "@nestjs/swagger": "11.0.5",
       "@nestjs/throttler": "6.4.0",
       "bcryptjs": "2.4.3",
       "class-transformer": "0.5.1",

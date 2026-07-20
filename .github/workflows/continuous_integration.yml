@@ -17,12 +17,12 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.4.0
 
       - name: Install Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v4.4.0
         with:
-          node-version: 16
+          node-version: 16.20.2
 
       - name: Install pnpm
         id: pnpm-install
@@ -38,7 +38,7 @@ jobs:
 
       - name: Setup pnpm cache
         id: cache-nodemodules
-        uses: actions/cache@v4
+        uses: actions/cache@v4.3.0
         with:
           path: |
             **/node_modules
@@ -58,7 +58,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.4.0
 
       - name: Install pnpm
         id: pnpm-install
@@ -68,7 +68,7 @@ jobs:
           run_install: false
 
       - name: Setup pnpm cache
-        uses: actions/cache@v4
+        uses: actions/cache@v4.3.0
         with:
           path: |
             **/node_modules

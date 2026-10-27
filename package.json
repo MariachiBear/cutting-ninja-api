@@ -35,7 +35,7 @@
    },
    "description": "Backend application to generate short urls and then redirect them. Made with Nest.js and MongoDB",
    "devDependencies": {
-      "@darraghor/eslint-plugin-nestjs-typed": "6.4.3",
+      "@darraghor/eslint-plugin-nestjs-typed": "6.18.0",
       "@eslint/compat": "1.2.7",
       "@eslint/eslintrc": "3.3.0",
       "@eslint/js": "9.22.0",
